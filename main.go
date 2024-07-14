@@ -6,26 +6,30 @@ import (
 	"github.com/mandoway/seru/cue"
 	"github.com/mandoway/seru/cue/strategy"
 	"github.com/mandoway/seru/reduction"
-	"os"
 )
 
 func main() {
-	cueFile := "in.cue"
-	fileContent, err := os.ReadFile(cueFile)
+	fileContent := `
+		let foo = bar
+		bar: x
+		x: 5
+		let baz = x
+	`
+	parsedCue, err := cue.Parser{}.Parse([]byte(fileContent))
 	if err != nil {
+		fmt.Println(err)
 		return
 	}
-	parsedCue, err := cue.Parser{}.Parse(fileContent)
 
 	reductions := []reduction.Action[ast.File]{
 		strategy.LetReduction{},
 	}
 
 	serializer := cue.Serializer{}
-
+	fmt.Println("Original")
 	printSerialized(serializer.Serialize(parsedCue))
-	println("------")
 
+	fmt.Println("Transformed")
 	for _, r := range reductions {
 		transformed := r.Apply(parsedCue)
 		for _, t := range transformed {
