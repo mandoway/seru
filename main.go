@@ -1,45 +1,37 @@
 package main
 
 import (
-	"cuelang.org/go/cue/ast"
+	"encoding/json"
 	"fmt"
+	"github.com/mandoway/seru/collection"
 	"github.com/mandoway/seru/cue"
-	"github.com/mandoway/seru/cue/strategy"
-	"github.com/mandoway/seru/reduction"
+	"os"
 )
 
 func main() {
-	fileContent := `
-		let foo = bar
-		bar: x
-		x: 5
-		let baz = x
-	`
-	parsedCue, err := cue.Parser{}.Parse([]byte(fileContent))
-	if err != nil {
-		fmt.Println(err)
+	if len(os.Args) < 2 {
+		fmt.Println("Usage: seru <path>")
 		return
 	}
 
-	reductions := []reduction.Action[ast.File]{
-		strategy.LetReduction{},
+	file := os.Args[1]
+
+	bytes, err := os.ReadFile(file)
+	if err != nil {
+		fmt.Printf("Error reading file: %s", err.Error())
+		os.Exit(1)
 	}
 
-	serializer := cue.Serializer{}
-	fmt.Println("Original")
-	printSerialized(serializer.Serialize(parsedCue))
-
-	fmt.Println("Transformed")
-	for _, r := range reductions {
-		transformed := r.Apply(parsedCue)
-		for _, t := range transformed {
-			printSerialized(serializer.Serialize(t))
-		}
+	results, err := cue.Main(bytes)
+	if err != nil {
+		fmt.Printf("Error during reduction: %s", err.Error())
+		os.Exit(1)
 	}
 
-	return
-}
-
-func printSerialized(data []byte, _ error) {
-	fmt.Printf("%s\n", data)
+	values, _ := json.Marshal(
+		collection.MapSlice(results, func(it []byte) (string, error) {
+			return string(it), nil
+		}),
+	)
+	fmt.Printf("%s", values)
 }
