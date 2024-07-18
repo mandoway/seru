@@ -1,4 +1,4 @@
-package cue
+package context
 
 import (
 	"cuelang.org/go/cue/ast"
