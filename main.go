@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/mandoway/seru/collection"
+	"github.com/mandoway/seru/reduction/semantic"
 	"plugin"
 
 	"os"
@@ -21,6 +22,7 @@ func main() {
 		exitWithCodeOne("Error reading file", err)
 	}
 
+	// todo load plugin dynamically, not with hardcoded string
 	openPlugin, err := plugin.Open("cue.so")
 	if err != nil {
 		exitWithCodeOne("Error opening openPlugin", err)
@@ -31,7 +33,7 @@ func main() {
 		exitWithCodeOne("Did not find main function", err)
 	}
 
-	results, err := reductionFunc.(func([]byte) ([][]byte, error))(bytes)
+	results, err := reductionFunc.(semantic.ReductionFunc)(bytes)
 	if err != nil {
 		exitWithCodeOne("Error during reduction", err)
 	}

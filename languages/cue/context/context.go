@@ -3,13 +3,13 @@ package context
 import (
 	"cuelang.org/go/cue/ast"
 	"github.com/mandoway/seru/languages/cue/strategy"
-	"github.com/mandoway/seru/reduction"
+	"github.com/mandoway/seru/reduction/semantic"
 )
 
-func BuildContext() reduction.Context[ast.File] {
-	return reduction.Context[ast.File]{
+func BuildContext() semantic.Context[ast.File] {
+	return semantic.Context[ast.File]{
 		Parser: Parser{},
-		Strategies: []reduction.Strategy[ast.File]{
+		Strategies: []semantic.Strategy[ast.File]{
 			strategy.LetReduction{},
 		},
 		Serializer: Serializer{},
