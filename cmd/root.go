@@ -15,7 +15,7 @@ var (
 		// TODO
 		Long: `TODO`,
 		Run: func(cmd *cobra.Command, args []string) {
-			err := reduction.StartReductionProcess(inputFile, testScript)
+			err := reduction.StartReductionProcess(inputFile, testScript, "")
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -24,8 +24,14 @@ var (
 )
 
 func init() {
-	rootCmd.Flags().StringVarP(&inputFile, "input", "i", "", "-i <path to file>")
-	rootCmd.Flags().StringVarP(&testScript, "test", "t", "", "-i <path to testscript>")
+	rootCmd.PersistentFlags().StringVarP(&inputFile, "input", "i", "", "-i <path to file>")
+	rootCmd.PersistentFlags().StringVarP(&testScript, "test", "t", "", "-i <path to testscript>")
+
+	_ = rootCmd.MarkPersistentFlagRequired("input")
+	_ = rootCmd.MarkPersistentFlagRequired("test")
+
+	_ = rootCmd.MarkPersistentFlagFilename("input")
+	_ = rootCmd.MarkPersistentFlagFilename("test")
 }
 
 func Execute() {

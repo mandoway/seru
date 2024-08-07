@@ -1,7 +1,7 @@
 package perses
 
 import (
-	"github.com/mandoway/seru/reduction"
+	"github.com/mandoway/seru/reduction/context"
 	"github.com/mandoway/seru/reduction/syntactic"
 	"os"
 	"path"
@@ -14,7 +14,7 @@ func TestSyntacticReduction(t *testing.T) {
 		t.Skip("skipping test in short mode.")
 	}
 
-	ctx := reduction.RunContext{
+	ctx := &context.RunContext{
 		Language:   "cue",
 		InputFile:  "issue2246_v1/in.cue",
 		TestScript: "issue2246_v1/test.sh",

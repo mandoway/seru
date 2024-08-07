@@ -1,13 +1,13 @@
 package syntactic
 
 import (
-	"github.com/mandoway/seru/reduction"
+	"github.com/mandoway/seru/reduction/context"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestBuildPersesReductionCommand(t *testing.T) {
-	ctx := reduction.RunContext{
+	ctx := context.RunContext{
 		Language:   "cue",
 		InputFile:  "in.cue",
 		TestScript: "test.sh",
@@ -19,7 +19,7 @@ func TestBuildPersesReductionCommand(t *testing.T) {
 }
 
 func TestBuildPersesReductionCommandWithoutLanguage(t *testing.T) {
-	ctx := reduction.RunContext{
+	ctx := context.RunContext{
 		Language:   "",
 		InputFile:  "in.cue",
 		TestScript: "test.sh",

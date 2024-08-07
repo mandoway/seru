@@ -1,4 +1,6 @@
 .idea
+
+# Local test files
 in.cue
 test.sh
 
@@ -7,7 +9,13 @@ test.sh
 # main program
 seru
 
+# Perses tools
 perses_deploy.jar
+cue.jar
 
+# Tools needed for tests
 !test/**/*.jar
 !test/**/*.cue
+
+# Seru output
+seru_reduction_*
