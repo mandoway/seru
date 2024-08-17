@@ -2,27 +2,21 @@ package syntactic
 
 import (
 	"errors"
-	"github.com/mandoway/seru/reduction/context"
 	"log"
 	"os"
-	"path"
+	"os/exec"
 )
 
-func ReduceSyntactically(ctx *context.RunContext) (string, error) {
-	// Todo generify for other reducers
-	cmd := BuildPersesReductionCommand(ctx.InputFilePath(), ctx.TestScriptPath(), ctx.Language)
-
+func ReduceSyntactically(reductionCmd *exec.Cmd) error {
 	// Todo add time measurement
 
-	log.Println("Running command:", cmd)
+	log.Println("Running command:", reductionCmd)
 
-	cmd.Stderr = os.Stderr
-	err := cmd.Run()
+	reductionCmd.Stderr = os.Stderr
+	err := reductionCmd.Run()
 	if err != nil {
-		return "", errors.New("syntactic reduction failed: " + err.Error())
+		return errors.New("syntactic reduction failed: " + err.Error())
 	}
 
-	reducedFilePath := path.Join(ctx.ReductionDir, "perses_result", ctx.InputFile)
-
-	return reducedFilePath, nil
+	return nil
 }
