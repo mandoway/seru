@@ -11,6 +11,6 @@ var Reduce semantic.ReduceFunctionType = func(fileContent []byte) ([][]byte, err
 }
 
 //goland:noinspection GoUnusedGlobalVariable
-var CountTokens semantic.CountFunctionType = func(fileContent []byte) int {
+var CountTokens semantic.TokenCountFunctionType = func(fileContent []byte) int {
 	return context.CountTokensUsingScanner(fileContent)
 }

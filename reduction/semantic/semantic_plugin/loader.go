@@ -20,7 +20,7 @@ func LoadSemanticReductionPlugin(language string) (*semantic.Functions, error) {
 		return nil, err
 	}
 
-	countFunc, err := lookupFunction[semantic.CountFunctionType](openPlugin, pluginName, semantic.CountFunction)
+	countFunc, err := lookupFunction[semantic.TokenCountFunctionType](openPlugin, pluginName, semantic.CountFunction)
 	if err != nil {
 		return nil, err
 	}
@@ -31,7 +31,7 @@ func LoadSemanticReductionPlugin(language string) (*semantic.Functions, error) {
 	}, nil
 }
 
-func lookupFunction[T semantic.ReduceFunctionType | semantic.CountFunctionType](openPlugin *plugin.Plugin, pluginName, functionName string) (*T, error) {
+func lookupFunction[T semantic.ReduceFunctionType | semantic.TokenCountFunctionType](openPlugin *plugin.Plugin, pluginName, functionName string) (*T, error) {
 	funcSymbol, err := openPlugin.Lookup(functionName)
 	if err != nil {
 		return nil, err

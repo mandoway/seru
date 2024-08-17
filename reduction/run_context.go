@@ -1,0 +1,101 @@
+package reduction
+
+import (
+	"fmt"
+	"github.com/mandoway/seru/files"
+	"github.com/mandoway/seru/reduction/domain"
+	"github.com/mandoway/seru/reduction/metrics"
+	"github.com/mandoway/seru/reduction/semantic"
+	"github.com/mandoway/seru/reduction/semantic/semantic_plugin"
+	"github.com/mandoway/seru/reduction/syntactic"
+	"log"
+	"os"
+	"path"
+	"time"
+)
+
+const RunContextFolderPrefix = "seru_reduction_"
+
+type RunContext struct {
+	Language         string
+	Original         domain.Candidate
+	ReductionDir     string
+	Sizes            SizeContext
+	SyntacticReducer syntactic.Functions
+	SemanticReducer  semantic.Functions
+}
+
+func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunContext, error) {
+	reductionDir := fmt.Sprintf("%s%s", RunContextFolderPrefix, time.Now().Format(time.RFC3339))
+	err := os.Mkdir(reductionDir, 0750)
+	if err != nil {
+		return nil, err
+	}
+
+	inputFileInReductionDir := getPathInFolder(reductionDir, inputFilePath)
+	testScriptInReductionDir := getPathInFolder(reductionDir, testScriptPath)
+
+	err = files.Copy(inputFileInReductionDir, inputFilePath)
+	if err != nil {
+		return nil, err
+	}
+	err = files.Copy(testScriptInReductionDir, testScriptPath)
+	if err != nil {
+		return nil, err
+	}
+
+	language := takeLanguageOrDefault(givenLanguage, inputFilePath)
+
+	semanticFunctions, err := semantic_plugin.LoadSemanticReductionPlugin(language)
+	if err != nil {
+		return nil, &RunContextErr{message: err.Error()}
+	}
+
+	currentSize, err := metrics.GetTokenSizeOfFile(inputFilePath, semanticFunctions.CountFunction)
+	if err != nil {
+		return nil, &RunContextErr{message: err.Error()}
+	}
+	sizeContext := SizeContext{
+		StartSizeInTokens: currentSize,
+		BestSizeInTokens:  currentSize,
+	}
+
+	// TODO determine syntactic reducer from config
+	syntacticFunctions := syntactic.PersesReducerFunctions
+
+	return &RunContext{
+		Language:         language,
+		Original:         *domain.NewCandidate(inputFileInReductionDir, testScriptInReductionDir),
+		ReductionDir:     reductionDir,
+		Sizes:            sizeContext,
+		SyntacticReducer: syntacticFunctions,
+		SemanticReducer:  *semanticFunctions,
+	}, nil
+}
+
+func getPathInFolder(folder, filePath string) string {
+	return path.Join(folder, path.Base(filePath))
+}
+
+func takeLanguageOrDefault(language, file string) string {
+	if language != "" {
+		return language
+	}
+
+	fileEnding := path.Ext(file)[1:]
+	log.Printf("No language configured, defaulting to file ending '%s'\n", fileEnding)
+	return fileEnding
+}
+
+type SizeContext struct {
+	StartSizeInTokens int
+	BestSizeInTokens  int
+}
+
+type RunContextErr struct {
+	message string
+}
+
+func (e *RunContextErr) Error() string {
+	return fmt.Sprintf("Error during creation of run context: %s", e.message)
+}

@@ -7,9 +7,10 @@ const (
 
 type ReduceFunctionType func(fileContent []byte) ([][]byte, error)
 
-type CountFunctionType func(fileContent []byte) int
+// TokenCountFunctionType TODO move out of semantic package
+type TokenCountFunctionType func(fileContent []byte) int
 
 type Functions struct {
 	ReduceFunction ReduceFunctionType
-	CountFunction  CountFunctionType
+	CountFunction  TokenCountFunctionType
 }
