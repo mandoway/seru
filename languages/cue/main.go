@@ -8,8 +8,8 @@ import (
 )
 
 //goland:noinspection GoUnusedGlobalVariable
-var Reduce plugin.SemanticReductionFunction = func(fileContent []byte) ([][]byte, error) {
-	return semantic.Reduce(fileContent, context.BuildContext())
+var Reduce plugin.SemanticReductionFunction = func(fileContent []byte, strategyIndex int) ([][]byte, error) {
+	return semantic.Reduce(fileContent, strategyIndex, context.Context)
 }
 
 //goland:noinspection GoUnusedGlobalVariable

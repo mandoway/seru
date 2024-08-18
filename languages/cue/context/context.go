@@ -11,10 +11,8 @@ var Strategies = []semantic.Strategy[ast.File]{
 	strategy.LetReduction{},
 }
 
-func BuildContext() semantic.Context[ast.File] {
-	return semantic.Context[ast.File]{
-		Parser:     language.Parser{},
-		Strategies: Strategies,
-		Serializer: language.Serializer{},
-	}
+var Context = semantic.Context[ast.File]{
+	Parser:     language.Parser{},
+	Strategies: Strategies,
+	Serializer: language.Serializer{},
 }
