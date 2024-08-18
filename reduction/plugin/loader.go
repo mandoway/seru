@@ -1,13 +1,12 @@
-package semantic_plugin
+package plugin
 
 import (
 	"fmt"
-	"github.com/mandoway/seru/reduction/semantic"
 	"plugin"
 	"strings"
 )
 
-func LoadSemanticReductionPlugin(language string) (*semantic.Functions, error) {
+func LoadSemanticReductionPlugin(language string) (*Functions, error) {
 	pluginName := getPluginNamePerConvention(language)
 
 	openPlugin, err := plugin.Open(pluginName)
@@ -15,23 +14,29 @@ func LoadSemanticReductionPlugin(language string) (*semantic.Functions, error) {
 		return nil, err
 	}
 
-	mainFunc, err := lookupFunction[semantic.ReduceFunctionType](openPlugin, pluginName, semantic.ReduceFunction)
+	mainFunc, err := lookupFunction[SemanticReductionFunction](openPlugin, pluginName, SemanticReduceFunction)
 	if err != nil {
 		return nil, err
 	}
 
-	countFunc, err := lookupFunction[semantic.TokenCountFunctionType](openPlugin, pluginName, semantic.CountFunction)
+	countFunc, err := lookupFunction[TokenCountFunction](openPlugin, pluginName, CountFunction)
 	if err != nil {
 		return nil, err
 	}
 
-	return &semantic.Functions{
-		ReduceFunction: *mainFunc,
-		CountFunction:  *countFunc,
+	strategyCountFunc, err := lookupFunction[StrategyCountFunction](openPlugin, pluginName, GetStrategyCountFunction)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Functions{
+		SemanticReduce:   *mainFunc,
+		CountTokens:      *countFunc,
+		GetStrategyCount: *strategyCountFunc,
 	}, nil
 }
 
-func lookupFunction[T semantic.ReduceFunctionType | semantic.TokenCountFunctionType](openPlugin *plugin.Plugin, pluginName, functionName string) (*T, error) {
+func lookupFunction[T any](openPlugin *plugin.Plugin, pluginName, functionName string) (*T, error) {
 	funcSymbol, err := openPlugin.Lookup(functionName)
 	if err != nil {
 		return nil, err

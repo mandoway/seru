@@ -1,11 +1,11 @@
 package metrics
 
 import (
-	"github.com/mandoway/seru/reduction/semantic"
+	"github.com/mandoway/seru/reduction/plugin"
 	"os"
 )
 
-func GetTokenSizeOfFile(inputPath string, counter semantic.TokenCountFunctionType) (int, error) {
+func GetTokenSizeOfFile(inputPath string, counter plugin.TokenCountFunction) (int, error) {
 	bytes, err := os.ReadFile(inputPath)
 	if err != nil {
 		return 0, err

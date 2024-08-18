@@ -6,7 +6,7 @@ import (
 	"cuelang.org/go/cue/scanner"
 	"cuelang.org/go/cue/token"
 	"fmt"
-	"github.com/mandoway/seru/languages/cue/context"
+	"github.com/mandoway/seru/languages/cue/language"
 	"testing"
 )
 
@@ -50,7 +50,7 @@ func TestParser(t *testing.T) {
 	`
 	source := []byte(file)
 
-	tree, err := context.Parser{}.Parse(source)
+	tree, err := language.Parser{}.Parse(source)
 	if err != nil {
 		return
 	}

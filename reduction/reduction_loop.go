@@ -19,7 +19,7 @@ func RunMainReductionLoop(ctx *RunContext) error {
 		return err
 	}
 
-	size, err := metrics.GetTokenSizeOfFile(result, ctx.SemanticReducer.CountFunction)
+	size, err := metrics.GetTokenSizeOfFile(result, ctx.CountTokens)
 	if err != nil {
 		return err
 	}

@@ -1,4 +1,4 @@
-package context
+package language
 
 import (
 	"cuelang.org/go/cue/scanner"

@@ -1,18 +1,18 @@
 package plugin
 
 import (
-	"github.com/mandoway/seru/reduction/semantic/semantic_plugin"
+	"github.com/mandoway/seru/reduction/plugin"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestPluginLoader(t *testing.T) {
-	functions, err := semantic_plugin.LoadSemanticReductionPlugin("cue")
+	functions, err := plugin.LoadSemanticReductionPlugin("cue")
 	if err != nil {
 		t.Error(err)
 	}
 
 	assert.NotNil(t, functions)
-	assert.NotNil(t, functions.ReduceFunction)
-	assert.NotNil(t, functions.CountFunction)
+	assert.NotNil(t, functions.SemanticReduce)
+	assert.NotNil(t, functions.CountTokens)
 }

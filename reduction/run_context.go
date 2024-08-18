@@ -5,8 +5,7 @@ import (
 	"github.com/mandoway/seru/files"
 	"github.com/mandoway/seru/reduction/domain"
 	"github.com/mandoway/seru/reduction/metrics"
-	"github.com/mandoway/seru/reduction/semantic"
-	"github.com/mandoway/seru/reduction/semantic/semantic_plugin"
+	"github.com/mandoway/seru/reduction/plugin"
 	"github.com/mandoway/seru/reduction/syntactic"
 	"log"
 	"os"
@@ -17,12 +16,14 @@ import (
 const RunContextFolderPrefix = "seru_reduction_"
 
 type RunContext struct {
-	Language         string
-	Original         domain.Candidate
-	ReductionDir     string
-	Sizes            SizeContext
-	SyntacticReducer syntactic.Functions
-	SemanticReducer  semantic.Functions
+	Language                string
+	Original                domain.Candidate
+	ReductionDir            string
+	Sizes                   SizeContext
+	SyntacticReducer        syntactic.Functions
+	CountTokens             plugin.TokenCountFunction
+	SemanticReducer         plugin.SemanticReductionFunction
+	SemanticStrategiesTotal int
 }
 
 func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunContext, error) {
@@ -46,12 +47,12 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunCon
 
 	language := takeLanguageOrDefault(givenLanguage, inputFilePath)
 
-	semanticFunctions, err := semantic_plugin.LoadSemanticReductionPlugin(language)
+	pluginFunctions, err := plugin.LoadSemanticReductionPlugin(language)
 	if err != nil {
 		return nil, &RunContextErr{message: err.Error()}
 	}
 
-	currentSize, err := metrics.GetTokenSizeOfFile(inputFilePath, semanticFunctions.CountFunction)
+	currentSize, err := metrics.GetTokenSizeOfFile(inputFilePath, pluginFunctions.CountTokens)
 	if err != nil {
 		return nil, &RunContextErr{message: err.Error()}
 	}
@@ -63,13 +64,17 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunCon
 	// TODO determine syntactic reducer from config
 	syntacticFunctions := syntactic.PersesReducerFunctions
 
+	semanticStrategiesSize := pluginFunctions.GetStrategyCount()
+
 	return &RunContext{
-		Language:         language,
-		Original:         *domain.NewCandidate(inputFileInReductionDir, testScriptInReductionDir),
-		ReductionDir:     reductionDir,
-		Sizes:            sizeContext,
-		SyntacticReducer: syntacticFunctions,
-		SemanticReducer:  *semanticFunctions,
+		Language:                language,
+		Original:                *domain.NewCandidate(inputFileInReductionDir, testScriptInReductionDir),
+		ReductionDir:            reductionDir,
+		Sizes:                   sizeContext,
+		SyntacticReducer:        syntacticFunctions,
+		SemanticReducer:         pluginFunctions.SemanticReduce,
+		CountTokens:             pluginFunctions.CountTokens,
+		SemanticStrategiesTotal: semanticStrategiesSize,
 	}, nil
 }
 

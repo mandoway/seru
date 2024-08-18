@@ -12,7 +12,7 @@ func applyTransformationToEveryApplicableStatement[T ast.Node](input *ast.File, 
 		modifiedStatementInCurrentRun    bool
 	)
 
-	modifyNextLetClause := func(cursor astutil.Cursor) bool {
+	modifyApplicableClause := func(cursor astutil.Cursor) bool {
 		// Filter applicable nodes
 		filteredStatement, ok := cursor.Node().(T)
 		if !ok {
@@ -41,7 +41,7 @@ func applyTransformationToEveryApplicableStatement[T ast.Node](input *ast.File, 
 		modifiedStatementInCurrentRun = false
 
 		workingCopy := *input
-		transformedCode := astutil.Apply(&workingCopy, modifyNextLetClause, nil).(*ast.File)
+		transformedCode := astutil.Apply(&workingCopy, modifyApplicableClause, nil).(*ast.File)
 
 		if !modifiedStatementInCurrentRun {
 			break
