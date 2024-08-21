@@ -2,24 +2,43 @@ package reduction
 
 import (
 	"github.com/mandoway/seru/collection"
+	"github.com/mandoway/seru/files"
+	"github.com/mandoway/seru/reduction/logging"
 	"github.com/mandoway/seru/reduction/metrics"
 	"github.com/mandoway/seru/reduction/plugin"
 	"log"
 	"os"
+	"path"
 	"slices"
 )
 
 func RunMainReductionLoop(ctx *RunContext) error {
-	logStartReduction(ctx)
+	logging.LogStartReduction(ctx.ReductionDir, ctx.Sizes.StartSizeInTokens)
 
-	// TODO proper loop
-	// TODO handle candidate queue (create files, sort, ..)
 	// TODO determine when to keep a result
-	// TODO determine order of semantic reductions (all at once, one after the other, ..)
 	// TODO wrap errors
 
-	candidate := ctx.Original
-	result, err := ReduceSyntactically(candidate, ctx.SyntacticReducer, ctx.Language)
+	for ctx.CurrentSemanticStrategy < ctx.SemanticStrategiesTotal {
+
+		err := reduceSyntacticallyAndSaveResultIfBetter(ctx)
+		if err != nil {
+			return err
+		}
+
+		err = reduceSemanticallyAndSaveResultIfBetter(ctx)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func reduceSyntacticallyAndSaveResultIfBetter(ctx *RunContext) error {
+	logging.LogSyntactic("Start reduction")
+	candidate := ctx.Current
+
+	result, err := ReduceSyntactically(*candidate, ctx.SyntacticReducer, ctx.Language)
 	if err != nil {
 		return err
 	}
@@ -29,43 +48,78 @@ func RunMainReductionLoop(ctx *RunContext) error {
 		return err
 	}
 
-	log.Println("Reduced size", size)
+	logging.LogSyntactic("Reduced size", size)
 
-	resultBytes, err := os.ReadFile(result)
+	// TODO ensure termination
+	if size <= ctx.Sizes.BestSizeInTokens {
+		logging.LogSyntactic("Store new best with size", size)
+		err = saveFileAsCurrentBest(ctx, result, size)
+		if err != nil {
+			return err
+		}
+	}
+
+	err = os.RemoveAll(path.Dir(result))
 	if err != nil {
 		return err
-	}
-	candidates, err := ctx.SemanticReducer(resultBytes, 0)
-	if err != nil {
-		return err
-	}
-	log.Printf("Semantic reduction returned %d candidates\n", len(candidates))
-
-	sortedCandidates := getSortedCandidatesWithSize(candidates, ctx.CountTokens)
-	if len(sortedCandidates) > 0 && sortedCandidates[0].Size <= ctx.Sizes.BestSizeInTokens {
-		log.Println("Found next candidate with size", sortedCandidates[0].Size)
-		// TODO write candidate to FS
 	}
 
 	return nil
 }
 
-func getSortedCandidatesWithSize(candidates [][]byte, countTokens plugin.TokenCountFunction) []CandidateBytesWithSize {
+func reduceSemanticallyAndSaveResultIfBetter(ctx *RunContext) error {
+	if ctx.CurrentSemanticStrategy >= ctx.SemanticStrategiesTotal {
+		return nil
+	}
+
+	logging.LogSemantic("Start reduction")
+	currentBytes, err := os.ReadFile(ctx.Current.InputPath)
+	if err != nil {
+		return err
+	}
+
+	var candidates [][]byte
+	for len(candidates) == 0 && ctx.CurrentSemanticStrategy < ctx.SemanticStrategiesTotal {
+		logging.LogSemantic("Trying strategy", ctx.CurrentSemanticStrategy+1, "of", ctx.SemanticStrategiesTotal)
+		candidates, err = ctx.SemanticReducer(currentBytes, ctx.CurrentSemanticStrategy)
+		if err != nil {
+			return err
+		}
+
+		if len(candidates) == 0 {
+			logging.LogSemantic("No candidates found, try next strategy")
+			ctx.CurrentSemanticStrategy++
+		} else {
+			logging.LogSemantic("Semantic reduction returned", len(candidates), "candidates")
+		}
+	}
+	if ctx.CurrentSemanticStrategy >= ctx.SemanticStrategiesTotal {
+		logging.LogSemantic("Semantic reduction found no candidates")
+		return nil
+	}
+
+	bestCandidate := getBestCandidate(candidates, ctx.CountTokens)
+
+	if bestCandidate.Size <= ctx.Sizes.BestSizeInTokens {
+		log.Println("Store new best with size", bestCandidate.Size)
+
+		err = saveCandidateAsCurrentBest(ctx, bestCandidate)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func getBestCandidate(candidates [][]byte, countTokens plugin.TokenCountFunction) CandidateBytesWithSize {
 	candidatesWithSize := collection.MapSlice(candidates, func(it []byte) (CandidateBytesWithSize, error) {
 		return *NewCandidateBytesWithSize(it, countTokens), nil
 	})
 
-	return slices.SortedFunc(slices.Values(candidatesWithSize), func(a, b CandidateBytesWithSize) int {
+	return slices.MinFunc(candidatesWithSize, func(a, b CandidateBytesWithSize) int {
 		return b.Size - a.Size
 	})
-}
-
-func logStartReduction(ctx *RunContext) {
-	log.Println("Starting reduction loop")
-	log.Println("Results will be created in", ctx.ReductionDir)
-	log.Println("Initial token size of program:", ctx.Sizes.StartSizeInTokens)
-
-	// ... print further configuration details if there are any
 }
 
 type CandidateBytesWithSize struct {
@@ -75,4 +129,24 @@ type CandidateBytesWithSize struct {
 
 func NewCandidateBytesWithSize(bytes []byte, counter plugin.TokenCountFunction) *CandidateBytesWithSize {
 	return &CandidateBytesWithSize{Bytes: bytes, Size: counter(bytes)}
+}
+
+func saveCandidateAsCurrentBest(ctx *RunContext, candidate CandidateBytesWithSize) error {
+	err := os.WriteFile(ctx.Current.InputPath, candidate.Bytes, 0750)
+	if err != nil {
+		return nil
+	}
+	ctx.Sizes.BestSizeInTokens = candidate.Size
+
+	return nil
+}
+
+func saveFileAsCurrentBest(ctx *RunContext, candidatePath string, size int) error {
+	err := files.Copy(candidatePath, ctx.Current.InputPath)
+	if err != nil {
+		return err
+	}
+	ctx.Sizes.BestSizeInTokens = size
+
+	return nil
 }

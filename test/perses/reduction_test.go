@@ -22,7 +22,7 @@ func TestReduction(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	reducedFile := ctx.SyntacticReducer.GetOutputFilename(ctx.Original.InputPath)
+	reducedFile := ctx.SyntacticReducer.GetOutputFilename(ctx.Current.InputPath)
 	if _, err := os.Stat(reducedFile); err == nil {
 		matches, err := filepath.Glob(reduction.RunContextFolderPrefix + "*")
 		t.Logf("Files successfully created, deleting %d matches...", len(matches))

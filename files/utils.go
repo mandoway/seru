@@ -3,10 +3,11 @@ package files
 import (
 	"io"
 	"os"
+	"path"
 )
 
 // Copy copies src to dst like the cp command.
-func Copy(dst, src string) error {
+func Copy(src, dst string) error {
 	if dst == src {
 		return os.ErrInvalid
 	}
@@ -36,4 +37,9 @@ func Copy(dst, src string) error {
 		return err
 	}
 	return nil
+}
+
+func AddFolderToFilePath(inputFilePath, folder string) string {
+	dir, file := path.Split(inputFilePath)
+	return path.Join(dir, folder, file)
 }

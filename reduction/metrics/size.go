@@ -8,7 +8,7 @@ import (
 func GetTokenSizeOfFile(inputPath string, counter plugin.TokenCountFunction) (int, error) {
 	bytes, err := os.ReadFile(inputPath)
 	if err != nil {
-		return 0, err
+		return -1, err
 	}
 
 	return counter(bytes), nil

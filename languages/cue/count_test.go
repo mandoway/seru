@@ -12,41 +12,91 @@ import (
 
 func TestParser(t *testing.T) {
 	file := `
-		data: forms: [{
-		fooID: "00-0000001"
-	}]
-	
-	form1040: (#compute & {in: data}).out
-	
-	#K1: {
-		#_base: common: 3
-		#FormFoo: {
-			#_base
-			fooID: string
-		}
-		#FormBar: {
-			#_base
-			barID: string
-		}
-		#Form: {
-			#FormFoo | #FormBar
+	#B: {
+	n: string
+	v: {
+		r: {
 		}
 	}
-	
-	#Input: {
-		forms: [...#K1.#Form]
 	}
 	
-	#summarizeReturn: {
-		in:  #Input
-		out: [ for k in in.forms { k.common } ]
+	#F: {
+		t: [...string]
+		...
 	}
 	
-	#compute: {
-		in:  #Input
-		out: (#summarizeReturn & {"in": in}).out
+	#N: {
+		n: string
+		p: #F
+		v: #V
 	}
-
+	
+	#C: {
+		p: #F
+		v: #V
+	}
+	
+	#C2: {
+		c: #C
+		t: #N
+		ns: {
+			[NS=string]: #N & {n: NS}
+		}
+	
+		g: {
+			t: {...} | *{}
+			...
+		}
+	}
+	
+	#V: {
+		let l = {[string]: _}
+		t: [string]: {}
+		ns: [string]: {}
+		r: l
+	}
+	
+	fs: f1: #C2 & {
+		ns: m: {
+			p: {}
+			v: {
+				r: {
+					for s in ["e"] {
+						(L & {n: "m", sc: s}).j
+					}
+				}
+			}
+	
+		}
+	
+		t: {
+			NS=n: string
+	
+			v: {
+				r: {
+					"\(NS)/b": {
+						metadata: {
+							n: NS
+						}
+					}
+					(L & {n: NS, sc: "o"}).j
+				}
+			}
+		}
+	}
+	
+	let L = {
+		NS=n: string
+		sc:   string
+	
+		let l = #B & {
+			n: NS
+		}
+	
+		j: {
+			l.v.r
+		}
+	}
 	`
 	source := []byte(file)
 
@@ -65,6 +115,7 @@ func TestParser(t *testing.T) {
 }
 
 func countTokensUsingApply(tree *ast.File) int {
+	// yields wrong results
 	count := 0
 	astutil.Apply(tree, func(cursor astutil.Cursor) bool {
 		count++
@@ -75,6 +126,7 @@ func countTokensUsingApply(tree *ast.File) int {
 }
 
 func countTokensUsingApplyAfter(tree *ast.File) int {
+	// yields wrong results
 	count := 0
 	astutil.Apply(tree, nil, func(cursor astutil.Cursor) bool {
 		count++
@@ -94,7 +146,6 @@ func countTokensUsingScanner(t *testing.T, source []byte) int {
 	s.Init(token.NewFile("", -1, len(source)), source, eh, scanner.ScanComments|scanner.DontInsertCommas)
 
 	count := 0
-
 	for {
 		_, tok, _ := s.Scan()
 		if tok == token.EOF {
@@ -102,6 +153,9 @@ func countTokensUsingScanner(t *testing.T, source []byte) int {
 		}
 
 		count++
+	}
+	if s.ErrorCount > 0 {
+		t.Errorf("error count is %d", s.ErrorCount)
 	}
 
 	return count

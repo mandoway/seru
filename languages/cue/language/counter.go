@@ -8,7 +8,7 @@ import (
 
 func CountTokensUsingScanner(source []byte) int {
 	eh := func(_ token.Pos, msg string, args []interface{}) {
-		log.Println("Error during token count:", msg)
+		log.Println("WARNING error during token count:", msg)
 	}
 
 	// verify scan
@@ -22,11 +22,11 @@ func CountTokensUsingScanner(source []byte) int {
 		if tok == token.EOF {
 			break
 		}
-		if s.ErrorCount > 0 {
-			return -1
-		}
 
 		count++
+	}
+	if s.ErrorCount > 0 {
+		log.Printf("WARNING %d errors found during token count", s.ErrorCount)
 	}
 
 	return count

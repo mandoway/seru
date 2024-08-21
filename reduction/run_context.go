@@ -17,12 +17,13 @@ const RunContextFolderPrefix = "seru_reduction_"
 
 type RunContext struct {
 	Language                string
-	Original                domain.Candidate
+	Current                 *domain.Candidate
 	ReductionDir            string
 	Sizes                   SizeContext
 	SyntacticReducer        syntactic.Functions
 	CountTokens             plugin.TokenCountFunction
 	SemanticReducer         plugin.SemanticReductionFunction
+	CurrentSemanticStrategy int
 	SemanticStrategiesTotal int
 }
 
@@ -36,11 +37,11 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunCon
 	inputFileInReductionDir := getPathInFolder(reductionDir, inputFilePath)
 	testScriptInReductionDir := getPathInFolder(reductionDir, testScriptPath)
 
-	err = files.Copy(inputFileInReductionDir, inputFilePath)
+	err = files.Copy(inputFilePath, inputFileInReductionDir)
 	if err != nil {
 		return nil, err
 	}
-	err = files.Copy(testScriptInReductionDir, testScriptPath)
+	err = files.Copy(testScriptPath, testScriptInReductionDir)
 	if err != nil {
 		return nil, err
 	}
@@ -68,13 +69,14 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunCon
 
 	return &RunContext{
 		Language:                language,
-		Original:                *domain.NewCandidate(inputFileInReductionDir, testScriptInReductionDir),
+		Current:                 domain.NewCandidate(inputFileInReductionDir, testScriptInReductionDir),
 		ReductionDir:            reductionDir,
 		Sizes:                   sizeContext,
 		SyntacticReducer:        syntacticFunctions,
 		SemanticReducer:         pluginFunctions.SemanticReduce,
 		CountTokens:             pluginFunctions.CountTokens,
 		SemanticStrategiesTotal: semanticStrategiesSize,
+		CurrentSemanticStrategy: 0,
 	}, nil
 }
 
@@ -88,7 +90,7 @@ func takeLanguageOrDefault(language, file string) string {
 	}
 
 	fileEnding := path.Ext(file)[1:]
-	log.Printf("No language configured, defaulting to file ending '%s'\n", fileEnding)
+	log.Printf("No language configured, using language from file '%s'\n", fileEnding)
 	return fileEnding
 }
 

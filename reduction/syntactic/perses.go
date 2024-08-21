@@ -2,15 +2,17 @@ package syntactic
 
 import (
 	"fmt"
+	"github.com/mandoway/seru/files"
 	"github.com/mandoway/seru/reduction/domain"
 	"os/exec"
-	"path"
 	"strings"
 )
 
 var PersesReducerFunctions = Functions{
 	BuildReductionCommand: buildPersesReductionCommand,
-	GetOutputFilename:     buildPersesOutputFilename,
+	GetOutputFilename: func(inputFilePath string) string {
+		return files.AddFolderToFilePath(inputFilePath, "perses_result")
+	},
 }
 
 func buildPersesReductionCommand(candidate domain.Candidate, language string) *exec.Cmd {
@@ -33,11 +35,6 @@ func buildPersesReductionCommand(candidate domain.Candidate, language string) *e
 
 func toLanguageJar(language string) string {
 	return fmt.Sprintf("%s.jar", strings.ToLower(language))
-}
-
-func buildPersesOutputFilename(inputFilePath string) string {
-	dir, file := path.Split(inputFilePath)
-	return path.Join(dir, "perses_result", file)
 }
 
 var languagesSupportedByPerses = map[string]struct{}{
