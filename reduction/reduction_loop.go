@@ -18,6 +18,8 @@ func RunMainReductionLoop(ctx *RunContext) error {
 	// TODO determine when to keep a result
 	// TODO wrap errors
 
+	// TODO store intermediate steps
+
 	for ctx.CurrentSemanticStrategy < ctx.SemanticStrategiesTotal {
 
 		err := reduceSyntacticallyAndSaveResultIfBetter(ctx)
@@ -42,6 +44,9 @@ func reduceSyntacticallyAndSaveResultIfBetter(ctx *RunContext) error {
 	if err != nil {
 		return err
 	}
+	defer func() {
+		_ = os.RemoveAll(path.Dir(result))
+	}()
 
 	size, err := metrics.GetTokenSizeOfFile(result, ctx.CountTokens)
 	if err != nil {
@@ -59,15 +64,11 @@ func reduceSyntacticallyAndSaveResultIfBetter(ctx *RunContext) error {
 		}
 	}
 
-	err = os.RemoveAll(path.Dir(result))
-	if err != nil {
-		return err
-	}
-
 	return nil
 }
 
 func reduceSemanticallyAndSaveResultIfBetter(ctx *RunContext) error {
+	// TODO test candidates for property
 	if ctx.CurrentSemanticStrategy >= ctx.SemanticStrategiesTotal {
 		return nil
 	}

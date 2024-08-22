@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"errors"
 	"github.com/mandoway/seru/reduction/domain"
+	"github.com/mandoway/seru/reduction/logging"
 	"github.com/mandoway/seru/reduction/syntactic"
-	"log"
 )
 
 func ReduceSyntactically(candidate domain.Candidate, reducerConfig syntactic.Functions, language string) (string, error) {
@@ -15,14 +15,14 @@ func ReduceSyntactically(candidate domain.Candidate, reducerConfig syntactic.Fun
 
 	reductionCmd := reducerConfig.BuildReductionCommand(candidate, language)
 
-	log.Println("Syntax reduction command:", reductionCmd)
+	logging.LogSyntactic("Executing command:", reductionCmd)
 
 	var stdout, stderr bytes.Buffer
 	reductionCmd.Stderr = &stderr
 	reductionCmd.Stdout = &stdout
 	err := reductionCmd.Run()
 	if err != nil {
-		log.Println(stderr.String())
+		logging.LogSyntactic(stderr.String())
 		return "", errors.New("syntactic reduction failed: " + err.Error())
 	}
 
