@@ -1,4 +1,4 @@
-package reduction
+package context
 
 import (
 	"fmt"
@@ -15,6 +15,7 @@ import (
 
 const RunContextFolderPrefix = "seru_reduction_"
 
+// TODO add metrics like test script count
 type RunContext struct {
 	Language                string
 	Current                 *domain.Candidate
@@ -25,6 +26,14 @@ type RunContext struct {
 	SemanticReducer         plugin.SemanticReductionFunction
 	CurrentSemanticStrategy int
 	SemanticStrategiesTotal int
+}
+
+func (ctx RunContext) InputFilename() string {
+	return path.Base(ctx.Current.InputPath)
+}
+
+func (ctx RunContext) TestFilename() string {
+	return path.Base(ctx.Current.TestPath)
 }
 
 func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunContext, error) {
@@ -97,6 +106,10 @@ func takeLanguageOrDefault(language, file string) string {
 type SizeContext struct {
 	StartSizeInTokens int
 	BestSizeInTokens  int
+}
+
+func (s SizeContext) AsPercent() string {
+	return fmt.Sprintf("%.2f%%", float32(s.BestSizeInTokens)/float32(s.StartSizeInTokens)*100)
 }
 
 type RunContextErr struct {

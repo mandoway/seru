@@ -1,4 +1,4 @@
-package reduction
+package context
 
 import (
 	"github.com/stretchr/testify/assert"

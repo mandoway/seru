@@ -1,18 +1,19 @@
 package reduction
 
 import (
-	"github.com/mandoway/seru/collection"
 	"github.com/mandoway/seru/files"
+	"github.com/mandoway/seru/reduction/candidate"
+	"github.com/mandoway/seru/reduction/context"
+	"github.com/mandoway/seru/reduction/domain"
 	"github.com/mandoway/seru/reduction/logging"
 	"github.com/mandoway/seru/reduction/metrics"
-	"github.com/mandoway/seru/reduction/plugin"
 	"log"
 	"os"
 	"path"
 	"slices"
 )
 
-func RunMainReductionLoop(ctx *RunContext) error {
+func RunMainReductionLoop(ctx *context.RunContext) error {
 	logging.LogStartReduction(ctx.ReductionDir, ctx.Sizes.StartSizeInTokens)
 
 	// TODO determine when to keep a result
@@ -33,14 +34,16 @@ func RunMainReductionLoop(ctx *RunContext) error {
 		}
 	}
 
+	logging.LogEndReduction(ctx.Sizes)
+
 	return nil
 }
 
-func reduceSyntacticallyAndSaveResultIfBetter(ctx *RunContext) error {
+func reduceSyntacticallyAndSaveResultIfBetter(ctx *context.RunContext) error {
 	logging.LogSyntactic("Start reduction")
-	candidate := ctx.Current
+	reductionCandidate := ctx.Current
 
-	result, err := ReduceSyntactically(*candidate, ctx.SyntacticReducer, ctx.Language)
+	result, err := ReduceSyntactically(*reductionCandidate, ctx.SyntacticReducer, ctx.Language)
 	if err != nil {
 		return err
 	}
@@ -67,8 +70,7 @@ func reduceSyntacticallyAndSaveResultIfBetter(ctx *RunContext) error {
 	return nil
 }
 
-func reduceSemanticallyAndSaveResultIfBetter(ctx *RunContext) error {
-	// TODO test candidates for property
+func reduceSemanticallyAndSaveResultIfBetter(ctx *context.RunContext) error {
 	if ctx.CurrentSemanticStrategy >= ctx.SemanticStrategiesTotal {
 		return nil
 	}
@@ -78,28 +80,20 @@ func reduceSemanticallyAndSaveResultIfBetter(ctx *RunContext) error {
 	if err != nil {
 		return err
 	}
+	defer candidate.DeleteAllCandidates()
 
-	var candidates [][]byte
-	for len(candidates) == 0 && ctx.CurrentSemanticStrategy < ctx.SemanticStrategiesTotal {
-		logging.LogSemantic("Trying strategy", ctx.CurrentSemanticStrategy+1, "of", ctx.SemanticStrategiesTotal)
-		candidates, err = ctx.SemanticReducer(currentBytes, ctx.CurrentSemanticStrategy)
-		if err != nil {
-			return err
-		}
-
-		if len(candidates) == 0 {
-			logging.LogSemantic("No candidates found, try next strategy")
-			ctx.CurrentSemanticStrategy++
-		} else {
-			logging.LogSemantic("Semantic reduction returned", len(candidates), "candidates")
-		}
+	validCandidates, err := trySemanticStrategiesToFindValidCandidates(ctx, currentBytes)
+	if err != nil {
+		return err
 	}
-	if ctx.CurrentSemanticStrategy >= ctx.SemanticStrategiesTotal {
-		logging.LogSemantic("Semantic reduction found no candidates")
+	if len(validCandidates) == 0 {
+		logging.LogSemantic("Semantic reduction found no valid candidates")
 		return nil
 	}
 
-	bestCandidate := getBestCandidate(candidates, ctx.CountTokens)
+	bestCandidate := slices.MinFunc(validCandidates, func(a, b *domain.CandidateWithSize) int {
+		return b.Size - a.Size
+	})
 
 	if bestCandidate.Size <= ctx.Sizes.BestSizeInTokens {
 		log.Println("Store new best with size", bestCandidate.Size)
@@ -113,27 +107,30 @@ func reduceSemanticallyAndSaveResultIfBetter(ctx *RunContext) error {
 	return nil
 }
 
-func getBestCandidate(candidates [][]byte, countTokens plugin.TokenCountFunction) CandidateBytesWithSize {
-	candidatesWithSize := collection.MapSlice(candidates, func(it []byte) (CandidateBytesWithSize, error) {
-		return *NewCandidateBytesWithSize(it, countTokens), nil
-	})
+func trySemanticStrategiesToFindValidCandidates(ctx *context.RunContext, currentBytes []byte) ([]*domain.CandidateWithSize, error) {
+	var validCandidates []*domain.CandidateWithSize
+	for len(validCandidates) == 0 && ctx.CurrentSemanticStrategy < ctx.SemanticStrategiesTotal {
+		logging.LogSemantic("Trying strategy", ctx.CurrentSemanticStrategy+1, "of", ctx.SemanticStrategiesTotal)
+		candidates, err := ctx.SemanticReducer(currentBytes, ctx.CurrentSemanticStrategy)
+		if err != nil {
+			return nil, err
+		}
+		logging.LogSemantic("Found candidates:", len(candidates))
 
-	return slices.MinFunc(candidatesWithSize, func(a, b CandidateBytesWithSize) int {
-		return b.Size - a.Size
-	})
+		validCandidates = candidate.CheckAndKeepValidCandidates(candidates, ctx)
+
+		if len(validCandidates) > 0 {
+			logging.LogSemantic("Valid candidates:", len(validCandidates))
+		} else {
+			logging.LogSemantic("No valid candidates found, try next strategy")
+			ctx.CurrentSemanticStrategy++
+		}
+	}
+	return validCandidates, nil
 }
 
-type CandidateBytesWithSize struct {
-	Bytes []byte
-	Size  int
-}
-
-func NewCandidateBytesWithSize(bytes []byte, counter plugin.TokenCountFunction) *CandidateBytesWithSize {
-	return &CandidateBytesWithSize{Bytes: bytes, Size: counter(bytes)}
-}
-
-func saveCandidateAsCurrentBest(ctx *RunContext, candidate CandidateBytesWithSize) error {
-	err := os.WriteFile(ctx.Current.InputPath, candidate.Bytes, 0750)
+func saveCandidateAsCurrentBest(ctx *context.RunContext, candidate *domain.CandidateWithSize) error {
+	err := files.Copy(candidate.InputPath, ctx.Current.InputPath)
 	if err != nil {
 		return nil
 	}
@@ -142,7 +139,7 @@ func saveCandidateAsCurrentBest(ctx *RunContext, candidate CandidateBytesWithSiz
 	return nil
 }
 
-func saveFileAsCurrentBest(ctx *RunContext, candidatePath string, size int) error {
+func saveFileAsCurrentBest(ctx *context.RunContext, candidatePath string, size int) error {
 	err := files.Copy(candidatePath, ctx.Current.InputPath)
 	if err != nil {
 		return err

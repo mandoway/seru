@@ -1,6 +1,7 @@
 package reduction
 
 import (
+	"github.com/mandoway/seru/reduction/context"
 	"log"
 )
 
@@ -9,7 +10,7 @@ func StartReductionProcess(inputFile, testScript, givenLanguage string) error {
 	log.Println()
 	log.Printf("Creating new run context with (input=%s, test=%s, lang=%s)\n", inputFile, testScript, givenLanguage)
 
-	runCtx, err := NewRunContext(givenLanguage, inputFile, testScript)
+	runCtx, err := context.NewRunContext(givenLanguage, inputFile, testScript)
 	if err != nil {
 		return err
 	}
