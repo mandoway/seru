@@ -1,13 +1,11 @@
 package reduction
 
 import (
-	"github.com/mandoway/seru/files"
 	"github.com/mandoway/seru/reduction/candidate"
 	"github.com/mandoway/seru/reduction/context"
 	"github.com/mandoway/seru/reduction/domain"
 	"github.com/mandoway/seru/reduction/logging"
 	"github.com/mandoway/seru/reduction/metrics"
-	"log"
 	"os"
 	"path"
 	"slices"
@@ -60,8 +58,7 @@ func reduceSyntacticallyAndSaveResultIfBetter(ctx *context.RunContext) error {
 
 	// TODO ensure termination
 	if size <= ctx.Sizes.BestSizeInTokens {
-		logging.LogSyntactic("Store new best with size", size)
-		err = saveFileAsCurrentBest(ctx, result, size)
+		err = ctx.UpdateCurrent(result, size)
 		if err != nil {
 			return err
 		}
@@ -96,9 +93,7 @@ func reduceSemanticallyAndSaveResultIfBetter(ctx *context.RunContext) error {
 	})
 
 	if bestCandidate.Size <= ctx.Sizes.BestSizeInTokens {
-		log.Println("Store new best with size", bestCandidate.Size)
-
-		err = saveCandidateAsCurrentBest(ctx, bestCandidate)
+		err = ctx.UpdateCurrent(bestCandidate.InputPath, bestCandidate.Size)
 		if err != nil {
 			return err
 		}
@@ -127,24 +122,4 @@ func trySemanticStrategiesToFindValidCandidates(ctx *context.RunContext, current
 		}
 	}
 	return validCandidates, nil
-}
-
-func saveCandidateAsCurrentBest(ctx *context.RunContext, candidate *domain.CandidateWithSize) error {
-	err := files.Copy(candidate.InputPath, ctx.Current.InputPath)
-	if err != nil {
-		return nil
-	}
-	ctx.Sizes.BestSizeInTokens = candidate.Size
-
-	return nil
-}
-
-func saveFileAsCurrentBest(ctx *context.RunContext, candidatePath string, size int) error {
-	err := files.Copy(candidatePath, ctx.Current.InputPath)
-	if err != nil {
-		return err
-	}
-	ctx.Sizes.BestSizeInTokens = size
-
-	return nil
 }

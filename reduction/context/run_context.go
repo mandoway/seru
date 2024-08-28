@@ -10,6 +10,7 @@ import (
 	"log"
 	"os"
 	"path"
+	"strconv"
 	"time"
 )
 
@@ -17,6 +18,8 @@ const RunContextFolderPrefix = "seru_reduction_"
 
 // TODO add metrics like test script count
 type RunContext struct {
+	currentVersion int
+
 	Language                string
 	Current                 *domain.Candidate
 	ReductionDir            string
@@ -28,19 +31,58 @@ type RunContext struct {
 	SemanticStrategiesTotal int
 }
 
-func (ctx RunContext) InputFilename() string {
+func (ctx *RunContext) InputFilename() string {
 	return path.Base(ctx.Current.InputPath)
 }
 
-func (ctx RunContext) TestFilename() string {
+func (ctx *RunContext) TestFilename() string {
 	return path.Base(ctx.Current.TestPath)
+}
+
+func (ctx *RunContext) UpdateCurrent(candidatePath string, candidateSize int) error {
+	log.Println("Store new best with size", candidateSize)
+	err := files.Copy(candidatePath, ctx.Current.InputPath)
+	if err != nil {
+		return err
+	}
+	ctx.Sizes.BestSizeInTokens = candidateSize
+	ctx.currentVersion++
+
+	err = ctx.saveCurrent()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (ctx *RunContext) saveCurrent() error {
+	dir := path.Join(ctx.ReductionDir, strconv.Itoa(ctx.currentVersion))
+	err := os.Mkdir(dir, 0755)
+	if err != nil {
+		return err
+	}
+	newInputFile := path.Join(dir, ctx.InputFilename())
+	newTestFile := path.Join(dir, ctx.TestFilename())
+
+	err = files.Copy(ctx.Current.InputPath, newInputFile)
+	if err != nil {
+		return err
+	}
+
+	err = files.Copy(ctx.Current.TestPath, newTestFile)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunContext, error) {
 	reductionDir := fmt.Sprintf("%s%s", RunContextFolderPrefix, time.Now().Format(time.RFC3339))
 	err := os.Mkdir(reductionDir, 0750)
 	if err != nil {
-		return nil, err
+		return nil, &RunContextErr{message: err.Error()}
 	}
 
 	inputFileInReductionDir := getPathInFolder(reductionDir, inputFilePath)
@@ -48,11 +90,11 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunCon
 
 	err = files.Copy(inputFilePath, inputFileInReductionDir)
 	if err != nil {
-		return nil, err
+		return nil, &RunContextErr{message: err.Error()}
 	}
 	err = files.Copy(testScriptPath, testScriptInReductionDir)
 	if err != nil {
-		return nil, err
+		return nil, &RunContextErr{message: err.Error()}
 	}
 
 	language := takeLanguageOrDefault(givenLanguage, inputFilePath)
@@ -76,9 +118,10 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunCon
 
 	semanticStrategiesSize := pluginFunctions.GetStrategyCount()
 
-	return &RunContext{
+	ctx := &RunContext{
 		Language:                language,
 		Current:                 domain.NewCandidate(inputFileInReductionDir, testScriptInReductionDir),
+		currentVersion:          0,
 		ReductionDir:            reductionDir,
 		Sizes:                   sizeContext,
 		SyntacticReducer:        syntacticFunctions,
@@ -86,7 +129,14 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunCon
 		CountTokens:             pluginFunctions.CountTokens,
 		SemanticStrategiesTotal: semanticStrategiesSize,
 		CurrentSemanticStrategy: 0,
-	}, nil
+	}
+
+	err = ctx.saveCurrent()
+	if err != nil {
+		return nil, &RunContextErr{message: err.Error()}
+	}
+
+	return ctx, nil
 }
 
 func getPathInFolder(folder, filePath string) string {

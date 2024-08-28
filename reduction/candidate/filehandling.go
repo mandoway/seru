@@ -19,7 +19,7 @@ func CheckAndKeepValidCandidates(candidates [][]byte, ctx *context.RunContext) [
 	for i, candidate := range candidates {
 		candidateFiles, err := writeCandidate(ctx, i, candidate)
 		if err != nil {
-			logging.LogSemantic("Error writing candidate, try next")
+			logging.LogSemantic("Error writing candidate, try next", err)
 			continue
 		}
 
@@ -44,10 +44,15 @@ func DeleteAllCandidates() {
 
 func writeCandidate(ctx *context.RunContext, i int, candidate []byte) (*domain.Candidate, error) {
 	folderName := fmt.Sprintf("%s%d_candidate%d", candidateDirectoryPrefix, ctx.CurrentSemanticStrategy, i)
-	newInputFile := path.Join(ctx.ReductionDir, folderName, ctx.InputFilename())
-	newTestFile := path.Join(ctx.ReductionDir, folderName, ctx.TestFilename())
+	dir := path.Join(ctx.ReductionDir, folderName)
+	err := os.Mkdir(dir, 0755)
+	if err != nil {
+		return nil, err
+	}
+	newInputFile := path.Join(dir, ctx.InputFilename())
+	newTestFile := path.Join(dir, ctx.TestFilename())
 
-	err := os.WriteFile(newInputFile, candidate, 0750)
+	err = os.WriteFile(newInputFile, candidate, 0750)
 	if err != nil {
 		return nil, err
 	}
@@ -59,6 +64,7 @@ func writeCandidate(ctx *context.RunContext, i int, candidate []byte) (*domain.C
 	return domain.NewCandidate(newInputFile, newTestFile), nil
 }
 
+// TODO check if the test is working correctly
 func testCandidate(candidate *domain.Candidate) bool {
 	cmd := buildTestCommand(candidate)
 	err := cmd.Run()
