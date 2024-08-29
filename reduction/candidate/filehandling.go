@@ -1,6 +1,7 @@
 package candidate
 
 import (
+	"errors"
 	"fmt"
 	"github.com/mandoway/seru/files"
 	"github.com/mandoway/seru/reduction/context"
@@ -23,7 +24,10 @@ func CheckAndKeepValidCandidates(candidates [][]byte, ctx *context.RunContext) [
 			continue
 		}
 
-		ok := testCandidate(candidateFiles)
+		ok, err := testCandidate(candidateFiles)
+		if err != nil {
+			logging.LogSemantic("Error testing candidate", err)
+		}
 		if ok {
 			size := ctx.CountTokens(candidate)
 			validCandidates = append(validCandidates, candidateFiles.WithSize(size))
@@ -64,17 +68,22 @@ func writeCandidate(ctx *context.RunContext, i int, candidate []byte) (*domain.C
 	return domain.NewCandidate(newInputFile, newTestFile), nil
 }
 
-// TODO check if the test is working correctly
-func testCandidate(candidate *domain.Candidate) bool {
+func testCandidate(candidate *domain.Candidate) (bool, error) {
 	cmd := buildTestCommand(candidate)
 	err := cmd.Run()
-	if err != nil {
-		return false
+	var exitError *exec.ExitError
+	if errors.As(err, &exitError) {
+		return false, nil
+	} else if err == nil {
+		return true, nil
 	} else {
-		return true
+		return false, err
 	}
 }
 
 func buildTestCommand(candidate *domain.Candidate) exec.Cmd {
-	return *exec.Command(candidate.TestPath)
+	dir, file := path.Split(candidate.TestPath)
+	cmd := *exec.Command(fmt.Sprintf("./%s", file))
+	cmd.Dir = dir
+	return cmd
 }
