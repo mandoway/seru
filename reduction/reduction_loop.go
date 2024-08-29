@@ -17,8 +17,6 @@ func RunMainReductionLoop(ctx *context.RunContext) error {
 	// TODO determine when to keep a result
 	// TODO wrap errors
 
-	// TODO store intermediate steps
-
 	for ctx.CurrentSemanticStrategy < ctx.SemanticStrategiesTotal {
 
 		err := reduceSyntacticallyAndSaveResultIfBetter(ctx)

@@ -79,10 +79,11 @@ func (ctx *RunContext) saveCurrent() error {
 }
 
 func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunContext, error) {
+	// Copy input files
 	reductionDir := fmt.Sprintf("%s%s", RunContextFolderPrefix, time.Now().Format(time.RFC3339))
 	err := os.Mkdir(reductionDir, 0750)
 	if err != nil {
-		return nil, &RunContextErr{message: err.Error()}
+		return nil, NewRunContextErr(err)
 	}
 
 	inputFileInReductionDir := getPathInFolder(reductionDir, inputFilePath)
@@ -90,33 +91,40 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunCon
 
 	err = files.Copy(inputFilePath, inputFileInReductionDir)
 	if err != nil {
-		return nil, &RunContextErr{message: err.Error()}
+		return nil, NewRunContextErr(err)
 	}
 	err = files.Copy(testScriptPath, testScriptInReductionDir)
 	if err != nil {
-		return nil, &RunContextErr{message: err.Error()}
+		return nil, NewRunContextErr(err)
 	}
 
 	language := takeLanguageOrDefault(givenLanguage, inputFilePath)
 
+	// Semantic plugin reducer config
 	pluginFunctions, err := plugin.LoadSemanticReductionPlugin(language)
 	if err != nil {
-		return nil, &RunContextErr{message: err.Error()}
+		return nil, NewRunContextErr(err)
 	}
 
+	semanticStrategiesSize := pluginFunctions.GetStrategyCount()
+
+	// TODO determine syntactic reducer from config
+	// Syntactic reducer config
+	syntacticFunctions := syntactic.PersesReducerFunctions
+	err = syntacticFunctions.Init(language)
+	if err != nil {
+		return nil, NewRunContextErr(err)
+	}
+
+	// Size
 	currentSize, err := metrics.GetTokenSizeOfFile(inputFilePath, pluginFunctions.CountTokens)
 	if err != nil {
-		return nil, &RunContextErr{message: err.Error()}
+		return nil, NewRunContextErr(err)
 	}
 	sizeContext := SizeContext{
 		StartSizeInTokens: currentSize,
 		BestSizeInTokens:  currentSize,
 	}
-
-	// TODO determine syntactic reducer from config
-	syntacticFunctions := syntactic.PersesReducerFunctions
-
-	semanticStrategiesSize := pluginFunctions.GetStrategyCount()
 
 	ctx := &RunContext{
 		Language:                language,
@@ -133,7 +141,7 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunCon
 
 	err = ctx.saveCurrent()
 	if err != nil {
-		return nil, &RunContextErr{message: err.Error()}
+		return nil, NewRunContextErr(err)
 	}
 
 	return ctx, nil
@@ -164,6 +172,10 @@ func (s SizeContext) AsPercent() string {
 
 type RunContextErr struct {
 	message string
+}
+
+func NewRunContextErr(err error) *RunContextErr {
+	return &RunContextErr{message: err.Error()}
 }
 
 func (e *RunContextErr) Error() string {

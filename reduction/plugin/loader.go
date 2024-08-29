@@ -2,12 +2,17 @@ package plugin
 
 import (
 	"fmt"
+	"github.com/mandoway/seru/tools"
 	"plugin"
 	"strings"
 )
 
 func LoadSemanticReductionPlugin(language string) (*Functions, error) {
 	pluginName := getPluginNamePerConvention(language)
+	err := tools.EnsureFileExists(pluginName)
+	if err != nil {
+		return nil, err
+	}
 
 	openPlugin, err := plugin.Open(pluginName)
 	if err != nil {

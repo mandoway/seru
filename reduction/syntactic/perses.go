@@ -4,20 +4,24 @@ import (
 	"fmt"
 	"github.com/mandoway/seru/files"
 	"github.com/mandoway/seru/reduction/domain"
+	"github.com/mandoway/seru/tools"
 	"os/exec"
 	"strings"
 )
+
+const persesJar = "perses_deploy.jar"
 
 var PersesReducerFunctions = Functions{
 	BuildReductionCommand: buildPersesReductionCommand,
 	GetOutputFilename: func(inputFilePath string) string {
 		return files.AddFolderToFilePath(inputFilePath, "perses_result")
 	},
+	Init: initialisePerses,
 }
 
 func buildPersesReductionCommand(candidate domain.Candidate, language string) *exec.Cmd {
 	args := []string{
-		"-jar", "perses_deploy.jar",
+		"-jar", persesJar,
 		"-i", candidate.InputPath,
 		"-t", candidate.TestPath,
 		"--call-formatter", "true",
@@ -54,4 +58,25 @@ var languagesSupportedByPerses = map[string]struct{}{
 	"sol":    {},
 	"v":      {}, "sv": {},
 	"smt2": {},
+}
+
+func initialisePerses(language string) error {
+	// Check if java is installed
+	_, err := exec.LookPath("java")
+	if err != nil {
+		return err
+	}
+
+	err = tools.EnsureFileExists(persesJar)
+	if err != nil {
+		return err
+	}
+
+	languageSpecificJar := toLanguageJar(language)
+	err = tools.EnsureFileExists(languageSpecificJar)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
