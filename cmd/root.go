@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/mandoway/seru/reduction"
+	"github.com/mandoway/seru/version"
 	"github.com/spf13/cobra"
 	"log"
 	"os"
@@ -20,6 +21,7 @@ var (
 				log.Fatal(err)
 			}
 		},
+		Version: version.Version,
 	}
 )
 

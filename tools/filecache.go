@@ -2,14 +2,14 @@ package tools
 
 import (
 	"errors"
+	"github.com/mandoway/seru/version"
 	"log"
 	"net/url"
 	"os"
 	"path"
 )
 
-var version = "v0.0.1-alpha"
-var versionedDownloadUrl, _ = url.JoinPath("https://github.com/mandoway/seru/releases/download", version)
+var versionedDownloadUrl, _ = url.JoinPath("https://github.com/mandoway/seru/releases/download", version.Version)
 
 func EnsureFileExists(filepath string) error {
 	_, err := os.Stat(filepath)
