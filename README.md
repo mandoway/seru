@@ -28,8 +28,8 @@ SeRu currently supports:
    ```
 3. Make sure you have Java installed (for Perses)
 4. Run SeRu using Go or standalone
-   1. `go run .`
-   2. `go build && ./seru`
+   1. `go run -ldflags="-X github.com/mandoway/seru/version.Version=v0.0.1-alpha" .`
+   2. `go build -ldflags="-X github.com/mandoway/seru/version.Version=v0.0.1-alpha" && ./seru`
    3. Command line options:
       1. `-i <input>` _Required_  
       Target file to reduce
