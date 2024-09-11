@@ -16,7 +16,7 @@ func TestReduction(t *testing.T, instances []ReductionInstance, reductionStrateg
 	serializer := language.Serializer{}
 
 	for _, instance := range instances {
-		t.Run(instance.Title, func(t *testing.T) {
+		t.Run(instance.Title, func(t2 *testing.T) {
 
 			parsedContent, _ := parser.Parse([]byte(instance.Given))
 
@@ -29,10 +29,10 @@ func TestReduction(t *testing.T, instances []ReductionInstance, reductionStrateg
 				return string(it), nil
 			})
 
-			assert.Len(t, serializedStrings, len(instance.Expected))
+			assert.Len(t2, serializedStrings, len(instance.Expected))
 
 			for i, expected := range instance.Expected {
-				assert.Equal(t, trimAllWhitespace(expected), trimAllWhitespace(serializedStrings[i]))
+				assert.Equal(t2, trimAllWhitespace(expected), trimAllWhitespace(serializedStrings[i]))
 			}
 		})
 	}

@@ -5,7 +5,22 @@ import (
 	"cuelang.org/go/cue/ast/astutil"
 )
 
-func applyTransformationToEveryApplicableStatement[T ast.Node](input *ast.File, transform func(node T) ast.Node) []*ast.File {
+func transformApplicableStatements[T ast.Node](input *ast.File, transform func(node T) ast.Node) []*ast.File {
+	return applyTransformationToEveryApplicableStatement(input, func(node T, cursor astutil.Cursor) {
+		transformed := transform(node)
+		cursor.Replace(transformed)
+	})
+}
+
+func removeApplicableStatements[T ast.Node](input *ast.File, predicate func(node T) bool) []*ast.File {
+	return applyTransformationToEveryApplicableStatement(input, func(node T, cursor astutil.Cursor) {
+		if predicate(node) {
+			cursor.Delete()
+		}
+	})
+}
+
+func applyTransformationToEveryApplicableStatement[T ast.Node](input *ast.File, action func(node T, cursor astutil.Cursor)) []*ast.File {
 	var (
 		transformedFiles                 []*ast.File
 		applicableStatementsInCurrentRun int
@@ -27,10 +42,9 @@ func applyTransformationToEveryApplicableStatement[T ast.Node](input *ast.File, 
 		}
 
 		// Actual transformation
-		transformedStatement := transform(filteredStatement)
-		cursor.Replace(transformedStatement)
+		action(filteredStatement, cursor)
 
-		// Control flow boilerplate
+		// No need to continue when we only ever modify one statement per run
 		modifiedStatementInCurrentRun = true
 		return false
 	}
