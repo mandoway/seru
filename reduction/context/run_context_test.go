@@ -6,11 +6,11 @@ import (
 )
 
 func TestTakeLanguageGiven(t *testing.T) {
-	result := takeLanguageOrDefault("cue", "file.c")
+	result := takeLanguageOrDefaultToFileExt("cue", "file.c")
 	assert.Equal(t, "cue", result)
 }
 
 func TestTakeLanguageFromFile(t *testing.T) {
-	result := takeLanguageOrDefault("", "file.c")
+	result := takeLanguageOrDefaultToFileExt("", "file.c")
 	assert.Equal(t, "c", result)
 }

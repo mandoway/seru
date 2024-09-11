@@ -9,14 +9,14 @@ import (
 )
 
 var (
-	inputFile, testScript string
-	rootCmd               = &cobra.Command{
+	inputFile, testScript, givenLanguage string
+	rootCmd                              = &cobra.Command{
 		Use:   "seru",
 		Short: "A tool to reduce a program while maintaining a property",
 		// TODO
 		Long: `TODO`,
 		Run: func(cmd *cobra.Command, args []string) {
-			err := reduction.StartReductionProcess(inputFile, testScript, "")
+			err := reduction.StartReductionProcess(inputFile, testScript, givenLanguage)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -28,6 +28,7 @@ var (
 func init() {
 	rootCmd.PersistentFlags().StringVarP(&inputFile, "input", "i", "", "-i <path to file>")
 	rootCmd.PersistentFlags().StringVarP(&testScript, "test", "t", "", "-i <path to testscript>")
+	rootCmd.PersistentFlags().StringVarP(&givenLanguage, "lang", "l", "", "-l <language of file>")
 
 	_ = rootCmd.MarkPersistentFlagRequired("input")
 	_ = rootCmd.MarkPersistentFlagRequired("test")

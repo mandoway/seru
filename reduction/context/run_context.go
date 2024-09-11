@@ -98,7 +98,7 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunCon
 		return nil, NewRunContextErr(err)
 	}
 
-	language := takeLanguageOrDefault(givenLanguage, inputFilePath)
+	language := takeLanguageOrDefaultToFileExt(givenLanguage, inputFilePath)
 
 	// Semantic plugin reducer config
 	pluginFunctions, err := plugin.LoadSemanticReductionPlugin(language)
@@ -151,7 +151,7 @@ func getPathInFolder(folder, filePath string) string {
 	return path.Join(folder, path.Base(filePath))
 }
 
-func takeLanguageOrDefault(language, file string) string {
+func takeLanguageOrDefaultToFileExt(language, file string) string {
 	if language != "" {
 		return language
 	}
