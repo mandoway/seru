@@ -124,7 +124,7 @@ func trySemanticStrategiesToFindValidCandidates(ctx *context.RunContext, current
 		if len(validCandidates) > 0 {
 			logging.LogSemantic("Valid candidates:", len(validCandidates))
 		} else {
-			logging.LogSemantic("No valid candidates found, try next strategy")
+			logging.LogSemantic("No valid candidates left after check, try next strategy")
 			ctx.IncrementSemanticStrategy()
 		}
 	}
