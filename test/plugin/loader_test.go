@@ -15,4 +15,5 @@ func TestPluginLoader(t *testing.T) {
 	assert.NotNil(t, functions)
 	assert.NotNil(t, functions.SemanticReduce)
 	assert.NotNil(t, functions.CountTokens)
+	assert.NotNil(t, functions.GetStrategyCount)
 }

@@ -12,9 +12,9 @@ func transformApplicableStatements[T ast.Node](input *ast.File, transform func(n
 	})
 }
 
-func removeApplicableStatements[T ast.Node](input *ast.File, predicate func(node T) bool) []*ast.File {
+func removeApplicableStatements[T ast.Node](input *ast.File, isApplicable func(node T) bool) []*ast.File {
 	return applyTransformationToEveryApplicableStatement(input, func(node T, cursor astutil.Cursor) {
-		if predicate(node) {
+		if isApplicable(node) {
 			cursor.Delete()
 		}
 	})

@@ -63,6 +63,14 @@ func TestNullReduction(t *testing.T) {
 				`,
 			},
 		},
+		{
+			Title: "Won't affect expressions",
+			Given: `
+			foo: 3
+			bar: foo
+			`,
+			Expected: []string{},
+		},
 	}
 
 	test.TestReduction(t, instances, NullReduction{})

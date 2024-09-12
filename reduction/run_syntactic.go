@@ -3,12 +3,12 @@ package reduction
 import (
 	"bytes"
 	"errors"
-	"github.com/mandoway/seru/reduction/domain"
+	"github.com/mandoway/seru/reduction/candidate"
 	"github.com/mandoway/seru/reduction/logging"
 	"github.com/mandoway/seru/reduction/syntactic"
 )
 
-func ReduceSyntactically(candidate domain.Candidate, reducerConfig syntactic.Functions, language string) (string, error) {
+func ReduceSyntactically(candidate candidate.Candidate, reducerConfig syntactic.Functions, language string) (string, error) {
 	// Todo add time measurement
 	// todo extract metrics from perses
 	// todo print stdout if configured

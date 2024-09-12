@@ -9,6 +9,7 @@ type NullReduction struct{}
 
 func (r NullReduction) Apply(input *ast.File) []*ast.File {
 	return removeApplicableStatements[*ast.EmbedDecl](input, func(node *ast.EmbedDecl) bool {
-		return node.Expr.(*ast.BasicLit).Kind == token.NULL
+		basicLit, ok := node.Expr.(*ast.BasicLit)
+		return ok && basicLit.Kind == token.NULL
 	})
 }

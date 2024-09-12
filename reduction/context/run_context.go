@@ -3,7 +3,7 @@ package context
 import (
 	"fmt"
 	"github.com/mandoway/seru/files"
-	"github.com/mandoway/seru/reduction/domain"
+	"github.com/mandoway/seru/reduction/candidate"
 	"github.com/mandoway/seru/reduction/metrics"
 	"github.com/mandoway/seru/reduction/plugin"
 	"github.com/mandoway/seru/reduction/syntactic"
@@ -16,36 +16,81 @@ import (
 
 const RunContextFolderPrefix = "seru_reduction_"
 
+// RunContext holds all data necessary for reduction
 // TODO add metrics like test script count
 type RunContext struct {
 	currentVersion int
 
-	Language                string
-	Current                 *domain.Candidate
-	ReductionDir            string
-	Sizes                   SizeContext
-	SyntacticReducer        syntactic.Functions
-	CountTokens             plugin.TokenCountFunction
-	SemanticReducer         plugin.SemanticReductionFunction
-	CurrentSemanticStrategy int
-	SemanticStrategiesTotal int
+	language                string
+	reductionDir            string
+	sizes                   SizeContext
+	currentSemanticStrategy int
+	semanticStrategiesTotal int
+
+	bestResult *candidate.CandidateWithSize
+
+	countTokens plugin.TokenCountFunction
+
+	syntacticReducer syntactic.Functions
+
+	semanticReducer plugin.SemanticReductionFunction
+}
+
+func (ctx *RunContext) BestResult() *candidate.CandidateWithSize {
+	return ctx.bestResult
+}
+
+func (ctx *RunContext) Sizes() SizeContext {
+	return ctx.sizes
+}
+
+func (ctx *RunContext) CurrentSemanticStrategy() int {
+	return ctx.currentSemanticStrategy
+}
+
+func (ctx *RunContext) IncrementSemanticStrategy() {
+	ctx.currentSemanticStrategy++
+}
+
+func (ctx *RunContext) SemanticStrategiesTotal() int {
+	return ctx.semanticStrategiesTotal
+}
+
+func (ctx *RunContext) CountTokens(bytes []byte) int {
+	return ctx.countTokens(bytes)
+}
+
+func (ctx *RunContext) SyntacticReducer() syntactic.Functions {
+	return ctx.syntacticReducer
+}
+
+func (ctx *RunContext) SemanticReduce(bytes []byte) ([][]byte, error) {
+	return ctx.semanticReducer(bytes, ctx.currentSemanticStrategy)
+}
+
+func (ctx *RunContext) Language() string {
+	return ctx.language
+}
+
+func (ctx *RunContext) ReductionDir() string {
+	return ctx.reductionDir
 }
 
 func (ctx *RunContext) InputFilename() string {
-	return path.Base(ctx.Current.InputPath)
+	return path.Base(ctx.BestResult().InputPath)
 }
 
 func (ctx *RunContext) TestFilename() string {
-	return path.Base(ctx.Current.TestPath)
+	return path.Base(ctx.BestResult().TestPath)
 }
 
 func (ctx *RunContext) UpdateCurrent(candidatePath string, candidateSize int) error {
 	log.Println("Store new best with size", candidateSize)
-	err := files.Copy(candidatePath, ctx.Current.InputPath)
+	err := files.Copy(candidatePath, ctx.BestResult().InputPath)
 	if err != nil {
 		return err
 	}
-	ctx.Sizes.BestSizeInTokens = candidateSize
+	ctx.sizes.BestSizeInTokens = candidateSize
 	ctx.currentVersion++
 
 	err = ctx.saveCurrent()
@@ -57,7 +102,7 @@ func (ctx *RunContext) UpdateCurrent(candidatePath string, candidateSize int) er
 }
 
 func (ctx *RunContext) saveCurrent() error {
-	dir := path.Join(ctx.ReductionDir, strconv.Itoa(ctx.currentVersion))
+	dir := path.Join(ctx.ReductionDir(), strconv.Itoa(ctx.currentVersion))
 	err := os.Mkdir(dir, 0755)
 	if err != nil {
 		return err
@@ -65,12 +110,12 @@ func (ctx *RunContext) saveCurrent() error {
 	newInputFile := path.Join(dir, ctx.InputFilename())
 	newTestFile := path.Join(dir, ctx.TestFilename())
 
-	err = files.Copy(ctx.Current.InputPath, newInputFile)
+	err = files.Copy(ctx.BestResult().InputPath, newInputFile)
 	if err != nil {
 		return err
 	}
 
-	err = files.Copy(ctx.Current.TestPath, newTestFile)
+	err = files.Copy(ctx.BestResult().TestPath, newTestFile)
 	if err != nil {
 		return err
 	}
@@ -126,17 +171,21 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunCon
 		BestSizeInTokens:  currentSize,
 	}
 
+	bestCandidate := candidate.NewCandidate(inputFileInReductionDir, testScriptInReductionDir).WithSize(currentSize)
 	ctx := &RunContext{
-		Language:                language,
-		Current:                 domain.NewCandidate(inputFileInReductionDir, testScriptInReductionDir),
-		currentVersion:          0,
-		ReductionDir:            reductionDir,
-		Sizes:                   sizeContext,
-		SyntacticReducer:        syntacticFunctions,
-		SemanticReducer:         pluginFunctions.SemanticReduce,
-		CountTokens:             pluginFunctions.CountTokens,
-		SemanticStrategiesTotal: semanticStrategiesSize,
-		CurrentSemanticStrategy: 0,
+		currentVersion: 0,
+
+		language:                language,
+		reductionDir:            reductionDir,
+		sizes:                   sizeContext,
+		semanticStrategiesTotal: semanticStrategiesSize,
+		currentSemanticStrategy: 0,
+
+		bestResult: bestCandidate,
+
+		syntacticReducer: syntacticFunctions,
+		semanticReducer:  pluginFunctions.SemanticReduce,
+		countTokens:      pluginFunctions.CountTokens,
 	}
 
 	err = ctx.saveCurrent()

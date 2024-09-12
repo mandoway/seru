@@ -1,6 +1,7 @@
 package logging
 
 import (
+	"github.com/mandoway/seru/reduction/candidate"
 	"github.com/mandoway/seru/reduction/context"
 	"log"
 )
@@ -13,9 +14,10 @@ func LogStartReduction(dir string, startSize int) {
 	// ... print further configuration details if there are any
 }
 
-func LogEndReduction(sizes context.SizeContext) {
+func LogEndReduction(sizes context.SizeContext, result *candidate.CandidateWithSize) {
 	log.Println("Finished reduction loop")
 	log.Printf("Reduced program to %d/%d tokens (%s)\n", sizes.BestSizeInTokens, sizes.StartSizeInTokens, sizes.AsPercent())
+	log.Printf("Final result is located at %s", result.InputPath)
 }
 
 func LogSyntactic(msg ...any) {

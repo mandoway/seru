@@ -1,4 +1,4 @@
-package domain
+package candidate
 
 type Candidate struct {
 	InputPath string
