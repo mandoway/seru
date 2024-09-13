@@ -9,8 +9,6 @@ on:
       - main
       - dev
   pull_request:
-    branches:
-      - *
   workflow_dispatch:
 
 jobs:
