@@ -1,11 +1,11 @@
-package strategy
+package transform
 
 import (
 	"cuelang.org/go/cue/ast"
 	"cuelang.org/go/cue/ast/astutil"
 )
 
-func transformApplicableStatements[T ast.Node](input *ast.File, transform func(node T) ast.Node) []*ast.File {
+func ModifyApplicableStatements[T ast.Node](input *ast.File, transform func(node T) ast.Node) []*ast.File {
 	return applyTransformationToEveryApplicableStatement(input, func(node T, cursor astutil.Cursor) bool {
 		transformed := transform(node)
 		cursor.Replace(transformed)
@@ -13,7 +13,7 @@ func transformApplicableStatements[T ast.Node](input *ast.File, transform func(n
 	})
 }
 
-func removeApplicableStatements[T ast.Node](input *ast.File, isApplicable func(node T) bool) []*ast.File {
+func RemoveApplicableStatements[T ast.Node](input *ast.File, isApplicable func(node T) bool) []*ast.File {
 	return applyTransformationToEveryApplicableStatement(input, func(node T, cursor astutil.Cursor) bool {
 		if isApplicable(node) {
 			cursor.Delete()

@@ -71,6 +71,14 @@ func TestNullReduction(t *testing.T) {
 			`,
 			Expected: []string{},
 		},
+		{
+			Title: "Won't affect non-null embedDecl",
+			Given: `
+			3
+			"hello"
+			`,
+			Expected: []string{},
+		},
 	}
 
 	test.TestReduction(t, instances, NullReduction{})
