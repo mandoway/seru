@@ -11,6 +11,7 @@ var Strategies = []semantic.Strategy[ast.File]{
 	strategy.LetReduction{},
 	strategy.NullReduction{},
 	strategy.PackageReduction{},
+	strategy.RedundantNestingReduction{},
 }
 
 var Context = semantic.Context[ast.File]{

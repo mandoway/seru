@@ -9,7 +9,7 @@ import (
 type LetReduction struct{}
 
 // Apply returns variants of the input where exactly one let statement was transformed
-func (r LetReduction) Apply(input *ast.File) []*ast.File {
+func (r LetReduction) Apply(input []byte) []*ast.File {
 	createFieldFromLetClause := func(node *ast.LetClause) ast.Node {
 		return &ast.Field{
 			Label: ast.NewIdent(node.Ident.Name),

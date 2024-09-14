@@ -3,17 +3,29 @@ package transform
 import (
 	"cuelang.org/go/cue/ast"
 	"cuelang.org/go/cue/ast/astutil"
+	"github.com/mandoway/seru/languages/cue/language"
 )
 
-func ModifyApplicableStatements[T ast.Node](input *ast.File, transform func(node T) ast.Node) []*ast.File {
+// ModifyApplicableStatements modifies a statement in-place
+//
+// # Casts a node to the given type and only calls transformOrNil if the type of node is equal to the type parameter T
+//
+// input full AST of current program
+// transformOrNil returns modified node or nil if no modification should be applied to current node
+func ModifyApplicableStatements[T ast.Node](input []byte, transformOrNil func(node T) ast.Node) []*ast.File {
 	return applyTransformationToEveryApplicableStatement(input, func(node T, cursor astutil.Cursor) bool {
-		transformed := transform(node)
+		transformed := transformOrNil(node)
+
+		if transformed == nil {
+			return false
+		}
+
 		cursor.Replace(transformed)
 		return true
 	})
 }
 
-func RemoveApplicableStatements[T ast.Node](input *ast.File, isApplicable func(node T) bool) []*ast.File {
+func RemoveApplicableStatements[T ast.Node](input []byte, isApplicable func(node T) bool) []*ast.File {
 	return applyTransformationToEveryApplicableStatement(input, func(node T, cursor astutil.Cursor) bool {
 		if isApplicable(node) {
 			cursor.Delete()
@@ -23,7 +35,7 @@ func RemoveApplicableStatements[T ast.Node](input *ast.File, isApplicable func(n
 	})
 }
 
-func applyTransformationToEveryApplicableStatement[T ast.Node](input *ast.File, action func(node T, cursor astutil.Cursor) bool) []*ast.File {
+func applyTransformationToEveryApplicableStatement[T ast.Node](input []byte, action func(node T, cursor astutil.Cursor) bool) []*ast.File {
 	var (
 		transformedFiles                 []*ast.File
 		applicableStatementsInCurrentRun int
@@ -48,16 +60,17 @@ func applyTransformationToEveryApplicableStatement[T ast.Node](input *ast.File, 
 		// No need to continue when we only ever modify one statement per run
 		modifiedStatementInCurrentRun = action(filteredStatement, cursor)
 
-		return false
+		return !modifiedStatementInCurrentRun
 	}
 
 	// Main reduction loop
+	parser := language.Parser{}
 	for {
 		applicableStatementsInCurrentRun = 0
 		modifiedStatementInCurrentRun = false
 
-		workingCopy := *input
-		transformedCode := astutil.Apply(&workingCopy, modifyApplicableClause, nil).(*ast.File)
+		workingCopy, _ := parser.Parse(input)
+		transformedCode := astutil.Apply(workingCopy, modifyApplicableClause, nil).(*ast.File)
 
 		if !modifiedStatementInCurrentRun {
 			break

@@ -12,15 +12,12 @@ import (
 )
 
 func TestReduction(t *testing.T, instances []ReductionInstance, reductionStrategy semantic.Strategy[ast.File]) {
-	parser := language.Parser{}
 	serializer := language.Serializer{}
 
 	for _, instance := range instances {
 		t.Run(instance.Title, func(t2 *testing.T) {
 
-			parsedContent, _ := parser.Parse([]byte(instance.Given))
-
-			candidates := reductionStrategy.Apply(parsedContent)
+			candidates := reductionStrategy.Apply([]byte(instance.Given))
 
 			serialized := collection.MapSlice(candidates, func(it *ast.File) ([]byte, error) {
 				return serializer.Serialize(it)

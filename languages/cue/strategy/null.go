@@ -8,7 +8,7 @@ import (
 
 type NullReduction struct{}
 
-func (r NullReduction) Apply(input *ast.File) []*ast.File {
+func (r NullReduction) Apply(input []byte) []*ast.File {
 	isDeclarationJustNull := func(node *ast.EmbedDecl) bool {
 		basicLit, ok := node.Expr.(*ast.BasicLit)
 		return ok && basicLit.Kind == token.NULL

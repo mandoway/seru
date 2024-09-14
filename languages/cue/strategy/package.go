@@ -8,7 +8,7 @@ import (
 type PackageReduction struct {
 }
 
-func (p PackageReduction) Apply(input *ast.File) []*ast.File {
+func (p PackageReduction) Apply(input []byte) []*ast.File {
 	alwaysTrue := func(node *ast.Package) bool {
 		return true
 	}

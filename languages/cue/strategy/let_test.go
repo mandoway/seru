@@ -13,17 +13,38 @@ func TestLetReduction(t *testing.T) {
 			x: 42
 			let y = x
 			let z = x
+			foo: {
+				let bar = x
+				baz: bar
+			}
 			`,
 			Expected: []string{
 				`
 				x: 42
 				y: x
 				let z = x
+				foo: {
+					let bar = x
+					baz: bar
+				}
 				`,
 				`
 				x: 42
 				let y = x
 				z: x
+				foo: {
+					let bar = x
+					baz: bar
+				}
+				`,
+				`
+				x: 42
+				let y = x
+				let z = x
+				foo: {
+					bar: x
+					baz: bar
+				}
 				`,
 			},
 		},
