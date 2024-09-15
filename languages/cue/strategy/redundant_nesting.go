@@ -2,7 +2,6 @@ package strategy
 
 import (
 	"cuelang.org/go/cue/ast"
-	"cuelang.org/go/cue/token"
 	"github.com/mandoway/seru/languages/cue/strategy/transform"
 )
 
@@ -26,7 +25,7 @@ func (r RedundantNestingReduction) Apply(input []byte) []*ast.File {
 		}
 
 		return &ast.StructLit{
-			Lbrace: token.NoSpace.Pos(),
+			Lbrace: node.Lbrace,
 			Elts:   elementExprAsStructLit.Elts,
 		}
 	}

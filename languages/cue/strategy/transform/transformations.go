@@ -39,10 +39,11 @@ func applyTransformationToEveryApplicableStatement[T ast.Node](input []byte, act
 	var (
 		transformedFiles                 []*ast.File
 		applicableStatementsInCurrentRun int
+		lastSeenApplicableStatement      int
 		modifiedStatementInCurrentRun    bool
 	)
 
-	modifyApplicableClause := func(cursor astutil.Cursor) bool {
+	modifyApplicableStatement := func(cursor astutil.Cursor) bool {
 		// Filter applicable nodes
 		filteredStatement, ok := cursor.Node().(T)
 		if !ok {
@@ -50,11 +51,15 @@ func applyTransformationToEveryApplicableStatement[T ast.Node](input []byte, act
 		}
 
 		// Filter already applied nodes
+		statementWasCheckedInPreviousRun := applicableStatementsInCurrentRun < lastSeenApplicableStatement
 		applicableStatementsInCurrentRun++
-		statementWasModifiedInPreviousRun := applicableStatementsInCurrentRun-1 < len(transformedFiles)
-		if modifiedStatementInCurrentRun || statementWasModifiedInPreviousRun {
+		if modifiedStatementInCurrentRun {
 			return false
 		}
+		if statementWasCheckedInPreviousRun {
+			return true
+		}
+		lastSeenApplicableStatement = max(lastSeenApplicableStatement, applicableStatementsInCurrentRun)
 
 		// Actual transformation
 		// No need to continue when we only ever modify one statement per run
@@ -70,7 +75,7 @@ func applyTransformationToEveryApplicableStatement[T ast.Node](input []byte, act
 		modifiedStatementInCurrentRun = false
 
 		workingCopy, _ := parser.Parse(input)
-		transformedCode := astutil.Apply(workingCopy, modifyApplicableClause, nil).(*ast.File)
+		transformedCode := astutil.Apply(workingCopy, modifyApplicableStatement, nil).(*ast.File)
 
 		if !modifiedStatementInCurrentRun {
 			break

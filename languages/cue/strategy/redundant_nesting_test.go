@@ -66,6 +66,13 @@ func TestRedundantNesting(t *testing.T) {
 					}
 				}
 				`,
+				`
+				foo: {
+					{
+						bar: 3
+					}
+				}
+				`,
 			},
 		},
 		{

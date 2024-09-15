@@ -85,6 +85,20 @@ func TestListReduction(t *testing.T) {
 				`,
 			},
 		},
+		{
+			Title: "Reduces list comprehensions",
+			Given: `
+			foo: [for i in [1, 2, 3] {i * 2}]
+			`,
+			Expected: []string{
+				`
+				foo: []
+				`,
+				`
+				foo: [for i in [] {i * 2}]
+				`,
+			},
+		},
 	}
 
 	test.TestReduction(t, instances, ListReduction{})
