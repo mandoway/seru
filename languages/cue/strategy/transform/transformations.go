@@ -25,6 +25,8 @@ func ModifyApplicableStatements[T ast.Node](input []byte, transformOrNil func(no
 	})
 }
 
+// RemoveApplicableStatements
+// Only works with StructLit and EmbedDecl
 func RemoveApplicableStatements[T ast.Node](input []byte, isApplicable func(node T) bool) []*ast.File {
 	return applyTransformationToEveryApplicableStatement(input, func(node T, cursor astutil.Cursor) bool {
 		if isApplicable(node) {
