@@ -25,6 +25,8 @@ func RunMainReductionLoop(ctx *context.RunContext) error {
 			return err
 		}
 
+		// TODO apply all semantic strategies and combine the results before feeding the output to the syntactic reducer
+		// just keep the best result per strategy as it will be processed again and there is a chance to modify the next instance in the next iteration
 		candidates, err = getCandidatesFromSemanticReduction(ctx)
 		if err != nil {
 			return err
@@ -37,7 +39,7 @@ func RunMainReductionLoop(ctx *context.RunContext) error {
 }
 
 func reduceSyntacticallyAndSaveResultIfBetter(ctx *context.RunContext, reductionCandidates []*candidate.CandidateWithSize) error {
-	logging.LogSyntactic("Start reduction of ", len(reductionCandidates), "candidates")
+	logging.LogSyntactic("Start reduction of", len(reductionCandidates), "candidates")
 
 	var candidates []candidate.CandidateWithSize
 	for i, reductionCandidate := range reductionCandidates {
