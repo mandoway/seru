@@ -18,15 +18,13 @@ func RunMainReductionLoop(ctx *context.RunContext) error {
 	// TODO wrap errors
 
 	candidates := []*candidate.CandidateWithSize{ctx.BestResult()}
-	for ctx.CurrentSemanticStrategy() < ctx.SemanticStrategiesTotal() {
+	for !ctx.ExhaustedSemanticStrategies() {
 
 		err := reduceSyntacticallyAndSaveResultIfBetter(ctx, candidates)
 		if err != nil {
 			return err
 		}
 
-		// TODO apply all semantic strategies and combine the results before feeding the output to the syntactic reducer
-		// just keep the best result per strategy as it will be processed again and there is a chance to modify the next instance in the next iteration
 		candidates, err = getCandidatesFromSemanticReduction(ctx)
 		if err != nil {
 			return err
@@ -88,7 +86,7 @@ func reduceSyntacticallyAndSaveResultIfBetter(ctx *context.RunContext, reduction
 }
 
 func getCandidatesFromSemanticReduction(ctx *context.RunContext) ([]*candidate.CandidateWithSize, error) {
-	if ctx.CurrentSemanticStrategy() >= ctx.SemanticStrategiesTotal() {
+	if ctx.ExhaustedSemanticStrategies() {
 		logging.LogSemantic("Exhausted all semantic strategies, aborting")
 		return nil, nil
 	}
@@ -99,7 +97,17 @@ func getCandidatesFromSemanticReduction(ctx *context.RunContext) ([]*candidate.C
 		return nil, err
 	}
 
-	validCandidates, err := trySemanticStrategiesToFindValidCandidates(ctx, currentBytes)
+	var validCandidates []*candidate.CandidateWithSize
+	switch ctx.SemanticApplicationMethod() {
+	case context.ApplyAllCombined:
+		validCandidates, err = applySemanticStrategiesCombined(ctx, currentBytes)
+		break
+	case context.ApplyFirstOnly:
+		validCandidates, err = applyFirstSemanticStrategy(ctx, currentBytes)
+		break
+	default:
+		panic("Unknown application method")
+	}
 	if err != nil {
 		return nil, err
 	}
@@ -111,9 +119,10 @@ func getCandidatesFromSemanticReduction(ctx *context.RunContext) ([]*candidate.C
 	return validCandidates, nil
 }
 
-func trySemanticStrategiesToFindValidCandidates(ctx *context.RunContext, currentBytes []byte) ([]*candidate.CandidateWithSize, error) {
+func applyFirstSemanticStrategy(ctx *context.RunContext, currentBytes []byte) ([]*candidate.CandidateWithSize, error) {
+	logging.LogSemantic("Trying strategies one by one")
 	var validCandidates []*candidate.CandidateWithSize
-	for len(validCandidates) == 0 && ctx.CurrentSemanticStrategy() < ctx.SemanticStrategiesTotal() {
+	for len(validCandidates) == 0 && !ctx.ExhaustedSemanticStrategies() {
 		logging.LogSemantic("Trying strategy", ctx.CurrentSemanticStrategy()+1, "of", ctx.SemanticStrategiesTotal())
 		candidates, err := ctx.SemanticReduce(currentBytes)
 		if err != nil {
@@ -131,4 +140,47 @@ func trySemanticStrategiesToFindValidCandidates(ctx *context.RunContext, current
 		}
 	}
 	return validCandidates, nil
+}
+
+func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byte) ([]*candidate.CandidateWithSize, error) {
+	logging.LogSemantic("Trying strategies and combine results")
+	var bestCandidate *candidate.CandidateWithSize
+	currentStrategy := 0
+
+	for currentStrategy < ctx.SemanticStrategiesTotal() {
+		logging.LogSemantic("Trying strategy", currentStrategy+1, "of", ctx.SemanticStrategiesTotal())
+		var bytesToReduce []byte
+		var err error
+		if bestCandidate == nil {
+			bytesToReduce = currentBytes
+		} else {
+			bytesToReduce, err = os.ReadFile(bestCandidate.InputPath)
+			if err != nil {
+				return nil, err
+			}
+		}
+		candidates, err := ctx.SemanticReduceWithStrategy(bytesToReduce, currentStrategy)
+		if err != nil {
+			return nil, err
+		}
+		logging.LogSemantic("Found candidates:", len(candidates))
+
+		validCandidates := persistance.CheckAndKeepValidCandidates(candidates, ctx)
+
+		if len(validCandidates) > 0 {
+			logging.LogSemantic("Valid candidates:", len(validCandidates))
+			logging.LogSemantic("Setting minimum as new intermediate best")
+			bestCandidate = candidate.MinCandidateP(validCandidates)
+		} else {
+			logging.LogSemantic("No valid candidates left after check, try next strategy")
+		}
+		currentStrategy++
+	}
+
+	if bestCandidate == nil {
+		ctx.SetExhaustedSemanticStrategies()
+		return []*candidate.CandidateWithSize{}, nil
+	}
+
+	return []*candidate.CandidateWithSize{bestCandidate}, nil
 }

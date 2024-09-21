@@ -1,6 +1,7 @@
 package context
 
 import (
+	"errors"
 	"fmt"
 	"github.com/mandoway/seru/files"
 	"github.com/mandoway/seru/reduction/candidate"
@@ -26,6 +27,9 @@ type RunContext struct {
 	sizes                   SizeContext
 	currentSemanticStrategy int
 	semanticStrategiesTotal int
+
+	algorithmContext                 AlgorithmContext
+	forceExhaustedSemanticStrategies bool
 
 	bestResult *candidate.CandidateWithSize
 
@@ -56,6 +60,28 @@ func (ctx *RunContext) SemanticStrategiesTotal() int {
 	return ctx.semanticStrategiesTotal
 }
 
+func (ctx *RunContext) SemanticApplicationMethod() SemanticApplicationMethod {
+	return ctx.algorithmContext.applicationMethod
+}
+
+func (ctx *RunContext) SetExhaustedSemanticStrategies() {
+	if ctx.algorithmContext.applicationMethod == ApplyFirstOnly {
+		panic("Forcing strategy exhaustion is only supported with combined strategies")
+	}
+	ctx.forceExhaustedSemanticStrategies = true
+}
+
+func (ctx *RunContext) ExhaustedSemanticStrategies() bool {
+	switch ctx.algorithmContext.applicationMethod {
+	case ApplyFirstOnly:
+		return ctx.currentSemanticStrategy >= ctx.semanticStrategiesTotal
+	case ApplyAllCombined:
+		return ctx.forceExhaustedSemanticStrategies
+	}
+
+	panic(fmt.Sprintf("unknown algorithm method: %s", ctx.algorithmContext.applicationMethod))
+}
+
 func (ctx *RunContext) CountTokens(bytes []byte) int {
 	return ctx.countTokens(bytes)
 }
@@ -66,6 +92,14 @@ func (ctx *RunContext) SyntacticReducer() syntactic.Functions {
 
 func (ctx *RunContext) SemanticReduce(bytes []byte) ([][]byte, error) {
 	return ctx.semanticReducer(bytes, ctx.currentSemanticStrategy)
+}
+
+func (ctx *RunContext) SemanticReduceWithStrategy(bytes []byte, strategyIndex int) ([][]byte, error) {
+	if strategyIndex >= ctx.semanticStrategiesTotal {
+		return [][]byte{}, errors.New(fmt.Sprintf("no strategy available at index %d", strategyIndex))
+	}
+
+	return ctx.semanticReducer(bytes, strategyIndex)
 }
 
 func (ctx *RunContext) Language() string {
@@ -123,7 +157,7 @@ func (ctx *RunContext) saveCurrent() error {
 	return nil
 }
 
-func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunContext, error) {
+func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algoContext AlgorithmContext) (*RunContext, error) {
 	// Copy input files
 	reductionDir := fmt.Sprintf("%s%s", RunContextFolderPrefix, time.Now().Format(time.RFC3339))
 	err := os.Mkdir(reductionDir, 0750)
@@ -180,6 +214,8 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string) (*RunCon
 		sizes:                   sizeContext,
 		semanticStrategiesTotal: semanticStrategiesSize,
 		currentSemanticStrategy: 0,
+
+		algorithmContext: algoContext,
 
 		bestResult: bestCandidate,
 

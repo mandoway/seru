@@ -8,27 +8,32 @@ import (
 	"os"
 )
 
-var (
-	inputFile, testScript, givenLanguage string
-	rootCmd                              = &cobra.Command{
-		Use:   "seru",
-		Short: "A tool to reduce a program while maintaining a property",
-		// TODO
-		Long: `TODO`,
-		Run: func(cmd *cobra.Command, args []string) {
-			err := reduction.StartReductionProcess(inputFile, testScript, givenLanguage)
-			if err != nil {
-				log.Fatal(err)
-			}
-		},
-		Version: version.Version,
-	}
-)
+type Flags struct {
+	InputFile, TestScript, GivenLanguage string
+	UseStrategyIsolation                 bool
+}
+
+var flags Flags
+
+var rootCmd = &cobra.Command{
+	Use:   "seru",
+	Short: "A tool to reduce a program while maintaining a property",
+	// TODO
+	Long: `TODO`,
+	Run: func(cmd *cobra.Command, args []string) {
+		err := reduction.StartReductionProcess(flags.InputFile, flags.TestScript, flags.GivenLanguage, flags.UseStrategyIsolation)
+		if err != nil {
+			log.Fatal(err)
+		}
+	},
+	Version: version.Version,
+}
 
 func init() {
-	rootCmd.PersistentFlags().StringVarP(&inputFile, "input", "i", "", "-i <path to file>")
-	rootCmd.PersistentFlags().StringVarP(&testScript, "test", "t", "", "-i <path to testscript>")
-	rootCmd.PersistentFlags().StringVarP(&givenLanguage, "lang", "l", "", "-l <language of file>")
+	rootCmd.PersistentFlags().StringVarP(&flags.InputFile, "input", "i", "", "-i <path to file>")
+	rootCmd.PersistentFlags().StringVarP(&flags.TestScript, "test", "t", "", "-i <path to testscript>")
+	rootCmd.PersistentFlags().StringVarP(&flags.GivenLanguage, "lang", "l", "", "-l <language of file>")
+	rootCmd.PersistentFlags().BoolVarP(&flags.UseStrategyIsolation, "strategy-isolation", "s", false, "")
 
 	_ = rootCmd.MarkPersistentFlagRequired("input")
 	_ = rootCmd.MarkPersistentFlagRequired("test")
