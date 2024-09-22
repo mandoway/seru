@@ -13,7 +13,8 @@ func TestReduction(t *testing.T) {
 		t.Skip("skipping test in short mode.")
 	}
 
-	ctx, err := context.NewRunContext("cue", "issue2246_v1/in.cue", "issue2246_v1/test.sh")
+	aCtx := context.NewAlgorithmContext(false)
+	ctx, err := context.NewRunContext("cue", "issue2246_v1/in.cue", "issue2246_v1/test.sh", *aCtx)
 	if err != nil {
 		t.Fatal(err)
 	}
