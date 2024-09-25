@@ -13,10 +13,10 @@ type IfReduction struct {
 func (i IfReduction) Apply(input []byte) []*ast.File {
 	evaluateBooleanExpr := eval.BuildBooleanEvaluator(input)
 
-	evaluateAndSimplify := func(node *ast.IfClause) ast.Node {
+	evaluateAndSimplify := func(node *ast.IfClause) transform.Transformation {
 		evaluatedValue, err := evaluateBooleanExpr(node.Condition)
 		if err != nil {
-			return nil
+			return transform.NewNoopTransformation()
 		}
 
 		op := token.NEQ
@@ -35,33 +35,35 @@ func (i IfReduction) Apply(input []byte) []*ast.File {
 
 		binaryExpr := ast.NewBinExpr(op, selector, selector)
 
-		return &ast.IfClause{
-			If:        node.If,
-			Condition: binaryExpr,
-		}
+		return transform.NewReplacementTransformation(
+			&ast.IfClause{
+				If:        node.If,
+				Condition: binaryExpr,
+			},
+		)
 	}
 
-	evaluateAndRemoveClause := func(node *ast.Comprehension) ast.Node {
+	evaluateAndRemoveClause := func(node *ast.Comprehension) transform.Transformation {
 		clause, ok := node.Clauses[0].(*ast.IfClause)
 		if !ok {
-			return nil
+			return transform.NewNoopTransformation()
 		}
 
 		evaluatedValue, err := evaluateBooleanExpr(clause.Condition)
 
 		if err != nil {
-			return nil
+			return transform.NewNoopTransformation()
 		}
 
 		if evaluatedValue {
-			return node.Value
+			return transform.NewReplacementTransformation(node.Value)
 		} else {
-			return ast.NewStruct()
+			return transform.NewDeleteTransformation()
 		}
 	}
 
 	var transformations []*ast.File
-	transformations = append(transformations, transform.ModifyApplicableStatements[*ast.IfClause](input, evaluateAndSimplify)...)
-	transformations = append(transformations, transform.ModifyApplicableStatements[*ast.Comprehension](input, evaluateAndRemoveClause)...)
+	transformations = append(transformations, transform.ApplyTransformationToEveryApplicableStatement[*ast.IfClause](input, evaluateAndSimplify)...)
+	transformations = append(transformations, transform.ApplyTransformationToEveryApplicableStatement[*ast.Comprehension](input, evaluateAndRemoveClause)...)
 	return transformations
 }

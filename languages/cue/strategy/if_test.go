@@ -56,7 +56,7 @@ func TestIfReduction(t *testing.T) {
 				}
 				`,
 				`
-				foo: 3, {}
+				foo: 3
 				`,
 			},
 		},
@@ -82,7 +82,7 @@ func TestIfReduction(t *testing.T) {
 				`
 				foo: {
 					bar: 3
-				}, {}
+				}
 				`,
 			},
 		},

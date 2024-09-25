@@ -9,12 +9,12 @@ type ListReduction struct {
 }
 
 func (l ListReduction) Apply(input []byte) []*ast.File {
-	reduceToEmpty := func(node *ast.ListLit) ast.Node {
+	reduceToEmpty := func(node *ast.ListLit) transform.Transformation {
 		if len(node.Elts) == 0 {
-			return nil
+			return transform.NewNoopTransformation()
 		}
 
-		return ast.NewList()
+		return transform.NewReplacementTransformation(ast.NewList())
 	}
-	return transform.ModifyApplicableStatements[*ast.ListLit](input, reduceToEmpty)
+	return transform.ApplyTransformationToEveryApplicableStatement[*ast.ListLit](input, reduceToEmpty)
 }

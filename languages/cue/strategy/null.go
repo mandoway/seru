@@ -9,9 +9,14 @@ import (
 type NullReduction struct{}
 
 func (r NullReduction) Apply(input []byte) []*ast.File {
-	isDeclarationJustNull := func(node *ast.EmbedDecl) bool {
+	removeIfDeclIsNull := func(node *ast.EmbedDecl) transform.Transformation {
 		basicLit, ok := node.Expr.(*ast.BasicLit)
-		return ok && basicLit.Kind == token.NULL
+
+		if !ok || basicLit.Kind != token.NULL {
+			return transform.NewNoopTransformation()
+		}
+
+		return transform.NewDeleteTransformation()
 	}
-	return transform.RemoveApplicableStatements[*ast.EmbedDecl](input, isDeclarationJustNull)
+	return transform.ApplyTransformationToEveryApplicableStatement[*ast.EmbedDecl](input, removeIfDeclIsNull)
 }

@@ -6,38 +6,10 @@ import (
 	"github.com/mandoway/seru/languages/cue/language"
 )
 
-// ModifyApplicableStatements modifies a statement in-place
+// ApplyTransformationToEveryApplicableStatement modifies a statement in-place
 //
 // # Casts a node to the given type and only calls transformOrNil if the type of node is equal to the type parameter T
-//
-// input full AST of current program
-// transformOrNil returns modified node or nil if no modification should be applied to current node
-func ModifyApplicableStatements[T ast.Node](input []byte, transformOrNil func(node T) ast.Node) []*ast.File {
-	return applyTransformationToEveryApplicableStatement(input, func(node T, cursor astutil.Cursor) bool {
-		transformed := transformOrNil(node)
-
-		if transformed == nil {
-			return false
-		}
-
-		cursor.Replace(transformed)
-		return true
-	})
-}
-
-// RemoveApplicableStatements
-// Only works with StructLit and EmbedDecl
-func RemoveApplicableStatements[T ast.Node](input []byte, isApplicable func(node T) bool) []*ast.File {
-	return applyTransformationToEveryApplicableStatement(input, func(node T, cursor astutil.Cursor) bool {
-		if isApplicable(node) {
-			cursor.Delete()
-			return true
-		}
-		return false
-	})
-}
-
-func applyTransformationToEveryApplicableStatement[T ast.Node](input []byte, action func(node T, cursor astutil.Cursor) bool) []*ast.File {
+func ApplyTransformationToEveryApplicableStatement[T ast.Node](input []byte, buildTransformation func(node T) Transformation) []*ast.File {
 	var (
 		transformedFiles                 []*ast.File
 		applicableStatementsInCurrentRun int
@@ -63,9 +35,10 @@ func applyTransformationToEveryApplicableStatement[T ast.Node](input []byte, act
 		}
 		lastSeenApplicableStatement = max(lastSeenApplicableStatement, applicableStatementsInCurrentRun)
 
-		// Actual transformation
+		// Actual Transformation
 		// No need to continue when we only ever modify one statement per run
-		modifiedStatementInCurrentRun = action(filteredStatement, cursor)
+		nodeTransformation := buildTransformation(filteredStatement)
+		modifiedStatementInCurrentRun = nodeTransformation.ProcessNode(cursor)
 
 		return !modifiedStatementInCurrentRun
 	}

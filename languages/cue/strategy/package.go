@@ -9,8 +9,8 @@ type PackageReduction struct {
 }
 
 func (p PackageReduction) Apply(input []byte) []*ast.File {
-	alwaysTrue := func(node *ast.Package) bool {
-		return true
+	alwaysRemove := func(node *ast.Package) transform.Transformation {
+		return transform.NewDeleteTransformation()
 	}
-	return transform.RemoveApplicableStatements[*ast.Package](input, alwaysTrue)
+	return transform.ApplyTransformationToEveryApplicableStatement[*ast.Package](input, alwaysRemove)
 }
