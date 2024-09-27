@@ -9,15 +9,18 @@ import (
 // ApplyTransformationToEveryApplicableStatement modifies a statement in-place
 //
 // # Casts a node to the given type and only calls transformOrNil if the type of node is equal to the type parameter T
-func ApplyTransformationToEveryApplicableStatement[T ast.Node](input []byte, buildTransformation func(node T) Transformation) []*ast.File {
+func ApplyTransformationToEveryApplicableStatement[T ast.Node](input []byte, buildTransformation func(node T, parentSelector string) Transformation) []*ast.File {
 	var (
 		transformedFiles                 []*ast.File
 		applicableStatementsInCurrentRun int
 		lastSeenApplicableStatement      int
 		modifiedStatementInCurrentRun    bool
+		scopeStack                       ScopeStack
 	)
 
 	modifyApplicableStatement := func(cursor astutil.Cursor) bool {
+		adjustScope(cursor, &scopeStack)
+
 		// Filter applicable nodes
 		filteredStatement, ok := cursor.Node().(T)
 		if !ok {
@@ -37,7 +40,8 @@ func ApplyTransformationToEveryApplicableStatement[T ast.Node](input []byte, bui
 
 		// Actual Transformation
 		// No need to continue when we only ever modify one statement per run
-		nodeTransformation := buildTransformation(filteredStatement)
+		parentSelectorOfCurrent := scopeStack.ScopeOfCurrentPosition(cursor)
+		nodeTransformation := buildTransformation(filteredStatement, parentSelectorOfCurrent)
 		modifiedStatementInCurrentRun = nodeTransformation.ProcessNode(cursor)
 
 		return !modifiedStatementInCurrentRun
@@ -48,6 +52,7 @@ func ApplyTransformationToEveryApplicableStatement[T ast.Node](input []byte, bui
 	for {
 		applicableStatementsInCurrentRun = 0
 		modifiedStatementInCurrentRun = false
+		scopeStack.Clear()
 
 		workingCopy, _ := parser.Parse(input)
 		transformedCode := astutil.Apply(workingCopy, modifyApplicableStatement, nil).(*ast.File)
@@ -60,4 +65,23 @@ func ApplyTransformationToEveryApplicableStatement[T ast.Node](input []byte, bui
 	}
 
 	return transformedFiles
+}
+
+func adjustScope(cursor astutil.Cursor, scopeStack *ScopeStack) {
+	if field, nodeIsField := cursor.Node().(*ast.Field); nodeIsField {
+		ident, labelIsIdent := field.Label.(*ast.Ident)
+		structLit, valueIsStruct := field.Value.(*ast.StructLit)
+
+		if labelIsIdent && valueIsStruct {
+			scopeStack.Push(ScopeLayer{
+				Name:  ident.Name,
+				Start: structLit.Lbrace,
+				End:   structLit.Rbrace,
+			})
+		}
+	}
+
+	if top, err := scopeStack.Top(); err == nil && top.End.Before(cursor.Node().Pos()) {
+		scopeStack.Pop()
+	}
 }

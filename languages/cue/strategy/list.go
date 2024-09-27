@@ -9,7 +9,7 @@ type ListReduction struct {
 }
 
 func (l ListReduction) Apply(input []byte) []*ast.File {
-	reduceToEmpty := func(node *ast.ListLit) transform.Transformation {
+	reduceToEmpty := func(node *ast.ListLit, _ string) transform.Transformation {
 		if len(node.Elts) == 0 {
 			return transform.NewNoopTransformation()
 		}

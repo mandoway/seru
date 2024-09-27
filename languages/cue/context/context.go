@@ -16,6 +16,7 @@ var Strategies = []semantic.Strategy[ast.File]{
 	strategy.TrivialIfReduction{},
 	strategy.IfReduction{},
 	strategy.EllipsisReduction{},
+	strategy.ConstantPropagationReduction{},
 }
 
 var Context = semantic.Context[ast.File]{

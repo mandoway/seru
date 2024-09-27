@@ -1,12 +1,12 @@
 package reduction
 
 import (
-	"github.com/mandoway/seru/collection"
 	"github.com/mandoway/seru/reduction/candidate"
 	"github.com/mandoway/seru/reduction/candidate/persistance"
 	"github.com/mandoway/seru/reduction/context"
 	"github.com/mandoway/seru/reduction/logging"
 	"github.com/mandoway/seru/reduction/metrics"
+	"github.com/mandoway/seru/util/collection"
 	"os"
 	"path"
 )

@@ -9,7 +9,7 @@ type RedundantNestingReduction struct {
 }
 
 func (r RedundantNestingReduction) Apply(input []byte) []*ast.File {
-	removeOneNestedLayer := func(node *ast.StructLit) transform.Transformation {
+	removeOneNestedLayer := func(node *ast.StructLit, _ string) transform.Transformation {
 		if len(node.Elts) != 1 {
 			return transform.NewNoopTransformation()
 		}

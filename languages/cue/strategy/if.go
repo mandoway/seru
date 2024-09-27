@@ -13,7 +13,7 @@ type IfReduction struct {
 func (i IfReduction) Apply(input []byte) []*ast.File {
 	evaluateBooleanExpr := eval.BuildBooleanEvaluator(input)
 
-	evaluateAndSimplify := func(node *ast.IfClause) transform.Transformation {
+	evaluateAndSimplify := func(node *ast.IfClause, _ string) transform.Transformation {
 		evaluatedValue, err := evaluateBooleanExpr(node.Condition)
 		if err != nil {
 			return transform.NewNoopTransformation()
@@ -43,7 +43,7 @@ func (i IfReduction) Apply(input []byte) []*ast.File {
 		)
 	}
 
-	evaluateAndRemoveClause := func(node *ast.Comprehension) transform.Transformation {
+	evaluateAndRemoveClause := func(node *ast.Comprehension, _ string) transform.Transformation {
 		clause, ok := node.Clauses[0].(*ast.IfClause)
 		if !ok {
 			return transform.NewNoopTransformation()

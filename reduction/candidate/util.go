@@ -1,7 +1,7 @@
 package candidate
 
 import (
-	"github.com/mandoway/seru/collection"
+	"github.com/mandoway/seru/util/collection"
 	"slices"
 )
 

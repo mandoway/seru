@@ -9,7 +9,7 @@ import (
 type NullReduction struct{}
 
 func (r NullReduction) Apply(input []byte) []*ast.File {
-	removeIfDeclIsNull := func(node *ast.EmbedDecl) transform.Transformation {
+	removeIfDeclIsNull := func(node *ast.EmbedDecl, _ string) transform.Transformation {
 		basicLit, ok := node.Expr.(*ast.BasicLit)
 
 		if !ok || basicLit.Kind != token.NULL {

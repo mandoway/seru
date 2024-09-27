@@ -2,8 +2,8 @@ package strategy
 
 import (
 	"cuelang.org/go/cue/ast"
-	"github.com/mandoway/seru/collection"
 	"github.com/mandoway/seru/languages/cue/strategy/transform"
+	"github.com/mandoway/seru/util/collection"
 	"slices"
 )
 
@@ -11,7 +11,7 @@ type EllipsisReduction struct {
 }
 
 func (e EllipsisReduction) Apply(input []byte) []*ast.File {
-	removeEllipsisFromStruct := func(node *ast.StructLit) transform.Transformation {
+	removeEllipsisFromStruct := func(node *ast.StructLit, _ string) transform.Transformation {
 		indexOfEllipsis := slices.IndexFunc(node.Elts, func(decl ast.Decl) bool {
 			_, isEllipsis := decl.(*ast.Ellipsis)
 			return isEllipsis
@@ -28,7 +28,7 @@ func (e EllipsisReduction) Apply(input []byte) []*ast.File {
 		)
 	}
 
-	removeEllipsisFromList := func(node *ast.ListLit) transform.Transformation {
+	removeEllipsisFromList := func(node *ast.ListLit, _ string) transform.Transformation {
 		indexOfEllipsis := slices.IndexFunc(node.Elts, func(expr ast.Expr) bool {
 			_, isEllipsis := expr.(*ast.Ellipsis)
 			return isEllipsis

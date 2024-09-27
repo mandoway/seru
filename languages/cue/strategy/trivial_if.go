@@ -8,13 +8,13 @@ import (
 type TrivialIfReduction struct{}
 
 func (i TrivialIfReduction) Apply(input []byte) []*ast.File {
-	alwaysFalse := func(node *ast.IfClause) transform.Transformation {
+	alwaysFalse := func(node *ast.IfClause, _ string) transform.Transformation {
 		return transform.NewReplacementTransformation(&ast.IfClause{
 			If:        node.If,
 			Condition: ast.NewBool(false),
 		})
 	}
-	alwaysTrue := func(node *ast.IfClause) transform.Transformation {
+	alwaysTrue := func(node *ast.IfClause, _ string) transform.Transformation {
 		return transform.NewReplacementTransformation(&ast.IfClause{
 			If:        node.If,
 			Condition: ast.NewBool(true),

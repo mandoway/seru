@@ -3,8 +3,8 @@ package semantic
 import (
 	"errors"
 	"fmt"
-	"github.com/mandoway/seru/collection"
 	"github.com/mandoway/seru/reduction/logging"
+	"github.com/mandoway/seru/util/collection"
 )
 
 func Reduce[AST any](fileContent []byte, strategyIndex int, ctx Context[AST]) ([][]byte, error) {

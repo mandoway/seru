@@ -2,9 +2,9 @@ package test
 
 import (
 	"cuelang.org/go/cue/ast"
-	"github.com/mandoway/seru/collection"
 	"github.com/mandoway/seru/languages/cue/language"
 	"github.com/mandoway/seru/reduction/semantic"
+	"github.com/mandoway/seru/util/collection"
 	"github.com/stretchr/testify/assert"
 	"regexp"
 	"strings"
