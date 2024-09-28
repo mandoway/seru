@@ -86,6 +86,65 @@ func TestIfReduction(t *testing.T) {
 				`,
 			},
 		},
+		{
+			Title: "scope",
+			Given: `
+			foo: 3
+			if foo < 3 {
+				bar: 1
+			}
+			a: {
+				foo: 2
+				if foo < 3 {
+					bar: 2
+				}
+			}
+			`,
+			Expected: []string{
+				`
+				foo: 3
+				if foo != foo {
+					bar: 1
+				}
+				a: {
+					foo: 2
+					if foo < 3 {
+						bar: 2
+					}
+				}
+				`, `
+				foo: 3
+				if foo < 3 {
+					bar: 1
+				}
+				a: {
+					foo: 2
+					if foo == foo {
+						bar: 2
+					}
+				}
+				`, `
+				foo: 3
+				a: {
+					foo: 2
+					if foo < 3 {
+						bar: 2
+					}
+				}
+				`,
+				`
+				foo: 3
+				if foo < 3 {
+					bar: 1
+				}
+				a: {
+					foo: 2, {
+						bar: 2
+					}
+				}
+				`,
+			},
+		},
 	}
 
 	test.TestReduction(t, instances, IfReduction{})
