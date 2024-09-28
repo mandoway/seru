@@ -11,7 +11,11 @@ import (
 func ResolveIdentifierInExpression(expr ast.Expr) ast.Expr {
 	switch typedExpr := expr.(type) {
 	case *ast.Ident:
-		return resolveIdentValue(typedExpr).(ast.Expr)
+		resolved := resolveIdentValue(typedExpr)
+		if resolved == nil {
+			return expr
+		}
+		return resolved.(ast.Expr)
 	case *ast.Interpolation:
 		return NewInterpolation(resolveExpressions(typedExpr.Elts))
 	case *ast.BinaryExpr:
@@ -54,7 +58,11 @@ func resolveIdentValue(node *ast.Ident) ast.Node {
 func resolveExpressions(items []ast.Expr) []ast.Expr {
 	return collection.MapSlice[ast.Expr, ast.Expr](items, func(it ast.Expr) (ast.Expr, error) {
 		if ident, ok := it.(*ast.Ident); ok {
-			return resolveIdentValue(ident).(ast.Expr), nil
+			value := resolveIdentValue(ident)
+			if value == nil {
+				return it, nil
+			}
+			return value.(ast.Expr), nil
 		}
 
 		return it, nil

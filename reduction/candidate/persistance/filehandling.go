@@ -15,10 +15,10 @@ import (
 
 var candidateDirectoryPrefix = "strategy"
 
-func CheckAndKeepValidCandidates(candidates [][]byte, ctx *context.RunContext) []*candidate.CandidateWithSize {
+func CheckAndKeepValidCandidates(candidates [][]byte, ctx *context.RunContext, currentStrategy int) []*candidate.CandidateWithSize {
 	var validCandidates []*candidate.CandidateWithSize
 	for i, currentCandidate := range candidates {
-		candidateFiles, err := writeCandidate(ctx, i, currentCandidate)
+		candidateFiles, err := writeCandidate(ctx, i, currentCandidate, currentStrategy)
 		if err != nil {
 			logging.LogSemantic("Error writing candidate, try next", err)
 			continue
@@ -58,8 +58,8 @@ func DeleteAllCandidates(ctx *context.RunContext) {
 	_ = os.RemoveAll(syntacticReducerLeftoverDir)
 }
 
-func writeCandidate(ctx *context.RunContext, i int, currentCandidate []byte) (*candidate.Candidate, error) {
-	folderName := fmt.Sprintf("%s%d_candidate%d", candidateDirectoryPrefix, ctx.CurrentSemanticStrategy(), i)
+func writeCandidate(ctx *context.RunContext, i int, currentCandidate []byte, currentStrategy int) (*candidate.Candidate, error) {
+	folderName := fmt.Sprintf("%s%d_candidate%d", candidateDirectoryPrefix, currentStrategy, i)
 	dir := path.Join(ctx.ReductionDir(), folderName)
 	err := os.Mkdir(dir, 0755)
 	if err != nil {

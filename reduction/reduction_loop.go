@@ -130,7 +130,7 @@ func applyFirstSemanticStrategy(ctx *context.RunContext, currentBytes []byte) ([
 		}
 		logging.LogSemantic("Found candidates:", len(candidates))
 
-		validCandidates = persistance.CheckAndKeepValidCandidates(candidates, ctx)
+		validCandidates = persistance.CheckAndKeepValidCandidates(candidates, ctx, ctx.CurrentSemanticStrategy())
 
 		if len(validCandidates) > 0 {
 			logging.LogSemantic("Valid candidates:", len(validCandidates))
@@ -142,6 +142,7 @@ func applyFirstSemanticStrategy(ctx *context.RunContext, currentBytes []byte) ([
 	return validCandidates, nil
 }
 
+// TODO check termination criteria
 func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byte) ([]*candidate.CandidateWithSize, error) {
 	logging.LogSemantic("Trying strategies and combine results")
 	var bestCandidate *candidate.CandidateWithSize
@@ -165,7 +166,7 @@ func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byt
 		}
 		logging.LogSemantic("Found candidates:", len(candidates))
 
-		validCandidates := persistance.CheckAndKeepValidCandidates(candidates, ctx)
+		validCandidates := persistance.CheckAndKeepValidCandidates(candidates, ctx, currentStrategy)
 
 		if len(validCandidates) > 0 {
 			logging.LogSemantic("Valid candidates:", len(validCandidates))
