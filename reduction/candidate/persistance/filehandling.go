@@ -20,13 +20,13 @@ func CheckAndKeepValidCandidates(candidates [][]byte, ctx *context.RunContext, c
 	for i, currentCandidate := range candidates {
 		candidateFiles, err := writeCandidate(ctx, i, currentCandidate, currentStrategy)
 		if err != nil {
-			logging.LogSemantic("Error writing candidate, try next", err)
+			logging.Default.Println("Error writing candidate, try next", err)
 			continue
 		}
 
 		ok, err := testCandidate(candidateFiles)
 		if err != nil {
-			logging.LogSemantic("Error testing candidate", err)
+			logging.Default.Println("Error testing candidate", err)
 		}
 		if ok {
 			size := ctx.CountTokens(currentCandidate)

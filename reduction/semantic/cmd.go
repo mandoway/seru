@@ -13,7 +13,7 @@ func Reduce[AST any](fileContent []byte, strategyIndex int, ctx Context[AST]) ([
 	}
 
 	strategy := ctx.Strategies[strategyIndex]
-	logging.LogSemantic(fmt.Sprintf("Trying %T", strategy))
+	logging.Semantic.Println(fmt.Sprintf("Trying %T", strategy))
 
 	candidateAsts := strategy.Apply(fileContent)
 	candidates := collection.MapSlice(candidateAsts, ctx.Serializer.Serialize)

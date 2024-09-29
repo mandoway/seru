@@ -15,14 +15,14 @@ func ReduceSyntactically(candidate candidate.Candidate, reducerConfig syntactic.
 
 	reductionCmd := reducerConfig.BuildReductionCommand(candidate, language)
 
-	logging.LogSyntactic("Executing command:", reductionCmd)
+	logging.Syntactic.Println("Executing command:", reductionCmd)
 
 	var stdout, stderr bytes.Buffer
 	reductionCmd.Stderr = &stderr
 	reductionCmd.Stdout = &stdout
 	err := reductionCmd.Run()
 	if err != nil {
-		logging.LogSyntactic(stderr.String())
+		logging.Syntactic.Println(stderr.String())
 		return "", errors.New("syntactic reduction failed: " + err.Error())
 	}
 
