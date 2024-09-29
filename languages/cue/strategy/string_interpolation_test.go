@@ -121,6 +121,14 @@ func TestStringInterpolation(t *testing.T) {
 				`,
 			},
 		},
+		{
+			Title: "not found",
+			Given: `
+			foo: 3
+			bar: "\(foo + baz)"
+			`,
+			Expected: nil,
+		},
 	}
 
 	test.TestReduction(t, instances, StringInterpolationReduction{})
