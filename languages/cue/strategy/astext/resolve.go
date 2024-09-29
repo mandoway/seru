@@ -6,65 +6,82 @@ import (
 	"github.com/mandoway/seru/util/collection"
 )
 
-// ResolveIdentifierValueInExpression NOT COMPLETE
-// Check source code for supported expressions
-func ResolveIdentifierValueInExpression(expr ast.Node) ast.Node {
+// ResolveIdentifierValueInExpression replaces all identifiers with their respective values
+// Returns node with all identifiers replaced
+// or nil if one identifier could not be resolved
+func ResolveIdentifierValueInExpression(expr ast.Node) (ast.Node, bool) {
 	switch typedExpr := expr.(type) {
 	case *ast.Ident:
-		resolved := resolveIdentValue(typedExpr)
-		if resolved == nil {
-			return nil
+		resolved, changed := resolveIdentValue(typedExpr)
+		if !changed {
+			return expr, false
 		}
-		return resolved.(ast.Expr)
+		return resolved.(ast.Expr), true
 	case *ast.Interpolation:
-		return NewInterpolation(resolveExpressions(typedExpr.Elts))
+		expressions, changed := resolveExpressions(typedExpr.Elts)
+		return NewInterpolation(expressions), changed
 	case *ast.BinaryExpr:
-		return ast.NewBinExpr(typedExpr.Op, ResolveIdentifierValueInExpression(typedExpr.X).(ast.Expr), ResolveIdentifierValueInExpression(typedExpr.Y).(ast.Expr))
+		x, changedX := ResolveIdentifierValueInExpression(typedExpr.X)
+		y, changedY := ResolveIdentifierValueInExpression(typedExpr.Y)
+		return ast.NewBinExpr(typedExpr.Op, x.(ast.Expr), y.(ast.Expr)), changedX || changedY
 	case *ast.UnaryExpr:
-		return CopyUnaryExpression(typedExpr, ResolveIdentifierValueInExpression(typedExpr.X).(ast.Expr))
+		x, changedX := ResolveIdentifierValueInExpression(typedExpr.X)
+		return CopyUnaryExpression(typedExpr, x.(ast.Expr)), changedX
 	case *ast.CallExpr:
-		return ast.NewCall(typedExpr.Fun, resolveExpressions(typedExpr.Args)...)
+		expressions, anyChanged := resolveExpressions(typedExpr.Args)
+		return ast.NewCall(typedExpr.Fun, expressions...), anyChanged
 	case *ast.IndexExpr:
-		return CopyIndexExpression(typedExpr, ResolveIdentifierValueInExpression(typedExpr.Index).(ast.Expr))
+		expression, changed := ResolveIdentifierValueInExpression(typedExpr.Index)
+		return CopyIndexExpression(typedExpr, expression.(ast.Expr)), changed
 	case *ast.SliceExpr:
-		return CopySliceExpression(typedExpr, ResolveIdentifierValueInExpression(typedExpr.Low).(ast.Expr), ResolveIdentifierValueInExpression(typedExpr.High).(ast.Expr))
+		low, changedLow := ResolveIdentifierValueInExpression(typedExpr.Low)
+		high, changedHigh := ResolveIdentifierValueInExpression(typedExpr.High)
+		return CopySliceExpression(typedExpr, low.(ast.Expr), high.(ast.Expr)), changedLow || changedHigh
 	case *ast.ListLit:
-		return ast.NewList(resolveExpressions(typedExpr.Elts)...)
+		expressions, anyChanged := resolveExpressions(typedExpr.Elts)
+		return ast.NewList(expressions...), anyChanged
 	case *ast.ParenExpr:
-		return CopyParenExpression(typedExpr, ResolveIdentifierValueInExpression(typedExpr.X).(ast.Expr))
+		expression, changed := ResolveIdentifierValueInExpression(typedExpr.X)
+		return CopyParenExpression(typedExpr, expression.(ast.Expr)), changed
 	default:
-		return expr
+		return expr, false
 	}
 }
 
-func resolveIdentValue(node *ast.Ident) ast.Node {
+// resolveIdentValue returns the backing value of an identifier and whether a new value was found or not
+func resolveIdentValue(node *ast.Ident) (ast.Node, bool) {
 	resolvedValueNode := node.Node
 	if resolvedValueNode == nil {
-		return nil
+		return node, false
 	}
 
 	switch expr := resolvedValueNode.(type) {
 	case *ast.Ident:
-		return resolveIdentValue(expr)
+		value, _ := resolveIdentValue(expr)
+		ast.SetRelPos(value, token.NoRelPos)
+		return value, true
 	case *ast.LetClause:
 		ast.SetRelPos(expr.Expr, token.NoRelPos)
-		return ResolveIdentifierValueInExpression(expr.Expr)
+		value, _ := ResolveIdentifierValueInExpression(expr.Expr)
+		return value, true
 	default:
 		ast.SetRelPos(expr, token.NoRelPos)
-		return expr
+		return expr, true
 	}
 }
 
-func resolveExpressions(items []ast.Expr) []ast.Expr {
+func resolveExpressions(items []ast.Expr) ([]ast.Expr, bool) {
+	anyChanged := false
 	return collection.MapSlice[ast.Expr, ast.Expr](items, func(it ast.Expr) (ast.Expr, error) {
 		if ident, ok := it.(*ast.Ident); ok {
-			value := resolveIdentValue(ident)
-			if value == nil {
+			value, changed := resolveIdentValue(ident)
+			anyChanged = anyChanged || changed
+			if !changed {
 				return it, nil
 			}
 			return value.(ast.Expr), nil
 		}
 
 		return it, nil
-	})
+	}), anyChanged
 }

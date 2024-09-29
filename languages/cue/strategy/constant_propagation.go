@@ -11,8 +11,8 @@ type ConstantPropagationReduction struct {
 
 func (l ConstantPropagationReduction) Apply(input []byte) []*ast.File {
 	return transform.ApplyTransformationToEveryApplicableStatement[*ast.Ident](input, func(node *ast.Ident, scope string) transform.Transformation {
-		resolvedValueNode := astext.ResolveIdentifierValueInExpression(node)
-		if resolvedValueNode == nil {
+		resolvedValueNode, changed := astext.ResolveIdentifierValueInExpression(node)
+		if !changed {
 			return transform.NewNoopTransformation()
 		}
 

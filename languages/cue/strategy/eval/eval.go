@@ -36,7 +36,7 @@ func BuildEvaluator(bytes []byte) func(expr ast.Expr) (cue.Value, error) {
 	scope := cue.Scope(ctx.CompileBytes(bytes))
 
 	return func(expr ast.Expr) (cue.Value, error) {
-		resolved := astext.ResolveIdentifierValueInExpression(expr)
+		resolved, _ := astext.ResolveIdentifierValueInExpression(expr)
 		formattedExpr, err := format.Node(resolved)
 		if err != nil {
 			return cue.Value{}, err

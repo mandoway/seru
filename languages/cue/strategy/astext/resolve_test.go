@@ -55,6 +55,10 @@ func TestResolveIdentifierInExpression_Field(t *testing.T) {
 			name:     "value of let",
 			expected: "2",
 		},
+		"o": {
+			name:     "unknown identifier",
+			expected: "2 + baz",
+		},
 	}
 
 	astutil.Apply(parsed, func(cursor astutil.Cursor) bool {
@@ -74,7 +78,7 @@ func TestResolveIdentifierInExpression_Field(t *testing.T) {
 		}
 
 		t.Run(instance.name, func(t *testing.T) {
-			actual := ResolveIdentifierValueInExpression(field.Value)
+			actual, _ := ResolveIdentifierValueInExpression(field.Value)
 			formatted, _ := format.Node(actual)
 			actualValue := string(formatted)
 
@@ -111,7 +115,7 @@ func TestResolveIdentifierInExpression_LetClause(t *testing.T) {
 		}
 
 		t.Run(instance.name, func(t *testing.T) {
-			actual := ResolveIdentifierValueInExpression(let.Expr)
+			actual, _ := ResolveIdentifierValueInExpression(let.Expr)
 			formatted, _ := format.Node(actual)
 			actualValue := string(formatted)
 
@@ -141,7 +145,7 @@ func TestResolveIdentifierInExpression_IfClause(t *testing.T) {
 		}
 
 		t.Run(instance.name, func(t *testing.T) {
-			actual := ResolveIdentifierValueInExpression(ifClause.Condition)
+			actual, _ := ResolveIdentifierValueInExpression(ifClause.Condition)
 			formatted, _ := format.Node(actual)
 			actualValue := string(formatted)
 
@@ -171,7 +175,7 @@ func TestResolveIdentifierInExpression_ForClause(t *testing.T) {
 		}
 
 		t.Run(instance.name, func(t *testing.T) {
-			actual := ResolveIdentifierValueInExpression(forClause.Source)
+			actual, _ := ResolveIdentifierValueInExpression(forClause.Source)
 			formatted, _ := format.Node(actual)
 			actualValue := string(formatted)
 
@@ -183,6 +187,7 @@ func TestResolveIdentifierInExpression_ForClause(t *testing.T) {
 		return true
 	}, nil)
 }
+
 func TestResolveIdentifierInExpression_Alias(t *testing.T) {
 	parsed, _ := language.Parser{}.Parse([]byte(getFile()))
 
@@ -200,7 +205,7 @@ func TestResolveIdentifierInExpression_Alias(t *testing.T) {
 		}
 
 		t.Run(instance.name, func(t *testing.T) {
-			actual := ResolveIdentifierValueInExpression(alias.Expr)
+			actual, _ := ResolveIdentifierValueInExpression(alias.Expr)
 			formatted, _ := format.Node(actual)
 			actualValue := string(formatted)
 
@@ -237,6 +242,7 @@ func getFile() string {
 			m: foo
 		}
 		X="n\(foo)": X
+		o: foo + baz // 2 + baz
 	}
 	`
 }
