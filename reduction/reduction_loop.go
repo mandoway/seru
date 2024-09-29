@@ -7,6 +7,7 @@ import (
 	"github.com/mandoway/seru/reduction/logging"
 	"github.com/mandoway/seru/reduction/metrics"
 	"github.com/mandoway/seru/util/collection"
+	"log"
 	"os"
 	"path"
 )
@@ -19,6 +20,7 @@ func RunMainReductionLoop(ctx *context.RunContext) error {
 
 	candidates := []*candidate.CandidateWithSize{ctx.BestResult()}
 	for !ctx.ExhaustedSemanticStrategies() {
+		sizeBeforeIteration := ctx.Sizes().BestSizeInTokens
 
 		err := reduceSyntacticallyAndSaveResultIfBetter(ctx, candidates)
 		if err != nil {
@@ -28,6 +30,13 @@ func RunMainReductionLoop(ctx *context.RunContext) error {
 		candidates, err = getCandidatesFromSemanticReduction(ctx)
 		if err != nil {
 			return err
+		}
+
+		sizeAfterIteration := ctx.Sizes().BestSizeInTokens
+		if sizeBeforeIteration == sizeAfterIteration {
+			log.Println("Found fixpoint, stopping reduction")
+			persistance.DeleteAllCandidates(ctx)
+			break
 		}
 	}
 
@@ -142,8 +151,6 @@ func applyFirstSemanticStrategy(ctx *context.RunContext, currentBytes []byte) ([
 	return validCandidates, nil
 }
 
-// TODO check termination criteria
-// combine results of each strategy
 func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byte) ([]*candidate.CandidateWithSize, error) {
 	logging.LogSemantic("Trying strategies and combine results")
 	var bestCandidate *candidate.CandidateWithSize
