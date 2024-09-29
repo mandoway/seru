@@ -6,32 +6,32 @@ import (
 	"github.com/mandoway/seru/util/collection"
 )
 
-// ResolveIdentifierInExpression NOT COMPLETE
+// ResolveIdentifierValueInExpression NOT COMPLETE
 // Check source code for supported expressions
-func ResolveIdentifierInExpression(expr ast.Expr) ast.Expr {
+func ResolveIdentifierValueInExpression(expr ast.Node) ast.Node {
 	switch typedExpr := expr.(type) {
 	case *ast.Ident:
 		resolved := resolveIdentValue(typedExpr)
 		if resolved == nil {
-			return expr
+			return nil
 		}
 		return resolved.(ast.Expr)
 	case *ast.Interpolation:
 		return NewInterpolation(resolveExpressions(typedExpr.Elts))
 	case *ast.BinaryExpr:
-		return ast.NewBinExpr(typedExpr.Op, ResolveIdentifierInExpression(typedExpr.X), ResolveIdentifierInExpression(typedExpr.Y))
+		return ast.NewBinExpr(typedExpr.Op, ResolveIdentifierValueInExpression(typedExpr.X).(ast.Expr), ResolveIdentifierValueInExpression(typedExpr.Y).(ast.Expr))
 	case *ast.UnaryExpr:
-		return CopyUnaryExpression(typedExpr, ResolveIdentifierInExpression(typedExpr.X))
+		return CopyUnaryExpression(typedExpr, ResolveIdentifierValueInExpression(typedExpr.X).(ast.Expr))
 	case *ast.CallExpr:
 		return ast.NewCall(typedExpr.Fun, resolveExpressions(typedExpr.Args)...)
 	case *ast.IndexExpr:
-		return CopyIndexExpression(typedExpr, ResolveIdentifierInExpression(typedExpr.Index))
+		return CopyIndexExpression(typedExpr, ResolveIdentifierValueInExpression(typedExpr.Index).(ast.Expr))
 	case *ast.SliceExpr:
-		return CopySliceExpression(typedExpr, ResolveIdentifierInExpression(typedExpr.Low), ResolveIdentifierInExpression(typedExpr.High))
+		return CopySliceExpression(typedExpr, ResolveIdentifierValueInExpression(typedExpr.Low).(ast.Expr), ResolveIdentifierValueInExpression(typedExpr.High).(ast.Expr))
 	case *ast.ListLit:
 		return ast.NewList(resolveExpressions(typedExpr.Elts)...)
 	case *ast.ParenExpr:
-		return CopyParenExpression(typedExpr, ResolveIdentifierInExpression(typedExpr.X))
+		return CopyParenExpression(typedExpr, ResolveIdentifierValueInExpression(typedExpr.X).(ast.Expr))
 	default:
 		return expr
 	}
@@ -48,7 +48,7 @@ func resolveIdentValue(node *ast.Ident) ast.Node {
 		return resolveIdentValue(expr)
 	case *ast.LetClause:
 		ast.SetRelPos(expr.Expr, token.NoRelPos)
-		return expr.Expr
+		return ResolveIdentifierValueInExpression(expr.Expr)
 	default:
 		ast.SetRelPos(expr, token.NoRelPos)
 		return expr

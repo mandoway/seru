@@ -126,3 +126,17 @@ func TestConstantPropagation(t *testing.T) {
 
 	test.TestReduction(t, instances, ConstantPropagationReduction{})
 }
+
+func TestConstantPropagationRealWorld(t *testing.T) {
+	instance := test.ReductionInstance{
+		Title: "3 variants",
+		Given: "#B:\n{}\n{}\n{\n{\n{\nfor s in []{\nL\n}\n}\n}\n{\nNS : string\nv:{\n{\n\"\\(NS)/b\":\nL\n}\n}\n}\n}\nlet L=\n#B\n",
+		Expected: []string{
+			"#B: {}\n{}\n{\n{\n{\nfor s in [] {\n{}\n}\n}\n}\n{\nNS: string\nv: {\n{\n\"\\(NS)/b\":\nL\n}\n}\n}\n}\nlet L = #B",
+			"#B: {}\n{}\n{\n{\n{\nfor s in [] {\nL\n}\n}\n}\n{\nNS: string\nv: {\n{\n\"\\(NS)/b\": {}\n}\n}\n}\n}\nlet L = #B",
+			"#B: {}\n{}\n{\n{\n{\nfor s in [] {\nL\n}\n}\n}\n{\nNS: string\nv: {\n{\n\"\\(NS)/b\":\nL\n}\n}\n}\n}\nlet L = {}",
+		},
+	}
+
+	test.TestReduction(t, []test.ReductionInstance{instance}, ConstantPropagationReduction{})
+}

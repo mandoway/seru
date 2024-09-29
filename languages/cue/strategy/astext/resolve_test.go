@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestResolveIdentifierInExpression(t *testing.T) {
+func TestResolveIdentifierInExpression_Field(t *testing.T) {
 	parsed, _ := language.Parser{}.Parse([]byte(getFile()))
 
 	instancesByName := map[string]struct {
@@ -51,6 +51,10 @@ func TestResolveIdentifierInExpression(t *testing.T) {
 			name:     "paren expr",
 			expected: "(2)",
 		},
+		"k": {
+			name:     "value of let",
+			expected: "2",
+		},
 	}
 
 	astutil.Apply(parsed, func(cursor astutil.Cursor) bool {
@@ -70,7 +74,133 @@ func TestResolveIdentifierInExpression(t *testing.T) {
 		}
 
 		t.Run(instance.name, func(t *testing.T) {
-			actual := ResolveIdentifierInExpression(field.Value)
+			actual := ResolveIdentifierValueInExpression(field.Value)
+			formatted, _ := format.Node(actual)
+			actualValue := string(formatted)
+
+			if actualValue != instance.expected {
+				t.Errorf("Wrong value, got %s, want %s", actualValue, instance.expected)
+			}
+		})
+
+		return true
+	}, nil)
+}
+
+func TestResolveIdentifierInExpression_LetClause(t *testing.T) {
+	parsed, _ := language.Parser{}.Parse([]byte(getFile()))
+
+	instancesByName := map[string]struct {
+		name     string
+		expected string
+	}{
+		"j": {
+			name:     "let clause",
+			expected: "2",
+		},
+	}
+	astutil.Apply(parsed, func(cursor astutil.Cursor) bool {
+		let, ok := cursor.Node().(*ast.LetClause)
+		if !ok {
+			return true
+		}
+
+		instance, ok := instancesByName[let.Ident.Name]
+		if !ok {
+			return true
+		}
+
+		t.Run(instance.name, func(t *testing.T) {
+			actual := ResolveIdentifierValueInExpression(let.Expr)
+			formatted, _ := format.Node(actual)
+			actualValue := string(formatted)
+
+			if actualValue != instance.expected {
+				t.Errorf("Wrong value, got %s, want %s", actualValue, instance.expected)
+			}
+		})
+
+		return true
+	}, nil)
+}
+
+func TestResolveIdentifierInExpression_IfClause(t *testing.T) {
+	parsed, _ := language.Parser{}.Parse([]byte(getFile()))
+
+	instance := struct {
+		name     string
+		expected string
+	}{
+		name:     "if clause",
+		expected: "2 < 2",
+	}
+	astutil.Apply(parsed, func(cursor astutil.Cursor) bool {
+		ifClause, ok := cursor.Node().(*ast.IfClause)
+		if !ok {
+			return true
+		}
+
+		t.Run(instance.name, func(t *testing.T) {
+			actual := ResolveIdentifierValueInExpression(ifClause.Condition)
+			formatted, _ := format.Node(actual)
+			actualValue := string(formatted)
+
+			if actualValue != instance.expected {
+				t.Errorf("Wrong value, got %s, want %s", actualValue, instance.expected)
+			}
+		})
+
+		return true
+	}, nil)
+}
+
+func TestResolveIdentifierInExpression_ForClause(t *testing.T) {
+	parsed, _ := language.Parser{}.Parse([]byte(getFile()))
+
+	instance := struct {
+		name     string
+		expected string
+	}{
+		name:     "for clause",
+		expected: "[1, 2]",
+	}
+	astutil.Apply(parsed, func(cursor astutil.Cursor) bool {
+		forClause, ok := cursor.Node().(*ast.ForClause)
+		if !ok {
+			return true
+		}
+
+		t.Run(instance.name, func(t *testing.T) {
+			actual := ResolveIdentifierValueInExpression(forClause.Source)
+			formatted, _ := format.Node(actual)
+			actualValue := string(formatted)
+
+			if actualValue != instance.expected {
+				t.Errorf("Wrong value, got %s, want %s", actualValue, instance.expected)
+			}
+		})
+
+		return true
+	}, nil)
+}
+func TestResolveIdentifierInExpression_Alias(t *testing.T) {
+	parsed, _ := language.Parser{}.Parse([]byte(getFile()))
+
+	instance := struct {
+		name     string
+		expected string
+	}{
+		name:     "alias clause",
+		expected: `"n\(2)"`,
+	}
+	astutil.Apply(parsed, func(cursor astutil.Cursor) bool {
+		alias, ok := cursor.Node().(*ast.Alias)
+		if !ok {
+			return true
+		}
+
+		t.Run(instance.name, func(t *testing.T) {
+			actual := ResolveIdentifierValueInExpression(alias.Expr)
 			formatted, _ := format.Node(actual)
 			actualValue := string(formatted)
 
@@ -98,6 +228,15 @@ func getFile() string {
 		g: arr[1:foo+1] // arr[1:2+1]
 		h: [1, foo] // [1, 2]
 		i: (foo) // (2)
+		let j = foo
+		k: j
+		if foo < 2 {
+			l: foo
+		}
+		for a in [1, foo] {
+			m: foo
+		}
+		X="n\(foo)": X
 	}
 	`
 }

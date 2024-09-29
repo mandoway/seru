@@ -143,6 +143,7 @@ func applyFirstSemanticStrategy(ctx *context.RunContext, currentBytes []byte) ([
 }
 
 // TODO check termination criteria
+// combine results of each strategy
 func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byte) ([]*candidate.CandidateWithSize, error) {
 	logging.LogSemantic("Trying strategies and combine results")
 	var bestCandidate *candidate.CandidateWithSize
