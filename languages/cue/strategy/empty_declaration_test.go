@@ -181,6 +181,7 @@ func TestRealWorldExampleEmptyDeclarationReduction(t *testing.T) {
 			Expected: []string{
 				"#B:\n{}\n{}\n{\n{\n{\nfor s in [] {\nL\n}\n}\n}\n{\nNS: string\nv: {\n{\n\"\\(string)/b\":\nL\n}\n}\n}\n}\nlet L =\n#B\n",
 				"#B:\n{}\n{}\n{\n{\n{\nfor s in [] {\nL\n}\n}\n}\n{\nNS: string\nv: {\n{\n\"\\(string)/b\":\nL\n}\n}\n}\n}\nlet L =\n#B\n",
+				"#B:\n{}\n{}\n{}\n{\n{\n{\nfor s in [] {}\n}\n}\n{\nNS: string\nv: {\n{\n\"\\(string)/b\":\nL\n}\n}\n}\n}\nlet L =\n#B\n",
 			},
 		},
 	}
