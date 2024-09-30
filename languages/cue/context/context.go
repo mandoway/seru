@@ -9,7 +9,7 @@ import (
 
 var Strategies = []semantic.Strategy[ast.File]{
 	strategy.LetReduction{},
-	strategy.NullReduction{},
+	strategy.EmptyDeclarationReduction{},
 	strategy.PackageReduction{},
 	strategy.RedundantNestingReduction{},
 	strategy.ListReduction{},

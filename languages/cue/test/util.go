@@ -26,7 +26,10 @@ func TestReduction(t *testing.T, instances []ReductionInstance, reductionStrateg
 				return string(it), nil
 			})
 
-			assert.Len(t2, serializedStrings, len(instance.Expected))
+			lenEqual := assert.Len(t2, serializedStrings, len(instance.Expected))
+			if !lenEqual {
+				return
+			}
 
 			for i, expected := range instance.Expected {
 				assert.Equal(t2, trimAllWhitespace(expected), trimAllWhitespace(serializedStrings[i]))

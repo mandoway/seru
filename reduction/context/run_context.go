@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/mandoway/seru/files"
 	"github.com/mandoway/seru/reduction/candidate"
+	"github.com/mandoway/seru/reduction/logging"
 	"github.com/mandoway/seru/reduction/metrics"
 	"github.com/mandoway/seru/reduction/plugin"
 	"github.com/mandoway/seru/reduction/syntactic"
@@ -126,12 +127,13 @@ func (ctx *RunContext) TestFilename() string {
 }
 
 func (ctx *RunContext) UpdateCurrent(candidatePath string, candidateSize int) error {
-	log.Println("Store new best with size", candidateSize)
+	logging.Default.Println("Store new best with size", candidateSize)
 	err := files.Copy(candidatePath, ctx.BestResult().InputPath)
 	if err != nil {
 		return err
 	}
 	ctx.sizes.BestSizeInTokens = candidateSize
+	ctx.bestResult.Size = candidateSize
 	ctx.currentVersion++
 
 	err = ctx.saveCurrent()

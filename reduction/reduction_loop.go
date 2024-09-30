@@ -31,15 +31,14 @@ func RunMainReductionLoop(ctx *context.RunContext) error {
 			return err
 		}
 
-		afterIteration := ctx.GetHash()
-		if beforeIteration == afterIteration {
+		if len(candidates) == 0 && beforeIteration == ctx.GetHash() {
 			logging.Default.Println("Found fixpoint, stopping reduction")
-			persistance.DeleteAllCandidates(ctx)
+			persistance.DeleteAllStrategyCandidates(ctx)
 			break
 		}
 	}
 
-	logging.LogEndReduction(ctx.Sizes(), ctx.BestResult())
+	logging.LogEndReduction(ctx.Sizes().StartSizeInTokens, ctx.BestResult())
 
 	return nil
 }
@@ -78,17 +77,13 @@ func reduceSyntacticallyAndSaveResultIfBetter(ctx *context.RunContext, reduction
 	bestCandidate := candidate.MinCandidate(candidates)
 	logging.Syntactic.Println("Best candidate size:", bestCandidate.Size)
 
-	if bestCandidate.Size < ctx.Sizes().BestSizeInTokens {
-		err := ctx.UpdateCurrent(bestCandidate.InputPath, bestCandidate.Size)
-		if err != nil {
-			return err
-		}
-	} else {
-		logging.Syntactic.Println("No smaller candidate, increasing semantic strategy")
-		ctx.IncrementSemanticStrategy()
+	err := ctx.UpdateCurrent(bestCandidate.InputPath, bestCandidate.Size)
+	if err != nil {
+		return err
 	}
 
-	persistance.DeleteAllCandidates(ctx)
+	persistance.DeleteAllStrategyCandidates(ctx)
+	persistance.DeleteBestSemanticCandidate(ctx)
 
 	return nil
 }
@@ -183,11 +178,11 @@ func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byt
 		if len(validCandidates) > 0 {
 			logging.Semantic.Println("Setting minimum as new intermediate best")
 			minCandidate := candidate.MinCandidateP(validCandidates)
-			bestCandidate, err = persistance.CopyCandidate(minCandidate, ctx.ReductionDir(), "best_semantic")
+			bestCandidate, err = persistance.CopyToBestSemantic(minCandidate, ctx.ReductionDir())
 			if err != nil {
 				return nil, err
 			}
-			persistance.DeleteAllCandidates(ctx)
+			persistance.DeleteAllStrategyCandidates(ctx)
 		} else {
 			currentStrategy++
 		}

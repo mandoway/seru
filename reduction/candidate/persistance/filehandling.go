@@ -13,7 +13,10 @@ import (
 	"path/filepath"
 )
 
-var candidateDirectoryPrefix = "strategy"
+var (
+	candidateDirectoryPrefix = "strategy"
+	bestSemanticDirectory    = "best_semantic"
+)
 
 func CheckAndKeepValidCandidates(candidates [][]byte, ctx *context.RunContext, currentStrategy int) []*candidate.CandidateWithSize {
 	var validCandidates []*candidate.CandidateWithSize
@@ -39,7 +42,7 @@ func CheckAndKeepValidCandidates(candidates [][]byte, ctx *context.RunContext, c
 	return validCandidates
 }
 
-func DeleteAllCandidates(ctx *context.RunContext) {
+func DeleteAllStrategyCandidates(ctx *context.RunContext) {
 	reductionDir := ctx.ReductionDir()
 	matches, _ := filepath.Glob(reductionDir + "/" + candidateDirectoryPrefix + "*")
 	if len(matches) > 0 {
@@ -53,8 +56,18 @@ func DeleteAllCandidates(ctx *context.RunContext) {
 	_ = os.RemoveAll(syntacticReducerLeftoverDir)
 }
 
-func CopyCandidate(from *candidate.CandidateWithSize, baseDir, toDir string) (*candidate.CandidateWithSize, error) {
-	newDir := path.Join(baseDir, toDir)
+func DeleteBestSemanticCandidate(ctx *context.RunContext) {
+	reductionDir := ctx.ReductionDir()
+	matches, _ := filepath.Glob(path.Join(reductionDir, bestSemanticDirectory+"*"))
+	if len(matches) > 0 {
+		for _, match := range matches {
+			_ = os.RemoveAll(match)
+		}
+	}
+}
+
+func CopyToBestSemantic(from *candidate.CandidateWithSize, baseDir string) (*candidate.CandidateWithSize, error) {
+	newDir := path.Join(baseDir, bestSemanticDirectory)
 	newInputPath := path.Join(newDir, path.Base(from.InputPath))
 	newTestPath := path.Join(newDir, path.Base(from.TestPath))
 
