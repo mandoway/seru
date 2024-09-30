@@ -1,6 +1,7 @@
 package context
 
 import (
+	"crypto/md5"
 	"errors"
 	"fmt"
 	"github.com/mandoway/seru/files"
@@ -32,8 +33,10 @@ type RunContext struct {
 	forceExhaustedSemanticStrategies bool
 
 	bestResult *candidate.CandidateWithSize
+	hashOfBest [16]byte
 
-	countTokens plugin.TokenCountFunction
+	countTokens     plugin.TokenCountFunction
+	getStrategyName plugin.StrategyNameFunction
 
 	syntacticReducer syntactic.Functions
 
@@ -58,6 +61,10 @@ func (ctx *RunContext) IncrementSemanticStrategy() {
 
 func (ctx *RunContext) SemanticStrategiesTotal() int {
 	return ctx.semanticStrategiesTotal
+}
+
+func (ctx *RunContext) GetStrategyName(index int) string {
+	return ctx.getStrategyName(index)
 }
 
 func (ctx *RunContext) SemanticApplicationMethod() SemanticApplicationMethod {
@@ -154,7 +161,22 @@ func (ctx *RunContext) saveCurrent() error {
 		return err
 	}
 
+	err = ctx.updateHash()
+	return err
+}
+
+func (ctx *RunContext) updateHash() error {
+	file, err := os.ReadFile(ctx.bestResult.InputPath)
+	if err != nil {
+		return err
+	}
+	ctx.hashOfBest = md5.Sum(file)
+
 	return nil
+}
+
+func (ctx *RunContext) GetHash() [16]byte {
+	return ctx.hashOfBest
 }
 
 func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algoContext AlgorithmContext) (*RunContext, error) {
@@ -222,6 +244,7 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algoCont
 		syntacticReducer: syntacticFunctions,
 		semanticReducer:  pluginFunctions.SemanticReduce,
 		countTokens:      pluginFunctions.CountTokens,
+		getStrategyName:  pluginFunctions.GetStrategyName,
 	}
 
 	err = ctx.saveCurrent()

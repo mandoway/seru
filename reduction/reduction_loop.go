@@ -17,8 +17,9 @@ func RunMainReductionLoop(ctx *context.RunContext) error {
 	// TODO wrap errors
 
 	candidates := []*candidate.CandidateWithSize{ctx.BestResult()}
+
 	for !ctx.ExhaustedSemanticStrategies() {
-		sizeBeforeIteration := ctx.Sizes().BestSizeInTokens
+		beforeIteration := ctx.GetHash()
 
 		err := reduceSyntacticallyAndSaveResultIfBetter(ctx, candidates)
 		if err != nil {
@@ -30,8 +31,8 @@ func RunMainReductionLoop(ctx *context.RunContext) error {
 			return err
 		}
 
-		sizeAfterIteration := ctx.Sizes().BestSizeInTokens
-		if sizeBeforeIteration == sizeAfterIteration {
+		afterIteration := ctx.GetHash()
+		if beforeIteration == afterIteration {
 			logging.Default.Println("Found fixpoint, stopping reduction")
 			persistance.DeleteAllCandidates(ctx)
 			break
@@ -151,13 +152,18 @@ func applyFirstSemanticStrategy(ctx *context.RunContext, currentBytes []byte) ([
 
 func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byte) ([]*candidate.CandidateWithSize, error) {
 	logging.Semantic.Println("Trying strategies and combine results")
-	var bestCandidate *candidate.CandidateWithSize
-	currentStrategy := 0
+	var (
+		bestCandidate   *candidate.CandidateWithSize
+		currentStrategy = 0
+	)
 
 	for currentStrategy < ctx.SemanticStrategiesTotal() {
-		logging.Semantic.Println("Trying strategy", currentStrategy+1, "of", ctx.SemanticStrategiesTotal())
-		var bytesToReduce []byte
-		var err error
+		logging.Semantic.Printf("Trying strategy %s (%d/%d)", ctx.GetStrategyName(currentStrategy), currentStrategy+1, ctx.SemanticStrategiesTotal())
+		var (
+			bytesToReduce []byte
+			err           error
+		)
+
 		if bestCandidate == nil {
 			bytesToReduce = currentBytes
 		} else {
@@ -170,18 +176,21 @@ func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byt
 		if err != nil {
 			return nil, err
 		}
-		logging.Semantic.Println("Found candidates:", len(candidates))
 
 		validCandidates := persistance.CheckAndKeepValidCandidates(candidates, ctx, currentStrategy)
+		logging.Semantic.Printf("found candidates: %d - valid: %d", len(candidates), len(validCandidates))
 
 		if len(validCandidates) > 0 {
-			logging.Semantic.Println("Valid candidates:", len(validCandidates))
 			logging.Semantic.Println("Setting minimum as new intermediate best")
-			bestCandidate = candidate.MinCandidateP(validCandidates)
+			minCandidate := candidate.MinCandidateP(validCandidates)
+			bestCandidate, err = persistance.CopyCandidate(minCandidate, ctx.ReductionDir(), "best_semantic")
+			if err != nil {
+				return nil, err
+			}
+			persistance.DeleteAllCandidates(ctx)
 		} else {
-			logging.Semantic.Println("No valid candidates left after check, try next strategy")
+			currentStrategy++
 		}
-		currentStrategy++
 	}
 
 	if bestCandidate == nil {

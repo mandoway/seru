@@ -39,11 +39,6 @@ func CheckAndKeepValidCandidates(candidates [][]byte, ctx *context.RunContext, c
 	return validCandidates
 }
 
-func deleteCandidate(candidateFiles *candidate.Candidate) {
-	dir := path.Dir(candidateFiles.InputPath)
-	_ = os.RemoveAll(dir)
-}
-
 func DeleteAllCandidates(ctx *context.RunContext) {
 	reductionDir := ctx.ReductionDir()
 	matches, _ := filepath.Glob(reductionDir + "/" + candidateDirectoryPrefix + "*")
@@ -56,6 +51,31 @@ func DeleteAllCandidates(ctx *context.RunContext) {
 	outputFileRelativeToReductionDir := ctx.SyntacticReducer().GetOutputFilename(ctx.InputFilename())
 	syntacticReducerLeftoverDir := path.Join(ctx.ReductionDir(), path.Dir(outputFileRelativeToReductionDir))
 	_ = os.RemoveAll(syntacticReducerLeftoverDir)
+}
+
+func CopyCandidate(from *candidate.CandidateWithSize, baseDir, toDir string) (*candidate.CandidateWithSize, error) {
+	newDir := path.Join(baseDir, toDir)
+	newInputPath := path.Join(newDir, path.Base(from.InputPath))
+	newTestPath := path.Join(newDir, path.Base(from.TestPath))
+
+	if _, err := os.Stat(newDir); os.IsNotExist(err) {
+		_ = os.Mkdir(newDir, 0755)
+	}
+	err := files.Copy(from.InputPath, newInputPath)
+	if err != nil {
+		return nil, err
+	}
+	err = files.Copy(from.TestPath, newTestPath)
+	if err != nil {
+		return nil, err
+	}
+
+	return candidate.NewCandidate(newInputPath, newTestPath).WithSize(from.Size), nil
+}
+
+func deleteCandidate(candidateFiles *candidate.Candidate) {
+	dir := path.Dir(candidateFiles.InputPath)
+	_ = os.RemoveAll(dir)
 }
 
 func writeCandidate(ctx *context.RunContext, i int, currentCandidate []byte, currentStrategy int) (*candidate.Candidate, error) {

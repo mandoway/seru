@@ -2,8 +2,6 @@ package semantic
 
 import (
 	"errors"
-	"fmt"
-	"github.com/mandoway/seru/reduction/logging"
 	"github.com/mandoway/seru/util/collection"
 )
 
@@ -13,7 +11,6 @@ func Reduce[AST any](fileContent []byte, strategyIndex int, ctx Context[AST]) ([
 	}
 
 	strategy := ctx.Strategies[strategyIndex]
-	logging.Semantic.Println(fmt.Sprintf("Trying %T", strategy))
 
 	candidateAsts := strategy.Apply(fileContent)
 	candidates := collection.MapSlice(candidateAsts, ctx.Serializer.Serialize)
