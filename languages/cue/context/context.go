@@ -19,6 +19,7 @@ var Strategies = []semantic.Strategy[ast.File]{
 	strategy.ConstantPropagationReduction{},
 	strategy.StringInterpolationReduction{},
 	strategy.LoopUnrollingReduction{},
+	strategy.UnificationReduction{},
 }
 
 var Context = semantic.Context[ast.File]{
