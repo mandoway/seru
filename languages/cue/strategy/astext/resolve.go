@@ -7,8 +7,7 @@ import (
 )
 
 // ResolveIdentifierValueInExpression replaces all identifiers with their respective values
-// Returns node with all identifiers replaced
-// or nil if one identifier could not be resolved
+// Returns node with all identifiers replaced, if possible and whether a (sub-) expression was changed
 func ResolveIdentifierValueInExpression(expr ast.Node) (ast.Node, bool) {
 	switch typedExpr := expr.(type) {
 	case *ast.Ident:
