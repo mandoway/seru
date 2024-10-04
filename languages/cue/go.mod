@@ -1,6 +1,6 @@
 module github.com/mandoway/seru/languages/cue
 
-go 1.23
+go 1.23.2
 
 replace github.com/mandoway/seru => ../../.
 

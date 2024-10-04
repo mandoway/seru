@@ -1,9 +1,10 @@
-package perses
+package main
 
 import (
 	"github.com/mandoway/seru/reduction"
 	"github.com/mandoway/seru/reduction/context"
 	"os"
+	"path"
 	"path/filepath"
 	"testing"
 )
@@ -14,7 +15,8 @@ func TestReduction(t *testing.T) {
 	}
 
 	aCtx := context.NewAlgorithmContext(false)
-	ctx, err := context.NewRunContext("cue", "issue2246_v1/in.cue", "issue2246_v1/test.sh", *aCtx)
+	dir := path.Join("test", "instances", "error", "issue_2246", "v1")
+	ctx, err := context.NewRunContext("cue", path.Join(dir, "in.cue"), path.Join(dir, "test.sh"), *aCtx)
 	if err != nil {
 		t.Fatal(err)
 	}
