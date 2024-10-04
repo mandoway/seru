@@ -27,4 +27,4 @@ jobs:
           registry: ghcr.io
           image: goreleaser/goreleaser-cross:v1.23.2
           options: -v ${{ github.workspace }}:/go/src/seru -e CGO_ENABLED=1 -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -w /go/src/seru
-          run: /entrypoint.sh release --clean
+          run: sudo apt-get -y install gcc-aarch64-linux-gnu && /entrypoint.sh release --clean
