@@ -81,7 +81,7 @@ jobs:
       - name: Download archives
         uses: actions/download-artifact@v4
         with:
-          path: dist/*
+          merge-multiple: true
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
