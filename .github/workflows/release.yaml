@@ -19,6 +19,12 @@ jobs:
         with:
           fetch-depth: 0
 
+
+      - name: Workaround Git Security Warning
+        run: |
+          # Workaround a bug in github actions:
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"    
+
       - uses: addnab/docker-run-action@v3
         name: Run GoReleaser in Docker
         with:
@@ -27,4 +33,4 @@ jobs:
           registry: ghcr.io
           image: goreleaser/goreleaser-cross:v1.23.2
           options: -v ${{ github.workspace }}:/go/src/seru -e CGO_ENABLED=1 -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -w /go/src/seru
-          run: pwd && ls -lah && goreleaser release --clean
+          run: goreleaser release --clean
