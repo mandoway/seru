@@ -26,5 +26,5 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           registry: ghcr.io
           image: goreleaser/goreleaser-cross:v1.23.2
-          options: -e CGO_ENABLED=1 -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          options: -v ${{ github.workspace }}:/go/src/seru -e CGO_ENABLED=1 -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -w /go/src/seru
           run: pwd && ls -lah && goreleaser release --clean
