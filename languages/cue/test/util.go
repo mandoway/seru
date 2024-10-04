@@ -2,9 +2,9 @@ package test
 
 import (
 	"cuelang.org/go/cue/ast"
-	"github.com/mandoway/seru/collection"
 	"github.com/mandoway/seru/languages/cue/language"
 	"github.com/mandoway/seru/reduction/semantic"
+	"github.com/mandoway/seru/util/collection"
 	"github.com/stretchr/testify/assert"
 	"regexp"
 	"strings"
@@ -12,15 +12,12 @@ import (
 )
 
 func TestReduction(t *testing.T, instances []ReductionInstance, reductionStrategy semantic.Strategy[ast.File]) {
-	parser := language.Parser{}
 	serializer := language.Serializer{}
 
 	for _, instance := range instances {
-		t.Run(instance.Title, func(t *testing.T) {
+		t.Run(instance.Title, func(t2 *testing.T) {
 
-			parsedContent, _ := parser.Parse([]byte(instance.Given))
-
-			candidates := reductionStrategy.Apply(parsedContent)
+			candidates := reductionStrategy.Apply([]byte(instance.Given))
 
 			serialized := collection.MapSlice(candidates, func(it *ast.File) ([]byte, error) {
 				return serializer.Serialize(it)
@@ -29,10 +26,13 @@ func TestReduction(t *testing.T, instances []ReductionInstance, reductionStrateg
 				return string(it), nil
 			})
 
-			assert.Len(t, serializedStrings, len(instance.Expected))
+			lenEqual := assert.Len(t2, serializedStrings, len(instance.Expected))
+			if !lenEqual {
+				return
+			}
 
 			for i, expected := range instance.Expected {
-				assert.Equal(t, trimAllWhitespace(expected), trimAllWhitespace(serializedStrings[i]))
+				assert.Equal(t2, trimAllWhitespace(expected), trimAllWhitespace(serializedStrings[i]))
 			}
 		})
 	}

@@ -20,6 +20,7 @@ func EnsureFileExists(filepath string) error {
 		return err
 	}
 
+	log.Println("Did not find language plugin (", filepath, ") locally")
 	filename := path.Base(filepath)
 	downloadPath, err := url.JoinPath(versionedDownloadUrl, filename)
 	if err != nil {

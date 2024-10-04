@@ -9,6 +9,18 @@ import (
 
 var Strategies = []semantic.Strategy[ast.File]{
 	strategy.LetReduction{},
+	strategy.EmptyDeclarationReduction{},
+	strategy.PackageReduction{},
+	strategy.RedundantNestingReduction{},
+	strategy.ListReduction{},
+	strategy.TrivialIfReduction{},
+	strategy.IfReduction{},
+	strategy.EllipsisReduction{},
+	strategy.ConstantPropagationReduction{},
+	strategy.StringInterpolationReduction{},
+	strategy.LoopUnrollingReduction{},
+	strategy.UnificationReduction{},
+	strategy.UnionReduction{},
 }
 
 var Context = semantic.Context[ast.File]{

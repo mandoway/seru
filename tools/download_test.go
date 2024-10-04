@@ -10,8 +10,8 @@ func TestDownloadFromGithub(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping test in short mode.")
 	}
-	url := "https://github.com/microsoft/TypeScript/releases/download/v5.5.4/typescript-5.5.4.tgz"
-	file := "ts"
+	url := "https://github.com/mandoway/seru/releases/download/v0.0.1-alpha/cue.jar"
+	file := "cue.jar"
 	err := downloadFile(file, url)
 	if err != nil {
 		t.Error(err)

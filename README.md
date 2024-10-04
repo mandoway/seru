@@ -28,14 +28,21 @@ SeRu currently supports:
    ```
 3. Make sure you have Java installed (for Perses)
 4. Run SeRu using Go or standalone
-   1. `go run -ldflags="-X github.com/mandoway/seru/version.Version=v0.0.1-alpha" .`
-   2. `go build -ldflags="-X github.com/mandoway/seru/version.Version=v0.0.1-alpha" && ./seru`
+   1. `go run .`
+   2. `go build && ./seru`
    3. Command line options:
       1. `-i <input>` _Required_  
       Target file to reduce
       2. `-t <test>` _Required_  
       Test script checking if the reduced file still kept the required property  
       A test script **must return 0** when the property was kept and 1 (or any code) if the property was lost
+      3. `-l <language>`  
+      Programming language of the input file. Will be inferred from the file extension if omitted.
+      4. `-s`  
+      Use strategy isolation.  
+      This mode will apply only one semantic strategy and try to reduce all returned candidates using the syntactic reducer.  
+      Default mode: strategy combination  
+      In strategy combination, all strategies are applied and combined to one "best candidate". Then this one candidate will be reduced by the syntactic reducer.
 
 # Future plans
 

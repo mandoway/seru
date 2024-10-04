@@ -3,7 +3,7 @@ package syntactic
 import (
 	"fmt"
 	"github.com/mandoway/seru/files"
-	"github.com/mandoway/seru/reduction/domain"
+	"github.com/mandoway/seru/reduction/candidate"
 	"github.com/mandoway/seru/tools"
 	"os/exec"
 	"strings"
@@ -19,7 +19,7 @@ var PersesReducerFunctions = Functions{
 	Init: initialisePerses,
 }
 
-func buildPersesReductionCommand(candidate domain.Candidate, language string) *exec.Cmd {
+func buildPersesReductionCommand(candidate candidate.Candidate, language string) *exec.Cmd {
 	args := []string{
 		"-jar", persesJar,
 		"-i", candidate.InputPath,

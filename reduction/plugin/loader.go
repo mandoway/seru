@@ -34,10 +34,16 @@ func LoadSemanticReductionPlugin(language string) (*Functions, error) {
 		return nil, err
 	}
 
+	strategyNameFunc, err := lookupFunction[StrategyNameFunction](openPlugin, pluginName, GetStrategyNameFunction)
+	if err != nil {
+		return nil, err
+	}
+
 	return &Functions{
 		SemanticReduce:   *mainFunc,
 		CountTokens:      *countFunc,
 		GetStrategyCount: *strategyCountFunc,
+		GetStrategyName:  *strategyNameFunc,
 	}, nil
 }
 

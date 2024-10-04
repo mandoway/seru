@@ -2,7 +2,7 @@ package semantic
 
 import (
 	"errors"
-	"github.com/mandoway/seru/collection"
+	"github.com/mandoway/seru/util/collection"
 )
 
 func Reduce[AST any](fileContent []byte, strategyIndex int, ctx Context[AST]) ([][]byte, error) {
@@ -10,14 +10,9 @@ func Reduce[AST any](fileContent []byte, strategyIndex int, ctx Context[AST]) ([
 		return [][]byte{}, errors.New("strategy index out of range")
 	}
 
-	parsedAst, err := ctx.Parser.Parse(fileContent)
-	if err != nil {
-		return [][]byte{}, err
-	}
-
 	strategy := ctx.Strategies[strategyIndex]
 
-	candidateAsts := strategy.Apply(parsedAst)
+	candidateAsts := strategy.Apply(fileContent)
 	candidates := collection.MapSlice(candidateAsts, ctx.Serializer.Serialize)
 
 	return candidates, nil

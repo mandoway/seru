@@ -1,7 +1,7 @@
 package syntactic
 
 import (
-	"github.com/mandoway/seru/reduction/domain"
+	"github.com/mandoway/seru/reduction/candidate"
 	"os/exec"
 )
 
@@ -11,7 +11,7 @@ type Functions struct {
 	Init                  InitSyntacticReducer
 }
 
-type BuildReductionCommandType func(candidate domain.Candidate, language string) *exec.Cmd
+type BuildReductionCommandType func(candidate candidate.Candidate, language string) *exec.Cmd
 
 type GetOutputFilename func(inputFilePath string) string
 
