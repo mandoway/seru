@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [tests]
     container:
-      image: ghcr.io/goreleaser/goreleaser-cross:1.23.2
+      image: ghcr.io/goreleaser/goreleaser-cross:v1.23.2
       env:
         CGO_ENABLED: 1
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
