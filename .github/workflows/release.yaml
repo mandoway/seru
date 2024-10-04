@@ -24,6 +24,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: ls
+        run: ls -lah
+
+      - name: ls
+        working-directory: /__w/seru/seru
+        run: ls -lah
+
       - name: Run GoReleaser in Docker
         working-directory: /__w/seru/seru
         run: goreleaser release --clean
