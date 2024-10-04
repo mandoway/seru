@@ -17,7 +17,7 @@ jobs:
     env:
       GO_VERSION: 1.23.2
     container:
-      image: ghcr.io/goreleaser/goreleaser-cross:${{ GO_VERSION }}
+      image: ghcr.io/goreleaser/goreleaser-cross:${{ env.GO_VERSION }}
       env:
         CGO_ENABLED: 1
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
