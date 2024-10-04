@@ -16,7 +16,7 @@ jobs:
     needs: [tests]
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GOLANG_CROSS_VERSION: 1.23.2
+      GOLANG_CROSS_VERSION: v1.23.2
       PACKAGE_NAME: github.com/mandoway/seru
     steps:
       - uses: actions/checkout@v4
