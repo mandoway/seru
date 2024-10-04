@@ -15,17 +15,12 @@ before:
 
 builds:
   - env:
-      - CGO_ENABLED=1
+      - CGO_ENABLED=0
     goos:
       - linux
-      - windows
-      - darwin
     goarch:
       - amd64
       - arm64
-    ignore:
-      - goos: linux
-        goarch: arm64
     hooks:
       pre: go generate ./...
 
@@ -49,10 +44,7 @@ archives:
       - "*.so"
 
 release:
-  prerelease: auto
-  extra_files:
-    - glob: cue.jar
-    - glob: perses_deploy.jar
+  disable: true
 
 changelog:
   sort: asc

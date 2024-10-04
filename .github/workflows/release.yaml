@@ -11,7 +11,8 @@ permissions:
 jobs:
   tests:
     uses: ./.github/workflows/test.yaml
-  release:
+
+  release-linux:
     runs-on: ubuntu-latest
     needs: [ tests ]
     steps:
@@ -19,12 +20,48 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: addnab/docker-run-action@v3
-        name: Run GoReleaser in Docker
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v6
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          registry: ghcr.io
-          image: goreleaser/goreleaser-cross:v1.23.2
-          options: -v ${{ github.workspace }}:/go/src/seru -e CGO_ENABLED=1 -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -w /go/src/seru
-          run: /entrypoint.sh release --clean
+          distribution: goreleaser
+          version: "~> v2"
+          args: release --config .goreleaser-linux.yaml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release-darwin:
+      runs-on: macos-latest
+      needs: [ tests ]
+      steps:
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+
+        - name: Run GoReleaser
+          uses: goreleaser/goreleaser-action@v6
+          with:
+            distribution: goreleaser
+            version: "~> v2"
+            args: release --config .goreleaser-darwin.yaml
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    runs-on: ubuntu-latest
+    needs:
+      - release-darwin
+      - release-linux
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          distribution: goreleaser
+          version: "~> v2"
+          args: release --config .goreleaser-publish.yaml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
