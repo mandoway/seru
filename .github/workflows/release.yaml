@@ -22,7 +22,9 @@ jobs:
       - uses: addnab/docker-run-action@v3
         name: Run GoReleaser in Docker
         with:
-          registry: ghcr.io/goreleaser
-          image: goreleaser-cross:v1.23.2
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: ghcr.io
+          image: goreleaser/goreleaser-cross:v1.23.2
           options: -v ${{ github.workspace }}:/work -e CGO_ENABLED=1 -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
           run: release --clean
