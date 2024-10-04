@@ -88,7 +88,7 @@ jobs:
         with:
           distribution: goreleaser
           version: "~> v2"
-          args: release --config .goreleaser-publish.yaml
+          args: release --config .goreleaser-publish.yaml --skip validate --release-notes CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
