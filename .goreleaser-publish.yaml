@@ -9,6 +9,9 @@
 project_name: seru
 version: 2
 
+builds:
+  - skip: true
+
 release:
   prerelease: auto
   extra_files:
