@@ -10,6 +10,7 @@ SeRu is designed to support any semantic reduction command and any language.
 SeRu currently supports:
 - Syntactic reducers
   - Perses
+  - Vulcan
 - Semantic reducers for languages
   - CUE
 

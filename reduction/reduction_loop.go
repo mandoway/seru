@@ -9,16 +9,16 @@ import (
 	"github.com/mandoway/seru/util/collection"
 	"os"
 	"path"
+	"time"
 )
 
 func RunMainReductionLoop(ctx *context.RunContext) error {
 	logging.LogStartReduction(ctx.ReductionDir(), ctx.Sizes().StartSizeInTokens)
 
-	// TODO wrap errors
-
 	candidates := []*candidate.CandidateWithSize{ctx.BestResult()}
 
 	for !ctx.ExhaustedSemanticStrategies() {
+		ctx.Metrics.Current().BeforeSize = ctx.Sizes().BestSizeInTokens
 		beforeIteration := ctx.GetHash()
 
 		err := reduceSyntacticallyAndSaveResultIfBetter(ctx, candidates)
@@ -31,19 +31,31 @@ func RunMainReductionLoop(ctx *context.RunContext) error {
 			return err
 		}
 
+		ctx.Metrics.Current().AfterSize = ctx.Sizes().BestSizeInTokens
+
 		if len(candidates) == 0 && beforeIteration == ctx.GetHash() {
 			logging.Default.Println("Found fixpoint, stopping reduction")
 			persistance.DeleteAllStrategyCandidates(ctx)
 			break
 		}
+
+		ctx.Metrics.AddIteration()
 	}
 
 	logging.LogEndReduction(ctx.Sizes().StartSizeInTokens, ctx.BestResult())
+	err := metrics.StoreMetrics(ctx.ReductionDir(), ctx.Metrics)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
 
 func reduceSyntacticallyAndSaveResultIfBetter(ctx *context.RunContext, reductionCandidates []*candidate.CandidateWithSize) error {
+	defer ctx.Metrics.Current().TrackSyntactic(time.Now())
+	defer persistance.DeleteAllStrategyCandidates(ctx)
+	defer persistance.DeleteBestSemanticCandidate(ctx)
+
 	logging.Syntactic.Println("Start reduction of", len(reductionCandidates), "candidates")
 
 	var candidates []candidate.CandidateWithSize
@@ -82,13 +94,11 @@ func reduceSyntacticallyAndSaveResultIfBetter(ctx *context.RunContext, reduction
 		return err
 	}
 
-	persistance.DeleteAllStrategyCandidates(ctx)
-	persistance.DeleteBestSemanticCandidate(ctx)
-
 	return nil
 }
 
 func getCandidatesFromSemanticReduction(ctx *context.RunContext) ([]*candidate.CandidateWithSize, error) {
+	defer ctx.Metrics.Current().TrackSemantic(time.Now())
 	if ctx.ExhaustedSemanticStrategies() {
 		logging.Semantic.Println("Exhausted all semantic strategies, aborting")
 		return nil, nil
@@ -135,6 +145,8 @@ func applyFirstSemanticStrategy(ctx *context.RunContext, currentBytes []byte) ([
 
 		validCandidates = persistance.CheckAndKeepValidCandidates(candidates, ctx, ctx.CurrentSemanticStrategy())
 
+		ctx.Metrics.Current().Counts.AddCandidatesByStrategy(ctx.CurrentSemanticStrategy(), len(candidates), len(validCandidates))
+
 		if len(validCandidates) > 0 {
 			logging.Semantic.Println("Valid candidates:", len(validCandidates))
 		} else {
@@ -173,7 +185,9 @@ func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byt
 		}
 
 		validCandidates := persistance.CheckAndKeepValidCandidates(candidates, ctx, currentStrategy)
+
 		logging.Semantic.Printf("found candidates: %d - valid: %d", len(candidates), len(validCandidates))
+		ctx.Metrics.Current().Counts.AddCandidatesByStrategy(currentStrategy, len(candidates), len(validCandidates))
 
 		if len(validCandidates) > 0 {
 			logging.Semantic.Println("Setting minimum as new intermediate best")

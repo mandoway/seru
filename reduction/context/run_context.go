@@ -20,7 +20,6 @@ import (
 const RunContextFolderPrefix = "seru_reduction_"
 
 // RunContext holds all data necessary for reduction
-// TODO add metrics like test script count
 type RunContext struct {
 	currentVersion int
 
@@ -40,6 +39,8 @@ type RunContext struct {
 	getStrategyName plugin.StrategyNameFunction
 
 	semanticReducer plugin.SemanticReductionFunction
+
+	Metrics *metrics.Iterations
 }
 
 func (ctx *RunContext) BestResult() *candidate.CandidateWithSize {
@@ -242,6 +243,8 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algorith
 		semanticReducer: pluginFunctions.SemanticReduce,
 		countTokens:     pluginFunctions.CountTokens,
 		getStrategyName: pluginFunctions.GetStrategyName,
+
+		Metrics: metrics.NewIterations(),
 	}
 
 	err = ctx.saveCurrent()
@@ -269,10 +272,6 @@ func takeLanguageOrDefaultToFileExt(language, file string) string {
 type SizeContext struct {
 	StartSizeInTokens int
 	BestSizeInTokens  int
-}
-
-func (s SizeContext) AsPercent() string {
-	return fmt.Sprintf("%.2f%%", float32(s.BestSizeInTokens)/float32(s.StartSizeInTokens)*100)
 }
 
 type RunContextErr struct {
