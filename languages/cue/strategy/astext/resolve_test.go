@@ -218,6 +218,53 @@ func TestResolveIdentifierInExpression_Alias(t *testing.T) {
 	}, nil)
 }
 
+func TestResolveRecursion(t *testing.T) {
+	instances := []struct {
+		name  string
+		input string
+	}{
+		{
+			name: "field recursion",
+			input: `
+			foo: "\(foo)": 3
+			`,
+		},
+		{
+			name: "ping pong recursion",
+			input: `
+			foo: bar
+			bar: {
+				a: 3
+				b: foo
+			}
+			`,
+		},
+	}
+
+	for _, instance := range instances {
+		t.Run(instance.name, func(t *testing.T) {
+			parsed, _ := language.Parser{}.Parse([]byte(instance.input))
+
+			astutil.Apply(parsed, func(cursor astutil.Cursor) bool {
+				ident, ok := cursor.Node().(*ast.Ident)
+				if !ok {
+					return true
+				}
+
+				expr, changed := ResolveIdentifierValueInExpression(ident)
+
+				if changed {
+					node, _ := format.Node(expr)
+					t.Errorf("Should not change: %s", node)
+					return false
+				}
+
+				return true
+			}, nil)
+		})
+	}
+}
+
 func getFile() string {
 	return `
 	foo: 1

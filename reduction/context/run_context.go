@@ -30,7 +30,7 @@ type RunContext struct {
 	currentSemanticStrategy int
 	semanticStrategiesTotal int
 
-	algorithmContext                 AlgorithmContext
+	algorithmConfig                  AlgorithmConfig
 	forceExhaustedSemanticStrategies bool
 
 	bestResult *candidate.CandidateWithSize
@@ -38,8 +38,6 @@ type RunContext struct {
 
 	countTokens     plugin.TokenCountFunction
 	getStrategyName plugin.StrategyNameFunction
-
-	syntacticReducer syntactic.Functions
 
 	semanticReducer plugin.SemanticReductionFunction
 }
@@ -69,25 +67,25 @@ func (ctx *RunContext) GetStrategyName(index int) string {
 }
 
 func (ctx *RunContext) SemanticApplicationMethod() SemanticApplicationMethod {
-	return ctx.algorithmContext.applicationMethod
+	return ctx.algorithmConfig.applicationMethod
 }
 
 func (ctx *RunContext) SetExhaustedSemanticStrategies() {
-	if ctx.algorithmContext.applicationMethod == ApplyFirstOnly {
+	if ctx.algorithmConfig.applicationMethod == ApplyFirstOnly {
 		panic("Forcing strategy exhaustion is only supported with combined strategies")
 	}
 	ctx.forceExhaustedSemanticStrategies = true
 }
 
 func (ctx *RunContext) ExhaustedSemanticStrategies() bool {
-	switch ctx.algorithmContext.applicationMethod {
+	switch ctx.algorithmConfig.applicationMethod {
 	case ApplyFirstOnly:
 		return ctx.currentSemanticStrategy >= ctx.semanticStrategiesTotal
 	case ApplyAllCombined:
 		return ctx.forceExhaustedSemanticStrategies
 	}
 
-	panic(fmt.Sprintf("unknown algorithm method: %s", ctx.algorithmContext.applicationMethod))
+	panic(fmt.Sprintf("unknown algorithm method: %s", ctx.algorithmConfig.applicationMethod))
 }
 
 func (ctx *RunContext) CountTokens(bytes []byte) int {
@@ -95,7 +93,7 @@ func (ctx *RunContext) CountTokens(bytes []byte) int {
 }
 
 func (ctx *RunContext) SyntacticReducer() syntactic.Functions {
-	return ctx.syntacticReducer
+	return ctx.algorithmConfig.syntacticReducer
 }
 
 func (ctx *RunContext) SemanticReduce(bytes []byte) ([][]byte, error) {
@@ -181,7 +179,7 @@ func (ctx *RunContext) GetHash() [16]byte {
 	return ctx.hashOfBest
 }
 
-func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algoContext AlgorithmContext) (*RunContext, error) {
+func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algorithmConfig AlgorithmConfig) (*RunContext, error) {
 	// Copy input files
 	reductionDir := fmt.Sprintf("%s%s", RunContextFolderPrefix, time.Now().Format(time.RFC3339))
 	err := os.Mkdir(reductionDir, 0750)
@@ -211,10 +209,8 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algoCont
 
 	semanticStrategiesSize := pluginFunctions.GetStrategyCount()
 
-	// TODO determine syntactic reducer from config
 	// Syntactic reducer config
-	syntacticFunctions := syntactic.PersesReducerFunctions
-	err = syntacticFunctions.Init(language)
+	err = algorithmConfig.syntacticReducer.Init(language)
 	if err != nil {
 		return nil, NewRunContextErr(err)
 	}
@@ -239,14 +235,13 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algoCont
 		semanticStrategiesTotal: semanticStrategiesSize,
 		currentSemanticStrategy: 0,
 
-		algorithmContext: algoContext,
+		algorithmConfig: algorithmConfig,
 
 		bestResult: bestCandidate,
 
-		syntacticReducer: syntacticFunctions,
-		semanticReducer:  pluginFunctions.SemanticReduce,
-		countTokens:      pluginFunctions.CountTokens,
-		getStrategyName:  pluginFunctions.GetStrategyName,
+		semanticReducer: pluginFunctions.SemanticReduce,
+		countTokens:     pluginFunctions.CountTokens,
+		getStrategyName: pluginFunctions.GetStrategyName,
 	}
 
 	err = ctx.saveCurrent()

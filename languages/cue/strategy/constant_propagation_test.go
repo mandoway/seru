@@ -67,7 +67,7 @@ func TestConstantPropagation(t *testing.T) {
 				baz: {
 					foo:  1
 					bazz: 1
-				}	
+				}
 				`,
 			},
 		},
@@ -200,6 +200,40 @@ func TestConstantPropagation(t *testing.T) {
 				`,
 			},
 		},
+		{
+			Title: "recursive definition",
+			Given: `
+			foo: "\(foo)": 3
+			`,
+			Expected: nil,
+		},
+		{
+			Title: "ping pong recursion",
+			Given: `
+			foo: bar
+			bar: {
+				a: 3
+				b: foo
+			}
+			`,
+			Expected: []string{
+				`
+				foo: {
+					a: 3
+					b: foo
+				}
+				bar: {
+					a: 3
+					b: foo
+				}`,
+				`
+				foo: bar
+				bar: {
+					a: 3
+					b: bar
+				}`,
+			},
+		},
 	}
 
 	test.TestReduction(t, instances, ConstantPropagationReduction{})
@@ -211,9 +245,9 @@ func TestConstantPropagationRealWorld(t *testing.T) {
 			Title: "full file",
 			Given: "#B:\n{}\n{}\n{\n{\n{\nfor s in []{\nL\n}\n}\n}\n{\nNS : string\nv:{\n{\n\"\\(NS)/b\":\nL\n}\n}\n}\n}\nlet L=\n#B\n",
 			Expected: []string{
-				"#B: {}\n{}\n{\n{\n{\nfor s in [] {\n{}\n}\n}\n}\n{\nNS: string\nv: {\n{\n\"\\(NS)/b\":\nL\n}\n}\n}\n}\nlet L = #B",
+				"#B: {}\n{}\n{\n{\n{\nfor s in [] {\n{}\n}\n}\n}\n{\nNS: string\nv: {\n{\n\"\\(NS)/b\":\nL\n}\n}\n}\n}\nlet L =\n#B",
 				"#B:\n{}\n{}\n{\n{\n{\nfor s in [] {\nL\n}\n}\n}\n{\nNS: string\nv: {\n{\n\"\\(string)/b\":\nL\n}\n}\n}\n}\nlet L =\n#B",
-				"#B: {}\n{}\n{\n{\n{\nfor s in [] {\nL\n}\n}\n}\n{\nNS: string\nv: {\n{\n\"\\(NS)/b\": {}\n}\n}\n}\n}\nlet L = #B",
+				"#B: {}\n{}\n{\n{\n{\nfor s in [] {\nL\n}\n}\n}\n{\nNS: string\nv: {\n{\n\"\\(NS)/b\": {}\n}\n}\n}\n}\nlet L =\n#B",
 				"#B: {}\n{}\n{\n{\n{\nfor s in [] {\nL\n}\n}\n}\n{\nNS: string\nv: {\n{\n\"\\(NS)/b\":\nL\n}\n}\n}\n}\nlet L = {}",
 			},
 		},
@@ -224,6 +258,14 @@ func TestConstantPropagationRealWorld(t *testing.T) {
 				"_\n#C:\n#V\n#C\n#V: _",
 				"#V\n#C: _\n#C\n#V: _",
 				"#V\n#C:\n#V\n_\n#V: _",
+			},
+		},
+		{
+			Title: "recursive",
+			Given: "#B:\n{\n for s in [\"e\"] {\n  L\n }\n NS: \"\\(NS)/b\":\n  L\n}\nlet L =\n#B",
+			Expected: []string{
+				"#B:\n{\nfor s in [\"e\"] {\n#B\n}\nNS: \"\\(NS)/b\":\nL\n}\nlet L = #B",
+				"#B:\n{\nfor s in [\"e\"] {\nL\n}\nNS: \"\\(NS)/b\": #B\n}\nlet L = #B",
 			},
 		},
 	}

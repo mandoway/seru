@@ -8,11 +8,6 @@ import (
 	"os"
 )
 
-type Flags struct {
-	InputFile, TestScript, GivenLanguage string
-	UseStrategyIsolation                 bool
-}
-
 var flags Flags
 
 var rootCmd = &cobra.Command{
@@ -21,7 +16,7 @@ var rootCmd = &cobra.Command{
 	// TODO
 	Long: `TODO`,
 	Run: func(cmd *cobra.Command, args []string) {
-		err := reduction.StartReductionProcess(flags.InputFile, flags.TestScript, flags.GivenLanguage, flags.UseStrategyIsolation)
+		err := reduction.StartReductionProcess(flags.InputFile, flags.TestScript, flags.GivenLanguage, flags.UseStrategyIsolation, flags.GetReducer())
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -31,15 +26,17 @@ var rootCmd = &cobra.Command{
 
 func init() {
 	rootCmd.PersistentFlags().StringVarP(&flags.InputFile, "input", "i", "", "-i <path to file>")
+	_ = rootCmd.MarkPersistentFlagRequired("input")
+	_ = rootCmd.MarkPersistentFlagFilename("input")
 	rootCmd.PersistentFlags().StringVarP(&flags.TestScript, "test", "t", "", "-i <path to testscript>")
+	_ = rootCmd.MarkPersistentFlagRequired("test")
+	_ = rootCmd.MarkPersistentFlagFilename("test")
+
 	rootCmd.PersistentFlags().StringVarP(&flags.GivenLanguage, "lang", "l", "", "-l <language of file>")
+	rootCmd.PersistentFlags().StringVarP(&flags.SyntacticReducer, "reducer", "r", PersesReducer, "-r (perses|vulcan)")
+
 	rootCmd.PersistentFlags().BoolVarP(&flags.UseStrategyIsolation, "strategy-isolation", "s", false, "")
 
-	_ = rootCmd.MarkPersistentFlagRequired("input")
-	_ = rootCmd.MarkPersistentFlagRequired("test")
-
-	_ = rootCmd.MarkPersistentFlagFilename("input")
-	_ = rootCmd.MarkPersistentFlagFilename("test")
 }
 
 func Execute() {

@@ -11,7 +11,6 @@ import (
 func ReduceSyntactically(candidate candidate.Candidate, reducerConfig syntactic.Functions, language string) (string, error) {
 	// Todo add time measurement
 	// todo extract metrics from perses
-	// todo print stdout if configured
 
 	reductionCmd := reducerConfig.BuildReductionCommand(candidate, language)
 
