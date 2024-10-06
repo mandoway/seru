@@ -12,6 +12,7 @@ var VulcanReducerFunctions = Functions{
 		return files.AddFolderToFilePath(inputFilePath, "perses_result")
 	},
 	Init: initialisePerses,
+	name: "Vulcan",
 }
 
 func buildVulcanReductionCommand(candidate candidate.Candidate, language string) *exec.Cmd {

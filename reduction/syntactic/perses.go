@@ -17,6 +17,7 @@ var PersesReducerFunctions = Functions{
 		return files.AddFolderToFilePath(inputFilePath, "perses_result")
 	},
 	Init: initialisePerses,
+	name: "Perses",
 }
 
 func buildPersesReductionCommand(candidate candidate.Candidate, language string) *exec.Cmd {

@@ -13,13 +13,12 @@ const (
 )
 
 type AlgorithmConfig struct {
-	applicationMethod    SemanticApplicationMethod
-	syntacticReducer     syntactic.Functions
-	syntacticReducerName syntactic.Reducer
+	applicationMethod SemanticApplicationMethod
+	syntacticReducer  syntactic.Functions
 }
 
 func (a AlgorithmConfig) String() string {
-	return fmt.Sprintf("SemanticApplicationMethod: %s, SyntacticReducer: %s", a.applicationMethod, a.syntacticReducerName)
+	return fmt.Sprintf("SemanticApplicationMethod: %s, SyntacticReducer: %s", a.applicationMethod, a.syntacticReducer)
 }
 
 func NewAlgorithmConfig(useIsolation bool, reducer syntactic.Reducer) *AlgorithmConfig {

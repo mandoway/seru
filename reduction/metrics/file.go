@@ -7,6 +7,8 @@ import (
 )
 
 func StoreMetrics(dir string, iterations *Iterations) error {
+	// todo resolve strategy names
+	// todo add total
 	raw, err := json.Marshal(iterations)
 	if err != nil {
 		return err
