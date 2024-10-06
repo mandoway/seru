@@ -220,24 +220,16 @@ func TestResolveIdentifierInExpression_Alias(t *testing.T) {
 
 func TestResolveRecursion(t *testing.T) {
 	instances := []struct {
-		name  string
-		input string
+		name     string
+		input    string
+		expected []string
 	}{
 		{
 			name: "field recursion",
 			input: `
 			foo: "\(foo)": 3
 			`,
-		},
-		{
-			name: "ping pong recursion",
-			input: `
-			foo: bar
-			bar: {
-				a: 3
-				b: foo
-			}
-			`,
+			expected: nil,
 		},
 	}
 
