@@ -21,7 +21,7 @@ func TestReduction(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	err = reduction.RunMainReductionLoop(ctx)
+	err = reduction.RunMainReductionLoop(ctx, false)
 	if err != nil {
 		t.Fatal(err)
 	}

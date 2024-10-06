@@ -14,7 +14,7 @@ const (
 
 type Flags struct {
 	InputFile, TestScript, GivenLanguage string
-	UseStrategyIsolation                 bool
+	UseStrategyIsolation, EnableMetrics  bool
 	SyntacticReducer                     reductionType
 }
 

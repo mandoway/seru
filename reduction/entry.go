@@ -6,7 +6,7 @@ import (
 	"github.com/mandoway/seru/reduction/syntactic"
 )
 
-func StartReductionProcess(inputFile, testScript, givenLanguage string, isolation bool, reducer syntactic.Reducer) error {
+func StartReductionProcess(inputFile, testScript, givenLanguage string, isolation, enableMetrics bool, reducer syntactic.Reducer) error {
 	logging.Default.Println("SeRu - Syntactic & Semantic Reduction")
 	logging.Default.Println()
 	logging.Default.Printf("Creating new run context with (input=%s, test=%s, lang=%s)\n", inputFile, testScript, givenLanguage)
@@ -18,7 +18,7 @@ func StartReductionProcess(inputFile, testScript, givenLanguage string, isolatio
 		return err
 	}
 
-	err = RunMainReductionLoop(runCtx)
+	err = RunMainReductionLoop(runCtx, enableMetrics)
 	if err != nil {
 		return err
 	}

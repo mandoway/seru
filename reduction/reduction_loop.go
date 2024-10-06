@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-func RunMainReductionLoop(ctx *context.RunContext) error {
+func RunMainReductionLoop(ctx *context.RunContext, enableMetrics bool) error {
 	start := time.Now()
 	logging.LogStartReduction(ctx.ReductionDir(), ctx.Sizes().StartSizeInTokens)
 
@@ -44,9 +44,12 @@ func RunMainReductionLoop(ctx *context.RunContext) error {
 	}
 
 	logging.LogEndReduction(ctx.Sizes().StartSizeInTokens, ctx.BestResult())
-	err := metrics.StoreMetrics(ctx.ReductionDir(), ctx.Metrics, ctx.GetStrategyNames(), time.Since(start))
-	if err != nil {
-		return err
+
+	if enableMetrics {
+		err := metrics.StoreMetrics(ctx.ReductionDir(), ctx.Metrics, ctx.GetStrategyNames(), time.Since(start))
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
