@@ -28,6 +28,7 @@ type RunContext struct {
 	sizes                   SizeContext
 	currentSemanticStrategy int
 	semanticStrategiesTotal int
+	strategyNames           []string
 
 	algorithmConfig                  AlgorithmConfig
 	forceExhaustedSemanticStrategies bool
@@ -35,8 +36,7 @@ type RunContext struct {
 	bestResult *candidate.CandidateWithSize
 	hashOfBest [16]byte
 
-	countTokens     plugin.TokenCountFunction
-	getStrategyName plugin.StrategyNameFunction
+	countTokens plugin.TokenCountFunction
 
 	semanticReducer plugin.SemanticReductionFunction
 
@@ -64,7 +64,14 @@ func (ctx *RunContext) SemanticStrategiesTotal() int {
 }
 
 func (ctx *RunContext) GetStrategyName(index int) string {
-	return ctx.getStrategyName(index)
+	if index < 0 || index >= len(ctx.strategyNames) {
+		return ""
+	}
+	return ctx.strategyNames[index]
+}
+
+func (ctx *RunContext) GetStrategyNames() []string {
+	return ctx.strategyNames
 }
 
 func (ctx *RunContext) SemanticApplicationMethod() SemanticApplicationMethod {
@@ -209,6 +216,10 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algorith
 	}
 
 	semanticStrategiesSize := pluginFunctions.GetStrategyCount()
+	strategyNames := make([]string, semanticStrategiesSize)
+	for i := 0; i < semanticStrategiesSize; i++ {
+		strategyNames[i] = pluginFunctions.GetStrategyName(i)
+	}
 
 	// Syntactic reducer config
 	err = algorithmConfig.syntacticReducer.Init(language)
@@ -235,6 +246,7 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algorith
 		sizes:                   sizeContext,
 		semanticStrategiesTotal: semanticStrategiesSize,
 		currentSemanticStrategy: 0,
+		strategyNames:           strategyNames,
 
 		algorithmConfig: algorithmConfig,
 
@@ -242,7 +254,6 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algorith
 
 		semanticReducer: pluginFunctions.SemanticReduce,
 		countTokens:     pluginFunctions.CountTokens,
-		getStrategyName: pluginFunctions.GetStrategyName,
 
 		Metrics: metrics.NewIterations(),
 	}

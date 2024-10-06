@@ -1,27 +1,27 @@
 package metrics
 
 type Counts struct {
-	TestScriptExecutionsByStrategy map[int]int
-	TotalCandidatesByStrategy      map[int]int
-	ValidCandidatesByStrategy      map[int]int
+	TestScriptExecutionsByStrategy map[string]int
+	TotalCandidatesByStrategy      map[string]int
+	ValidCandidatesByStrategy      map[string]int
 }
 
 func NewCounts() *Counts {
 	return &Counts{
-		TestScriptExecutionsByStrategy: make(map[int]int),
-		TotalCandidatesByStrategy:      make(map[int]int),
-		ValidCandidatesByStrategy:      make(map[int]int),
+		TestScriptExecutionsByStrategy: make(map[string]int),
+		TotalCandidatesByStrategy:      make(map[string]int),
+		ValidCandidatesByStrategy:      make(map[string]int),
 	}
 }
 
-func (c *Counts) AddCandidatesByStrategy(strategyIndex, total, valid int) {
-	c.TotalCandidatesByStrategy[strategyIndex] = total
-	c.ValidCandidatesByStrategy[strategyIndex] = valid
+func (c *Counts) AddCandidatesByStrategy(strategy string, total, valid int) {
+	c.TotalCandidatesByStrategy[strategy] += total
+	c.ValidCandidatesByStrategy[strategy] += valid
 }
 
-func (c *Counts) IncrementTestScriptExecutionByStrategy(strategyIndex int) {
-	if _, found := c.TestScriptExecutionsByStrategy[strategyIndex]; !found {
-		c.TestScriptExecutionsByStrategy[strategyIndex] = 0
+func (c *Counts) IncrementTestScriptExecutionByStrategy(strategy string) {
+	if _, found := c.TestScriptExecutionsByStrategy[strategy]; !found {
+		c.TestScriptExecutionsByStrategy[strategy] = 0
 	}
-	c.TestScriptExecutionsByStrategy[strategyIndex]++
+	c.TestScriptExecutionsByStrategy[strategy]++
 }

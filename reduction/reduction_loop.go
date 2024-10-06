@@ -13,11 +13,13 @@ import (
 )
 
 func RunMainReductionLoop(ctx *context.RunContext) error {
+	start := time.Now()
 	logging.LogStartReduction(ctx.ReductionDir(), ctx.Sizes().StartSizeInTokens)
 
 	candidates := []*candidate.CandidateWithSize{ctx.BestResult()}
 
 	for !ctx.ExhaustedSemanticStrategies() {
+		ctx.Metrics.AddIteration()
 		ctx.Metrics.Current().BeforeSize = ctx.Sizes().BestSizeInTokens
 		beforeIteration := ctx.GetHash()
 
@@ -39,11 +41,10 @@ func RunMainReductionLoop(ctx *context.RunContext) error {
 			break
 		}
 
-		ctx.Metrics.AddIteration()
 	}
 
 	logging.LogEndReduction(ctx.Sizes().StartSizeInTokens, ctx.BestResult())
-	err := metrics.StoreMetrics(ctx.ReductionDir(), ctx.Metrics)
+	err := metrics.StoreMetrics(ctx.ReductionDir(), ctx.Metrics, ctx.GetStrategyNames(), time.Since(start))
 	if err != nil {
 		return err
 	}
@@ -145,7 +146,7 @@ func applyFirstSemanticStrategy(ctx *context.RunContext, currentBytes []byte) ([
 
 		validCandidates = persistance.CheckAndKeepValidCandidates(candidates, ctx, ctx.CurrentSemanticStrategy())
 
-		ctx.Metrics.Current().Counts.AddCandidatesByStrategy(ctx.CurrentSemanticStrategy(), len(candidates), len(validCandidates))
+		ctx.Metrics.Current().Counts.AddCandidatesByStrategy(ctx.GetStrategyName(ctx.CurrentSemanticStrategy()), len(candidates), len(validCandidates))
 
 		if len(validCandidates) > 0 {
 			logging.Semantic.Println("Valid candidates:", len(validCandidates))
@@ -187,7 +188,7 @@ func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byt
 		validCandidates := persistance.CheckAndKeepValidCandidates(candidates, ctx, currentStrategy)
 
 		logging.Semantic.Printf("found candidates: %d - valid: %d", len(candidates), len(validCandidates))
-		ctx.Metrics.Current().Counts.AddCandidatesByStrategy(currentStrategy, len(candidates), len(validCandidates))
+		ctx.Metrics.Current().Counts.AddCandidatesByStrategy(ctx.GetStrategyName(currentStrategy), len(candidates), len(validCandidates))
 
 		if len(validCandidates) > 0 {
 			logging.Semantic.Println("Setting minimum as new intermediate best")

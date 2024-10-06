@@ -28,7 +28,7 @@ func CheckAndKeepValidCandidates(candidates [][]byte, ctx *context.RunContext, c
 		}
 
 		ok, err := testCandidate(candidateFiles)
-		ctx.Metrics.Current().Counts.IncrementTestScriptExecutionByStrategy(currentStrategy)
+		ctx.Metrics.Current().Counts.IncrementTestScriptExecutionByStrategy(ctx.GetStrategyName(currentStrategy))
 		if err != nil {
 			logging.Default.Println("Error testing candidate", err)
 		}

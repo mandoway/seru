@@ -7,7 +7,7 @@ type Iterations struct {
 }
 
 func NewIterations() *Iterations {
-	return &Iterations{Items: []*Iteration{NewIteration()}}
+	return &Iterations{Items: []*Iteration{}}
 }
 
 func (i *Iterations) AddIteration() {
