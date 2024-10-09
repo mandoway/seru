@@ -41,6 +41,24 @@ func TestTrivialIfReduction(t *testing.T) {
 				`,
 			},
 		},
+		{
+			Title: "not on false",
+			Given: `
+			if false {
+				bar: 2
+			}
+			`,
+			Expected: nil,
+		},
+		{
+			Title: "not on true",
+			Given: `
+			if true {
+				bar: 2
+			}
+			`,
+			Expected: nil,
+		},
 	}
 
 	test.TestReduction(t, instances, TrivialIfReduction{})

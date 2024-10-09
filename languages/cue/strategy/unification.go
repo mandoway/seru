@@ -4,6 +4,7 @@ import (
 	"cuelang.org/go/cue"
 	"cuelang.org/go/cue/ast"
 	"cuelang.org/go/cue/token"
+	"errors"
 	"github.com/mandoway/seru/languages/cue/strategy/eval"
 	"github.com/mandoway/seru/languages/cue/strategy/transform"
 	"github.com/mandoway/seru/util/collection"
@@ -48,9 +49,14 @@ func evaluateAsStructLit(expr ast.Expr, evaluate func(expr ast.Expr) (cue.Value,
 		return nil, err
 	}
 
+	// todo type cast crashes if source is nil, check why
 	var decls []ast.Decl
 	for fields.Next() {
-		decls = append(decls, fields.Value().Source().(ast.Decl))
+		source, ok := fields.Value().Source().(ast.Decl)
+		if !ok {
+			return nil, errors.New("declaration was empty")
+		}
+		decls = append(decls, source)
 	}
 
 	return decls, err
