@@ -24,8 +24,10 @@ const RunContextFolderPrefix = "seru_reduction_"
 type RunContext struct {
 	currentVersion int
 
-	language                string
-	reductionDir            string
+	language     string
+	reductionDir string
+	inputDir     string
+
 	sizes                   SizeContext
 	currentSemanticStrategy int
 	semanticStrategiesTotal int
@@ -125,6 +127,10 @@ func (ctx *RunContext) ReductionDir() string {
 	return ctx.reductionDir
 }
 
+func (ctx *RunContext) InputDir() string {
+	return ctx.inputDir
+}
+
 func (ctx *RunContext) InputFilename() string {
 	return path.Base(ctx.BestResult().InputPath)
 }
@@ -199,6 +205,7 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algorith
 
 	inputFileInReductionDir := getPathInFolder(reductionDir, inputFilePath)
 	testScriptInReductionDir := getPathInFolder(reductionDir, testScriptPath)
+	inputDir := path.Dir(inputFilePath)
 
 	err = files.Copy(inputFilePath, inputFileInReductionDir)
 	if err != nil {
@@ -243,8 +250,10 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algorith
 	ctx := &RunContext{
 		currentVersion: 0,
 
-		language:                language,
-		reductionDir:            reductionDir,
+		language:     language,
+		reductionDir: reductionDir,
+		inputDir:     inputDir,
+
 		sizes:                   sizeContext,
 		semanticStrategiesTotal: semanticStrategiesSize,
 		currentSemanticStrategy: 0,

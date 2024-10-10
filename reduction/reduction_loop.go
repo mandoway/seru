@@ -46,7 +46,7 @@ func RunMainReductionLoop(ctx *context.RunContext, enableMetrics bool) error {
 	logging.LogEndReduction(ctx.Sizes().StartSizeInTokens, ctx.BestResult())
 
 	if enableMetrics {
-		err := metrics.StoreMetrics(ctx.ReductionDir(), ctx.Metrics, ctx.GetStrategyNames(), time.Since(start))
+		err := metrics.StoreMetrics(ctx.ReductionDir(), ctx.InputDir(), ctx.Metrics, ctx.GetStrategyNames(), time.Since(start))
 		if err != nil {
 			return err
 		}

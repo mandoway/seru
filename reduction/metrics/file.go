@@ -7,14 +7,14 @@ import (
 	"time"
 )
 
-func StoreMetrics(dir string, iterations *Iterations, strategyNames []string, totalDuration time.Duration) error {
-	aggregated := NewJsonFormat(iterations, totalDuration, strategyNames)
+func StoreMetrics(reductionDir, inputDir string, iterations *Iterations, strategyNames []string, totalDuration time.Duration) error {
+	aggregated := NewJsonFormat(iterations, totalDuration, strategyNames, inputDir)
 	raw, err := json.MarshalIndent(aggregated, "", "  ")
 	if err != nil {
 		return err
 	}
 
-	file := path.Join(dir, "metrics.json")
+	file := path.Join(reductionDir, "metrics.json")
 	err = os.WriteFile(file, raw, 0666)
 
 	return err
@@ -25,9 +25,10 @@ type JsonFormat struct {
 	Total           *Iteration
 	TotalTimeMillis int64
 	TotalIterations int
+	InputDir        string
 }
 
-func NewJsonFormat(iterations *Iterations, totalDuration time.Duration, strategyNames []string) *JsonFormat {
+func NewJsonFormat(iterations *Iterations, totalDuration time.Duration, strategyNames []string, inputDir string) *JsonFormat {
 	total := NewIteration()
 	total.BeforeSize = iterations.Items[0].BeforeSize
 	total.AfterSize = iterations.Current().AfterSize
@@ -47,5 +48,6 @@ func NewJsonFormat(iterations *Iterations, totalDuration time.Duration, strategy
 		Total:           total,
 		TotalTimeMillis: totalDuration.Milliseconds(),
 		TotalIterations: len(iterations.Items),
+		InputDir:        inputDir,
 	}
 }
