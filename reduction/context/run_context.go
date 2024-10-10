@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"errors"
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/mandoway/seru/files"
 	"github.com/mandoway/seru/reduction/candidate"
 	"github.com/mandoway/seru/reduction/logging"
@@ -189,7 +190,8 @@ func (ctx *RunContext) GetHash() [16]byte {
 
 func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algorithmConfig AlgorithmConfig) (*RunContext, error) {
 	// Copy input files
-	reductionDir := fmt.Sprintf("%s%s", RunContextFolderPrefix, time.Now().Format(time.RFC3339))
+	randId, _ := uuid.NewRandom()
+	reductionDir := fmt.Sprintf("%s%s_%s", RunContextFolderPrefix, time.Now().Format(time.RFC3339), randId)
 	err := os.Mkdir(reductionDir, 0750)
 	if err != nil {
 		return nil, NewRunContextErr(err)

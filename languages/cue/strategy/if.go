@@ -14,6 +14,10 @@ func (i IfReduction) Apply(input []byte) []*ast.File {
 	evaluateBooleanExpr := eval.BuildBooleanEvaluator(input)
 
 	evaluateAndSimplify := func(node *ast.IfClause, _ string) transform.Transformation {
+		if isBooleanLit(node) {
+			return transform.NewNoopTransformation()
+		}
+
 		evaluatedValue, err := evaluateBooleanExpr(node.Condition)
 		if err != nil {
 			return transform.NewNoopTransformation()

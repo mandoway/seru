@@ -49,7 +49,6 @@ func evaluateAsStructLit(expr ast.Expr, evaluate func(expr ast.Expr) (cue.Value,
 		return nil, err
 	}
 
-	// todo type cast crashes if source is nil, check why
 	var decls []ast.Decl
 	for fields.Next() {
 		source, ok := fields.Value().Source().(ast.Decl)
