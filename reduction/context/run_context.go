@@ -11,7 +11,6 @@ import (
 	"github.com/mandoway/seru/reduction/metrics"
 	"github.com/mandoway/seru/reduction/plugin"
 	"github.com/mandoway/seru/reduction/syntactic"
-	"log"
 	"os"
 	"path"
 	"strconv"
@@ -287,7 +286,7 @@ func takeLanguageOrDefaultToFileExt(language, file string) string {
 	}
 
 	fileEnding := path.Ext(file)[1:]
-	log.Printf("No language configured, using language from file '%s'\n", fileEnding)
+	logging.Default.Printf("No language configured, using language from file '%s'\n", fileEnding)
 	return fileEnding
 }
 
