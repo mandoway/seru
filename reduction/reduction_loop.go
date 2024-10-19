@@ -66,7 +66,9 @@ func reduceSyntacticallyAndSaveResultIfBetter(ctx *context.RunContext, reduction
 	for i, reductionCandidate := range reductionCandidates {
 		result, err := ReduceSyntactically(reductionCandidate.Candidate, ctx.SyntacticReducer(), ctx.Language())
 		if err != nil {
-			logging.Syntactic.Println("Reduction of candidate ", i, "resulted in error:", err.Error())
+			logging.Syntactic.Printf("Reduction of candidate %d resulted in error: %s", i, err.Error())
+			logging.Syntactic.Println("Using semantic candidate as best result")
+			candidates = append(candidates, *reductionCandidate)
 			continue
 		}
 
