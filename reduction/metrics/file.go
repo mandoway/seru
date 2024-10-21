@@ -7,8 +7,8 @@ import (
 	"time"
 )
 
-func StoreMetrics(reductionDir, inputDir string, iterations *Iterations, strategyNames []string, totalDuration time.Duration) error {
-	aggregated := NewJsonFormat(iterations, totalDuration, strategyNames, inputDir)
+func StoreMetrics(reductionDir, inputDir, startTime string, iterations *Iterations, strategyNames []string, totalDuration time.Duration) error {
+	aggregated := NewJsonFormat(iterations, totalDuration, strategyNames, inputDir, startTime)
 	raw, err := json.MarshalIndent(aggregated, "", "  ")
 	if err != nil {
 		return err
@@ -26,9 +26,10 @@ type JsonFormat struct {
 	TotalTimeMillis int64
 	TotalIterations int
 	InputDir        string
+	StartTime       string
 }
 
-func NewJsonFormat(iterations *Iterations, totalDuration time.Duration, strategyNames []string, inputDir string) *JsonFormat {
+func NewJsonFormat(iterations *Iterations, totalDuration time.Duration, strategyNames []string, inputDir, startTime string) *JsonFormat {
 	total := NewIteration()
 	total.BeforeSize = iterations.Items[0].BeforeSize
 	total.AfterSize = iterations.Current().AfterSize
@@ -49,5 +50,6 @@ func NewJsonFormat(iterations *Iterations, totalDuration time.Duration, strategy
 		TotalTimeMillis: totalDuration.Milliseconds(),
 		TotalIterations: len(iterations.Items),
 		InputDir:        inputDir,
+		StartTime:       startTime,
 	}
 }

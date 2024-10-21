@@ -23,9 +23,10 @@ const RunContextFolderPrefix = "seru_reduction_"
 type RunContext struct {
 	currentVersion int
 
-	language     string
-	reductionDir string
-	inputDir     string
+	language           string
+	reductionDir       string
+	inputDir           string
+	startTimeFormatted string
 
 	sizes                   SizeContext
 	currentSemanticStrategy int
@@ -130,6 +131,10 @@ func (ctx *RunContext) InputDir() string {
 	return ctx.inputDir
 }
 
+func (ctx *RunContext) StartTimeFormatted() string {
+	return ctx.startTimeFormatted
+}
+
 func (ctx *RunContext) InputFilename() string {
 	return path.Base(ctx.BestResult().InputPath)
 }
@@ -196,7 +201,8 @@ func (ctx *RunContext) GetHash() [16]byte {
 func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algorithmConfig AlgorithmConfig) (*RunContext, error) {
 	// Copy input files
 	randId, _ := uuid.NewRandom()
-	reductionDir := fmt.Sprintf("%s%s_%s", RunContextFolderPrefix, time.Now().Format(time.RFC3339), randId)
+	startTimeFormatted := time.Now().Format(time.RFC3339)
+	reductionDir := fmt.Sprintf("%s%s_%s", RunContextFolderPrefix, startTimeFormatted, randId)
 	err := os.Mkdir(reductionDir, 0750)
 	if err != nil {
 		return nil, NewRunContextErr(err)
@@ -249,9 +255,10 @@ func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algorith
 	ctx := &RunContext{
 		currentVersion: 0,
 
-		language:     language,
-		reductionDir: reductionDir,
-		inputDir:     inputDir,
+		language:           language,
+		reductionDir:       reductionDir,
+		inputDir:           inputDir,
+		startTimeFormatted: startTimeFormatted,
 
 		sizes:                   sizeContext,
 		semanticStrategiesTotal: semanticStrategiesSize,
