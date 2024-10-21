@@ -196,8 +196,8 @@ func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byt
 		ctx.Metrics.Current().Counts.AddCandidatesByStrategy(ctx.GetStrategyName(currentStrategy), len(candidates), len(validCandidates))
 
 		if len(validCandidates) > 0 {
-			logging.Semantic.Println("Setting minimum as new intermediate best")
 			minCandidate := candidate.MinCandidateP(validCandidates)
+			logging.Semantic.Printf("Setting minimum as new intermediate best - size %d", minCandidate.Size)
 			bestCandidate, err = persistance.CopyToBestSemantic(minCandidate, ctx.ReductionDir())
 			if err != nil {
 				return nil, err
