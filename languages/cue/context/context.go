@@ -21,6 +21,7 @@ var Strategies = []semantic.Strategy[ast.File]{
 	strategy.LoopUnrollingReduction{},
 	strategy.UnificationReduction{},
 	strategy.UnionReduction{},
+	strategy.ImportReduction{},
 }
 
 var Context = semantic.Context[ast.File]{

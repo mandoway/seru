@@ -71,3 +71,12 @@ func CopyParenExpression(expr *ast.ParenExpr, value ast.Expr) *ast.ParenExpr {
 		Rparen: expr.Rparen,
 	}
 }
+
+func CopyImportDeclWithSpecs(expr *ast.ImportDecl, specs []*ast.ImportSpec) *ast.ImportDecl {
+	return &ast.ImportDecl{
+		Import: expr.Import,
+		Lparen: expr.Lparen,
+		Specs:  specs,
+		Rparen: expr.Rparen,
+	}
+}
