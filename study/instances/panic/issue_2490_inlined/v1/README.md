@@ -1,0 +1,13 @@
+Steps to inline the original module (line numbers reference original `in_tool.cue` file):
+- Move code from `config/all.cue` to `in_tool.cue`
+- Delete `cue.mod` directory
+- Inline `config directory`
+  - Remove package import `"github.com/cue-examples/cue-terraform-github-config-experiment/config"`
+  - Remove selector `config` on line 21  
+    - `config.target.terraform.github.org`
+    - -> `target.terraform.github.org`
+- Replace file creation with cli print task
+  - Replace import `tool/file` with `tool/cli` on line 5
+  - Replace task `file.Create` with `cli.Print` on line 24
+  - Remove `filename` property on line 25
+  - Replace property name `contents` with `text` on line 26
