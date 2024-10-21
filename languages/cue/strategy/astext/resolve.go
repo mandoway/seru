@@ -67,27 +67,27 @@ func resolveIdentValue(node *ast.Ident, bannedIdentifiers *IdentifierSet) (ast.N
 		bannedIdentifiers.markFound(node.Name)
 		return node, false
 	}
+
 	resolvedValueNode := node.Node
 	if resolvedValueNode == nil {
 		return node, false
 	}
 	isRecursive := resolvedValueNode.Pos().Offset() <= node.Pos().Offset() && resolvedValueNode.End().Offset() >= node.End().Offset()
-	if isRecursive {
+	_, isImportSpec := resolvedValueNode.(*ast.ImportSpec)
+	if isRecursive || isImportSpec {
 		return node, false
 	}
 
-	expr := resolvedValueNode
-	if let, ok := expr.(*ast.LetClause); ok {
-		expr = let.Expr
-	}
-	value := expr
+	var returnValue ast.Node
 
 	bannedIdentifiers.put(node.Name)
 	switch expr := resolvedValueNode.(type) {
 	case *ast.Ident:
-		value, _ = resolveIdentValue(expr, bannedIdentifiers)
+		returnValue, _ = resolveIdentValue(expr, bannedIdentifiers)
 	case *ast.LetClause:
-		value, _ = resolveIdentifierValueInExpressionWithBanlist(expr.Expr, bannedIdentifiers)
+		returnValue, _ = resolveIdentifierValueInExpressionWithBanlist(expr.Expr, bannedIdentifiers)
+	default:
+		returnValue = expr
 	}
 
 	if bannedIdentifiers.wasFound(node.Name) {
@@ -96,8 +96,8 @@ func resolveIdentValue(node *ast.Ident, bannedIdentifiers *IdentifierSet) (ast.N
 	}
 	bannedIdentifiers.delete(node.Name)
 
-	ast.SetRelPos(value, token.NoRelPos)
-	return value, true
+	ast.SetRelPos(returnValue, token.NoRelPos)
+	return returnValue, true
 }
 
 func resolveExpressions(items []ast.Expr, bannedIdentifiers *IdentifierSet) ([]ast.Expr, bool) {

@@ -234,6 +234,15 @@ func TestConstantPropagation(t *testing.T) {
 				}`,
 			},
 		},
+		{
+			Title: "import as identifier ",
+			Given: `
+			import "strings"
+
+			foo: strings.MinRunes(4)
+			`,
+			Expected: nil,
+		},
 	}
 
 	test.TestReduction(t, instances, ConstantPropagationReduction{})
