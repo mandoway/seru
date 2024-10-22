@@ -1,0 +1,830 @@
+[SERU] 2024/10/22 12:35:11 SeRu - Syntactic & Semantic Reduction
+[SERU] 2024/10/22 12:35:11 
+[SERU] 2024/10/22 12:35:11 Creating new run context with (input=study/instances/panic/issue_2490_inlined/v1/in_tool.cue, test=study/instances/panic/issue_2490_inlined/v1/test.sh, lang=)
+[SERU] 2024/10/22 12:35:11 Running algorithm with config SemanticApplicationMethod: ApplyAllCombined, SyntacticReducer: Perses
+[SERU] 2024/10/22 12:35:11 No language configured, using language from file 'cue'
+[CUE] 2024/10/22 12:35:11 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:11 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:11 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:11 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:11 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:11 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:11 WARNING error during token count: illegal character %#U
+[CUE] 2024/10/22 12:35:11 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:11 WARNING 8 errors found during token count
+[SERU] 2024/10/22 12:35:11 Starting reduction loop
+[SERU] 2024/10/22 12:35:11 Results will be created in seru_reduction_2024-10-22T12:35:11+02:00_e29f23c9-836f-4165-80c1-44c011d516e5
+[SERU] 2024/10/22 12:35:11 Initial token size of program: 420
+[SYNTACTIC] 2024/10/22 12:35:11 Start reduction of 1 candidates
+[SYNTACTIC] 2024/10/22 12:35:11 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-10-22T12:35:11+02:00_e29f23c9-836f-4165-80c1-44c011d516e5/in_tool.cue -t seru_reduction_2024-10-22T12:35:11+02:00_e29f23c9-836f-4165-80c1-44c011d516e5/test.sh --call-formatter true --language-ext-jars cue.jar
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING 3 errors found during token count
+[SYNTACTIC] 2024/10/22 12:35:24 Reduced 1 candidates with sizes:  [184]
+[SYNTACTIC] 2024/10/22 12:35:24 Best candidate size: 184
+[SERU] 2024/10/22 12:35:24 Store new best with size 184
+[SEMANTIC] 2024/10/22 12:35:24 Start reduction
+[SEMANTIC] 2024/10/22 12:35:24 Trying strategies and combine results
+[SEMANTIC] 2024/10/22 12:35:24 Trying strategy LetReduction (1/14)
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:24 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING 3 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:25 found candidates: 5 - valid: 5
+[SEMANTIC] 2024/10/22 12:35:25 Setting minimum as new intermediate best - size 183
+[SEMANTIC] 2024/10/22 12:35:25 Trying strategy LetReduction (1/14)
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING 3 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:25 found candidates: 4 - valid: 4
+[SEMANTIC] 2024/10/22 12:35:25 Setting minimum as new intermediate best - size 182
+[SEMANTIC] 2024/10/22 12:35:25 Trying strategy LetReduction (1/14)
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:25 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING 3 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:26 found candidates: 3 - valid: 3
+[SEMANTIC] 2024/10/22 12:35:26 Setting minimum as new intermediate best - size 181
+[SEMANTIC] 2024/10/22 12:35:26 Trying strategy LetReduction (1/14)
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING 3 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:26 found candidates: 2 - valid: 2
+[SEMANTIC] 2024/10/22 12:35:26 Setting minimum as new intermediate best - size 180
+[SEMANTIC] 2024/10/22 12:35:26 Trying strategy LetReduction (1/14)
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING 3 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:26 found candidates: 1 - valid: 1
+[SEMANTIC] 2024/10/22 12:35:26 Setting minimum as new intermediate best - size 179
+[SEMANTIC] 2024/10/22 12:35:26 Trying strategy LetReduction (1/14)
+[SEMANTIC] 2024/10/22 12:35:26 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:26 Trying strategy EmptyDeclarationReduction (2/14)
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:26 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING 3 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:27 found candidates: 4 - valid: 4
+[SEMANTIC] 2024/10/22 12:35:27 Setting minimum as new intermediate best - size 178
+[SEMANTIC] 2024/10/22 12:35:27 Trying strategy EmptyDeclarationReduction (2/14)
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:27 WARNING 3 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:27 found candidates: 3 - valid: 3
+[SEMANTIC] 2024/10/22 12:35:27 Setting minimum as new intermediate best - size 177
+[SEMANTIC] 2024/10/22 12:35:27 Trying strategy EmptyDeclarationReduction (2/14)
+[CUE] 2024/10/22 12:35:28 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:28 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:28 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:28 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:28 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:28 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:28 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:28 WARNING 3 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:28 found candidates: 2 - valid: 2
+[SEMANTIC] 2024/10/22 12:35:28 Setting minimum as new intermediate best - size 176
+[SEMANTIC] 2024/10/22 12:35:28 Trying strategy EmptyDeclarationReduction (2/14)
+[CUE] 2024/10/22 12:35:28 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:28 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:28 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:28 WARNING 3 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:28 found candidates: 1 - valid: 1
+[SEMANTIC] 2024/10/22 12:35:28 Setting minimum as new intermediate best - size 175
+[SEMANTIC] 2024/10/22 12:35:28 Trying strategy EmptyDeclarationReduction (2/14)
+[SEMANTIC] 2024/10/22 12:35:28 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:28 Trying strategy PackageReduction (3/14)
+[SEMANTIC] 2024/10/22 12:35:28 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:28 Trying strategy RedundantNestingReduction (4/14)
+[SEMANTIC] 2024/10/22 12:35:28 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:28 Trying strategy ListReduction (5/14)
+[SEMANTIC] 2024/10/22 12:35:28 found candidates: 2 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:28 Trying strategy TrivialIfReduction (6/14)
+[SEMANTIC] 2024/10/22 12:35:28 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:28 Trying strategy IfReduction (7/14)
+[SEMANTIC] 2024/10/22 12:35:28 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:28 Trying strategy EllipsisReduction (8/14)
+[SEMANTIC] 2024/10/22 12:35:28 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:28 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:29 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING 3 errors found during token count
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING 3 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:30 found candidates: 11 - valid: 9
+[SEMANTIC] 2024/10/22 12:35:30 Setting minimum as new intermediate best - size 189
+[SEMANTIC] 2024/10/22 12:35:30 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:30 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:31 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING 4 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:32 found candidates: 12 - valid: 10
+[SEMANTIC] 2024/10/22 12:35:32 Setting minimum as new intermediate best - size 196
+[SEMANTIC] 2024/10/22 12:35:32 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:32 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:33 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING 4 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:34 found candidates: 11 - valid: 9
+[SEMANTIC] 2024/10/22 12:35:34 Setting minimum as new intermediate best - size 203
+[SEMANTIC] 2024/10/22 12:35:34 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:34 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:35 WARNING 4 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:35 found candidates: 11 - valid: 9
+[SEMANTIC] 2024/10/22 12:35:35 Setting minimum as new intermediate best - size 210
+[SEMANTIC] 2024/10/22 12:35:35 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:36 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING 4 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:37 found candidates: 11 - valid: 9
+[SEMANTIC] 2024/10/22 12:35:37 Setting minimum as new intermediate best - size 217
+[SEMANTIC] 2024/10/22 12:35:37 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:37 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:38 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING 4 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:39 found candidates: 11 - valid: 9
+[SEMANTIC] 2024/10/22 12:35:39 Setting minimum as new intermediate best - size 217
+[SEMANTIC] 2024/10/22 12:35:39 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:39 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:40 WARNING 4 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:40 found candidates: 10 - valid: 8
+[SEMANTIC] 2024/10/22 12:35:40 Setting minimum as new intermediate best - size 217
+[SEMANTIC] 2024/10/22 12:35:40 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:41 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING 4 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:42 found candidates: 9 - valid: 7
+[SEMANTIC] 2024/10/22 12:35:42 Setting minimum as new intermediate best - size 217
+[SEMANTIC] 2024/10/22 12:35:42 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:42 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING 4 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:43 found candidates: 8 - valid: 6
+[SEMANTIC] 2024/10/22 12:35:43 Setting minimum as new intermediate best - size 217
+[SEMANTIC] 2024/10/22 12:35:43 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:43 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING 4 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:44 found candidates: 7 - valid: 5
+[SEMANTIC] 2024/10/22 12:35:44 Setting minimum as new intermediate best - size 217
+[SEMANTIC] 2024/10/22 12:35:44 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:44 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING 4 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:45 found candidates: 6 - valid: 4
+[SEMANTIC] 2024/10/22 12:35:45 Setting minimum as new intermediate best - size 217
+[SEMANTIC] 2024/10/22 12:35:45 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:45 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:46 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:46 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:46 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:46 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:46 WARNING 4 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:46 found candidates: 5 - valid: 3
+[SEMANTIC] 2024/10/22 12:35:46 Setting minimum as new intermediate best - size 217
+[SEMANTIC] 2024/10/22 12:35:46 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:46 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:46 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:46 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:46 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:46 WARNING 4 errors found during token count
+[CUE] 2024/10/22 12:35:46 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:46 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:46 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:46 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:46 WARNING 4 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:46 found candidates: 4 - valid: 2
+[SEMANTIC] 2024/10/22 12:35:46 Setting minimum as new intermediate best - size 217
+[SEMANTIC] 2024/10/22 12:35:46 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/22 12:35:47 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:47 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:47 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:47 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:47 WARNING 4 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:47 found candidates: 3 - valid: 1
+[SEMANTIC] 2024/10/22 12:35:47 Setting minimum as new intermediate best - size 217
+[SEMANTIC] 2024/10/22 12:35:47 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/10/22 12:35:47 found candidates: 2 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:47 Trying strategy StringInterpolationReduction (10/14)
+[CUE] 2024/10/22 12:35:47 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:47 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:47 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:47 WARNING 3 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:47 found candidates: 1 - valid: 1
+[SEMANTIC] 2024/10/22 12:35:47 Setting minimum as new intermediate best - size 201
+[SEMANTIC] 2024/10/22 12:35:47 Trying strategy StringInterpolationReduction (10/14)
+[SEMANTIC] 2024/10/22 12:35:47 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:47 Trying strategy LoopUnrollingReduction (11/14)
+[SEMANTIC] 2024/10/22 12:35:47 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:47 Trying strategy UnificationReduction (12/14)
+[SEMANTIC] 2024/10/22 12:35:48 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:48 Trying strategy UnionReduction (13/14)
+[SEMANTIC] 2024/10/22 12:35:48 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:48 Trying strategy ImportReduction (14/14)
+[CUE] 2024/10/22 12:35:48 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:48 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:48 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:48 WARNING 3 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:48 found candidates: 5 - valid: 1
+[SEMANTIC] 2024/10/22 12:35:48 Setting minimum as new intermediate best - size 200
+[SEMANTIC] 2024/10/22 12:35:48 Trying strategy ImportReduction (14/14)
+[SEMANTIC] 2024/10/22 12:35:49 found candidates: 4 - valid: 0
+[SYNTACTIC] 2024/10/22 12:35:49 Start reduction of 1 candidates
+[SYNTACTIC] 2024/10/22 12:35:49 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-10-22T12:35:11+02:00_e29f23c9-836f-4165-80c1-44c011d516e5/best_semantic/in_tool.cue -t seru_reduction_2024-10-22T12:35:11+02:00_e29f23c9-836f-4165-80c1-44c011d516e5/best_semantic/test.sh --call-formatter true --language-ext-jars cue.jar
+[CUE] 2024/10/22 12:35:53 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:53 WARNING 1 errors found during token count
+[SYNTACTIC] 2024/10/22 12:35:53 Reduced 1 candidates with sizes:  [108]
+[SYNTACTIC] 2024/10/22 12:35:53 Best candidate size: 108
+[SERU] 2024/10/22 12:35:53 Store new best with size 108
+[SEMANTIC] 2024/10/22 12:35:53 Start reduction
+[SEMANTIC] 2024/10/22 12:35:53 Trying strategies and combine results
+[SEMANTIC] 2024/10/22 12:35:53 Trying strategy LetReduction (1/14)
+[SEMANTIC] 2024/10/22 12:35:53 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:53 Trying strategy EmptyDeclarationReduction (2/14)
+[CUE] 2024/10/22 12:35:53 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:53 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:53 found candidates: 3 - valid: 1
+[SEMANTIC] 2024/10/22 12:35:53 Setting minimum as new intermediate best - size 107
+[SEMANTIC] 2024/10/22 12:35:53 Trying strategy EmptyDeclarationReduction (2/14)
+[SEMANTIC] 2024/10/22 12:35:54 found candidates: 2 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:54 Trying strategy PackageReduction (3/14)
+[SEMANTIC] 2024/10/22 12:35:54 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:54 Trying strategy RedundantNestingReduction (4/14)
+[SEMANTIC] 2024/10/22 12:35:54 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:54 Trying strategy ListReduction (5/14)
+[SEMANTIC] 2024/10/22 12:35:54 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:54 Trying strategy TrivialIfReduction (6/14)
+[SEMANTIC] 2024/10/22 12:35:54 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:54 Trying strategy IfReduction (7/14)
+[SEMANTIC] 2024/10/22 12:35:54 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:54 Trying strategy EllipsisReduction (8/14)
+[SEMANTIC] 2024/10/22 12:35:54 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:54 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/10/22 12:35:54 found candidates: 2 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:54 Trying strategy StringInterpolationReduction (10/14)
+[SEMANTIC] 2024/10/22 12:35:54 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:54 Trying strategy LoopUnrollingReduction (11/14)
+[SEMANTIC] 2024/10/22 12:35:54 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:54 Trying strategy UnificationReduction (12/14)
+[SEMANTIC] 2024/10/22 12:35:54 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:54 Trying strategy UnionReduction (13/14)
+[SEMANTIC] 2024/10/22 12:35:54 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:54 Trying strategy ImportReduction (14/14)
+[CUE] 2024/10/22 12:35:55 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:55 WARNING 1 errors found during token count
+[CUE] 2024/10/22 12:35:55 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:55 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:55 found candidates: 4 - valid: 2
+[SEMANTIC] 2024/10/22 12:35:55 Setting minimum as new intermediate best - size 106
+[SEMANTIC] 2024/10/22 12:35:55 Trying strategy ImportReduction (14/14)
+[CUE] 2024/10/22 12:35:55 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:55 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:55 found candidates: 3 - valid: 1
+[SEMANTIC] 2024/10/22 12:35:55 Setting minimum as new intermediate best - size 105
+[SEMANTIC] 2024/10/22 12:35:55 Trying strategy ImportReduction (14/14)
+[SEMANTIC] 2024/10/22 12:35:56 found candidates: 2 - valid: 0
+[SYNTACTIC] 2024/10/22 12:35:56 Start reduction of 1 candidates
+[SYNTACTIC] 2024/10/22 12:35:56 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-10-22T12:35:11+02:00_e29f23c9-836f-4165-80c1-44c011d516e5/best_semantic/in_tool.cue -t seru_reduction_2024-10-22T12:35:11+02:00_e29f23c9-836f-4165-80c1-44c011d516e5/best_semantic/test.sh --call-formatter true --language-ext-jars cue.jar
+[CUE] 2024/10/22 12:35:57 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:57 WARNING 1 errors found during token count
+[SYNTACTIC] 2024/10/22 12:35:57 Reduced 1 candidates with sizes:  [105]
+[SYNTACTIC] 2024/10/22 12:35:57 Best candidate size: 105
+[SERU] 2024/10/22 12:35:57 Store new best with size 105
+[SEMANTIC] 2024/10/22 12:35:57 Start reduction
+[SEMANTIC] 2024/10/22 12:35:57 Trying strategies and combine results
+[SEMANTIC] 2024/10/22 12:35:57 Trying strategy LetReduction (1/14)
+[SEMANTIC] 2024/10/22 12:35:57 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:57 Trying strategy EmptyDeclarationReduction (2/14)
+[CUE] 2024/10/22 12:35:58 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:58 WARNING 1 errors found during token count
+[CUE] 2024/10/22 12:35:58 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:58 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:58 found candidates: 2 - valid: 2
+[SEMANTIC] 2024/10/22 12:35:58 Setting minimum as new intermediate best - size 104
+[SEMANTIC] 2024/10/22 12:35:58 Trying strategy EmptyDeclarationReduction (2/14)
+[CUE] 2024/10/22 12:35:58 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:35:58 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/22 12:35:58 found candidates: 1 - valid: 1
+[SEMANTIC] 2024/10/22 12:35:58 Setting minimum as new intermediate best - size 103
+[SEMANTIC] 2024/10/22 12:35:58 Trying strategy EmptyDeclarationReduction (2/14)
+[SEMANTIC] 2024/10/22 12:35:58 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:58 Trying strategy PackageReduction (3/14)
+[SEMANTIC] 2024/10/22 12:35:58 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:58 Trying strategy RedundantNestingReduction (4/14)
+[SEMANTIC] 2024/10/22 12:35:58 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:58 Trying strategy ListReduction (5/14)
+[SEMANTIC] 2024/10/22 12:35:58 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:58 Trying strategy TrivialIfReduction (6/14)
+[SEMANTIC] 2024/10/22 12:35:58 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:58 Trying strategy IfReduction (7/14)
+[SEMANTIC] 2024/10/22 12:35:58 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:58 Trying strategy EllipsisReduction (8/14)
+[SEMANTIC] 2024/10/22 12:35:58 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:58 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/10/22 12:35:59 found candidates: 2 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:59 Trying strategy StringInterpolationReduction (10/14)
+[SEMANTIC] 2024/10/22 12:35:59 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:59 Trying strategy LoopUnrollingReduction (11/14)
+[SEMANTIC] 2024/10/22 12:35:59 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:59 Trying strategy UnificationReduction (12/14)
+[SEMANTIC] 2024/10/22 12:35:59 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:59 Trying strategy UnionReduction (13/14)
+[SEMANTIC] 2024/10/22 12:35:59 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:35:59 Trying strategy ImportReduction (14/14)
+[SEMANTIC] 2024/10/22 12:35:59 found candidates: 2 - valid: 0
+[SYNTACTIC] 2024/10/22 12:35:59 Start reduction of 1 candidates
+[SYNTACTIC] 2024/10/22 12:35:59 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-10-22T12:35:11+02:00_e29f23c9-836f-4165-80c1-44c011d516e5/best_semantic/in_tool.cue -t seru_reduction_2024-10-22T12:35:11+02:00_e29f23c9-836f-4165-80c1-44c011d516e5/best_semantic/test.sh --call-formatter true --language-ext-jars cue.jar
+[CUE] 2024/10/22 12:36:01 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/22 12:36:01 WARNING 1 errors found during token count
+[SYNTACTIC] 2024/10/22 12:36:01 Reduced 1 candidates with sizes:  [103]
+[SYNTACTIC] 2024/10/22 12:36:01 Best candidate size: 103
+[SERU] 2024/10/22 12:36:01 Store new best with size 103
+[SEMANTIC] 2024/10/22 12:36:01 Start reduction
+[SEMANTIC] 2024/10/22 12:36:01 Trying strategies and combine results
+[SEMANTIC] 2024/10/22 12:36:01 Trying strategy LetReduction (1/14)
+[SEMANTIC] 2024/10/22 12:36:01 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:01 Trying strategy EmptyDeclarationReduction (2/14)
+[SEMANTIC] 2024/10/22 12:36:01 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:01 Trying strategy PackageReduction (3/14)
+[SEMANTIC] 2024/10/22 12:36:01 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:01 Trying strategy RedundantNestingReduction (4/14)
+[SEMANTIC] 2024/10/22 12:36:01 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:01 Trying strategy ListReduction (5/14)
+[SEMANTIC] 2024/10/22 12:36:01 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:01 Trying strategy TrivialIfReduction (6/14)
+[SEMANTIC] 2024/10/22 12:36:01 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:01 Trying strategy IfReduction (7/14)
+[SEMANTIC] 2024/10/22 12:36:01 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:01 Trying strategy EllipsisReduction (8/14)
+[SEMANTIC] 2024/10/22 12:36:01 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:01 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/10/22 12:36:02 found candidates: 2 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:02 Trying strategy StringInterpolationReduction (10/14)
+[SEMANTIC] 2024/10/22 12:36:02 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:02 Trying strategy LoopUnrollingReduction (11/14)
+[SEMANTIC] 2024/10/22 12:36:02 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:02 Trying strategy UnificationReduction (12/14)
+[SEMANTIC] 2024/10/22 12:36:02 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:02 Trying strategy UnionReduction (13/14)
+[SEMANTIC] 2024/10/22 12:36:02 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:02 Trying strategy ImportReduction (14/14)
+[SEMANTIC] 2024/10/22 12:36:02 found candidates: 2 - valid: 0
+[SEMANTIC] 2024/10/22 12:36:02 Semantic reduction found no valid candidates
+[SERU] 2024/10/22 12:36:02 Finished reduction loop
+[SERU] 2024/10/22 12:36:02 Reduced program to 103/420 tokens (24.52%)
+[SERU] 2024/10/22 12:36:02 Final result is located at seru_reduction_2024-10-22T12:35:11+02:00_e29f23c9-836f-4165-80c1-44c011d516e5/in_tool.cue
