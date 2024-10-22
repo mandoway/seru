@@ -151,10 +151,12 @@ func applyFirstSemanticStrategy(ctx *context.RunContext, currentBytes []byte) ([
 
 		validCandidates = persistance.CheckAndKeepValidCandidates(candidates, ctx, ctx.CurrentSemanticStrategy())
 
-		ctx.Metrics.Current().Counts.AddCandidatesByStrategy(ctx.GetStrategyName(ctx.CurrentSemanticStrategy()), len(candidates), len(validCandidates))
+		strategyName := ctx.GetStrategyName(ctx.CurrentSemanticStrategy())
+		ctx.Metrics.Current().StatsByStrategy.AddCandidatesByStrategy(strategyName, len(candidates), len(validCandidates))
 
 		if len(validCandidates) > 0 {
 			logging.Semantic.Println("Valid candidates:", len(validCandidates))
+			ctx.Metrics.Current().StatsByStrategy.IncrementAppliedCandidatesByStrategy(strategyName)
 		} else {
 			logging.Semantic.Println("No valid candidates left after check, try next strategy")
 			ctx.IncrementSemanticStrategy()
@@ -171,7 +173,8 @@ func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byt
 	)
 
 	for currentStrategy < ctx.SemanticStrategiesTotal() {
-		logging.Semantic.Printf("Trying strategy %s (%d/%d)", ctx.GetStrategyName(currentStrategy), currentStrategy+1, ctx.SemanticStrategiesTotal())
+		strategyName := ctx.GetStrategyName(currentStrategy)
+		logging.Semantic.Printf("Trying strategy %s (%d/%d)", strategyName, currentStrategy+1, ctx.SemanticStrategiesTotal())
 		var (
 			bytesToReduce []byte
 			err           error
@@ -193,11 +196,12 @@ func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byt
 		validCandidates := persistance.CheckAndKeepValidCandidates(candidates, ctx, currentStrategy)
 
 		logging.Semantic.Printf("found candidates: %d - valid: %d", len(candidates), len(validCandidates))
-		ctx.Metrics.Current().Counts.AddCandidatesByStrategy(ctx.GetStrategyName(currentStrategy), len(candidates), len(validCandidates))
+		ctx.Metrics.Current().StatsByStrategy.AddCandidatesByStrategy(strategyName, len(candidates), len(validCandidates))
 
 		if len(validCandidates) > 0 {
 			minCandidate := candidate.MinCandidateP(validCandidates)
 			logging.Semantic.Printf("Setting minimum as new intermediate best - size %d", minCandidate.Size)
+			ctx.Metrics.Current().StatsByStrategy.IncrementAppliedCandidatesByStrategy(strategyName)
 			bestCandidate, err = persistance.CopyToBestSemantic(minCandidate, ctx.ReductionDir())
 			if err != nil {
 				return nil, err

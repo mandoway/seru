@@ -116,7 +116,10 @@ func (ctx *RunContext) SemanticReduceWithStrategy(bytes []byte, strategyIndex in
 		return [][]byte{}, errors.New(fmt.Sprintf("no strategy available at index %d", strategyIndex))
 	}
 
-	return ctx.semanticReducer(bytes, strategyIndex)
+	start := time.Now()
+	candidates, err := ctx.semanticReducer(bytes, strategyIndex)
+	ctx.Metrics.Current().StatsByStrategy.IncrementGenerationTimeByStrategy(ctx.GetStrategyName(strategyIndex), time.Since(start))
+	return candidates, err
 }
 
 func (ctx *RunContext) Language() string {

@@ -38,9 +38,13 @@ func NewJsonFormat(iterations *Iterations, totalDuration time.Duration, strategy
 		total.SemanticMillis += item.SemanticMillis
 		total.SyntacticMillis += item.SyntacticMillis
 		for _, strategy := range strategyNames {
-			total.Counts.TotalCandidatesByStrategy[strategy] += item.Counts.TotalCandidatesByStrategy[strategy]
-			total.Counts.ValidCandidatesByStrategy[strategy] += item.Counts.ValidCandidatesByStrategy[strategy]
-			total.Counts.TestScriptExecutionsByStrategy[strategy] += item.Counts.TestScriptExecutionsByStrategy[strategy]
+			total.StatsByStrategy.TestScriptExecutionsByStrategy[strategy] += item.StatsByStrategy.TestScriptExecutionsByStrategy[strategy]
+			total.StatsByStrategy.TestScriptMillisByStrategy[strategy] += item.StatsByStrategy.TestScriptMillisByStrategy[strategy]
+			total.StatsByStrategy.GenerationMicrosByStrategy[strategy] += item.StatsByStrategy.GenerationMicrosByStrategy[strategy]
+
+			total.StatsByStrategy.TotalCandidatesByStrategy[strategy] += item.StatsByStrategy.TotalCandidatesByStrategy[strategy]
+			total.StatsByStrategy.ValidCandidatesByStrategy[strategy] += item.StatsByStrategy.ValidCandidatesByStrategy[strategy]
+			total.StatsByStrategy.AppliedCandidatesByStrategy[strategy] += item.StatsByStrategy.AppliedCandidatesByStrategy[strategy]
 		}
 	}
 

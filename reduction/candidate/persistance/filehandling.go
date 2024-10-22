@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"time"
 )
 
 var (
@@ -27,8 +28,12 @@ func CheckAndKeepValidCandidates(candidates [][]byte, ctx *context.RunContext, c
 			continue
 		}
 
+		strategyName := ctx.GetStrategyName(currentStrategy)
+		start := time.Now()
 		ok, err := testCandidate(candidateFiles)
-		ctx.Metrics.Current().Counts.IncrementTestScriptExecutionByStrategy(ctx.GetStrategyName(currentStrategy))
+		ctx.Metrics.Current().StatsByStrategy.IncrementTestScriptTimeByStrategy(strategyName, time.Since(start))
+		ctx.Metrics.Current().StatsByStrategy.IncrementTestScriptExecutionByStrategy(strategyName)
+
 		if err != nil {
 			logging.Default.Println("Error testing candidate", err)
 		}

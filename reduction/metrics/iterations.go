@@ -19,14 +19,14 @@ func (i *Iterations) Current() *Iteration {
 }
 
 type Iteration struct {
-	Counts                          *Counts
+	StatsByStrategy                 *StatsByStrategy
 	BeforeSize, AfterSize           int
 	SyntacticMillis, SemanticMillis int64
 }
 
 func NewIteration() *Iteration {
 	return &Iteration{
-		Counts: NewCounts(),
+		StatsByStrategy: NewStatsByStrategy(),
 	}
 }
 
