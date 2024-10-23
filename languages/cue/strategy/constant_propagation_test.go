@@ -1,7 +1,11 @@
 package strategy
 
 import (
+	"cuelang.org/go/cue/ast"
+	"fmt"
+	"github.com/mandoway/seru/languages/cue/language"
 	"github.com/mandoway/seru/languages/cue/test"
+	"github.com/mandoway/seru/util/collection"
 	"testing"
 )
 
@@ -29,7 +33,8 @@ func TestConstantPropagation(t *testing.T) {
 				bar: 3
 				`,
 			},
-		}, {
+		},
+		{
 			Title: "top level let",
 			Given: `
 			let foo = 3
@@ -226,22 +231,39 @@ func TestConstantPropagation(t *testing.T) {
 					a: 3
 					b: foo
 				}`,
-				`
-				foo: bar
-				bar: {
-					a: 3
-					b: bar
-				}`,
 			},
 		},
 		{
 			Title: "import as identifier ",
 			Given: `
 			import "strings"
-
+		
 			foo: strings.MinRunes(4)
 			`,
 			Expected: nil,
+		},
+		{
+			Title: "alias field expression",
+			Given: `
+			foo: {
+				bar: {
+					baz: 2
+				}
+			}
+			X=foo: _
+			test: X.bar
+			`,
+			Expected: []string{
+				`
+				foo: {
+					bar: {
+						baz: 2
+					}
+				}
+				X=foo: _
+				test:  foo.bar
+				`,
+			},
 		},
 	}
 
@@ -280,4 +302,31 @@ func TestConstantPropagationRealWorld(t *testing.T) {
 	}
 
 	test.TestReduction(t, instances, ConstantPropagationReduction{})
+}
+
+func TestRecursiveProperties(t *testing.T) {
+	instance := `
+	foo: github
+	github: baz: bar
+`
+
+	candidates := getCandidates(instance)
+	fmt.Printf("got candidates: %d\n", len(candidates))
+	for len(candidates) > 0 {
+		first := candidates[0]
+		fmt.Println(first)
+		candidates = getCandidates(first)
+		fmt.Printf("got candidates: %d\n", len(candidates))
+	}
+}
+
+func getCandidates(input string) []string {
+	reducer := ConstantPropagationReduction{}
+	serializer := language.Serializer{}
+
+	candidates := reducer.Apply([]byte(input))
+	return collection.MapSlice[*ast.File](candidates, func(it *ast.File) (string, error) {
+		bytes, _ := serializer.Serialize(it)
+		return string(bytes), nil
+	})
 }

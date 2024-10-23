@@ -16,31 +16,38 @@ func RunMainReductionLoop(ctx *context.RunContext, enableMetrics bool) error {
 	start := time.Now()
 	logging.LogStartReduction(ctx.ReductionDir(), ctx.Sizes().StartSizeInTokens)
 
+	// First iteration only uses syntactic reduction
 	candidates := []*candidate.CandidateWithSize{ctx.BestResult()}
+	ctx.Metrics.AddIteration()
+	ctx.Metrics.Current().BeforeSize = ctx.Sizes().BestSizeInTokens
+	err := reduceSyntacticallyAndSaveResultIfBetter(ctx, candidates)
+	if err != nil {
+		return err
+	}
+	ctx.Metrics.Current().AfterSize = ctx.Sizes().BestSizeInTokens
 
 	for !ctx.ExhaustedSemanticStrategies() {
 		ctx.Metrics.AddIteration()
 		ctx.Metrics.Current().BeforeSize = ctx.Sizes().BestSizeInTokens
-		beforeIteration := ctx.GetHash()
-
-		err := reduceSyntacticallyAndSaveResultIfBetter(ctx, candidates)
-		if err != nil {
-			return err
-		}
+		beforeIterationHash := ctx.GetHash()
 
 		candidates, err = getCandidatesFromSemanticReduction(ctx)
 		if err != nil {
 			return err
 		}
 
-		ctx.Metrics.Current().AfterSize = ctx.Sizes().BestSizeInTokens
+		err = reduceSyntacticallyAndSaveResultIfBetter(ctx, candidates)
+		if err != nil {
+			return err
+		}
 
-		if len(candidates) == 0 && beforeIteration == ctx.GetHash() {
+		ctx.Metrics.Current().AfterSize = ctx.Sizes().BestSizeInTokens
+		noNewBest := beforeIterationHash == ctx.GetHash()
+		if noNewBest {
 			logging.Default.Println("Found fixpoint, stopping reduction")
 			persistance.DeleteAllStrategyCandidates(ctx)
 			break
 		}
-
 	}
 
 	logging.LogEndReduction(ctx.Sizes().StartSizeInTokens, ctx.BestResult())
@@ -56,6 +63,9 @@ func RunMainReductionLoop(ctx *context.RunContext, enableMetrics bool) error {
 }
 
 func reduceSyntacticallyAndSaveResultIfBetter(ctx *context.RunContext, reductionCandidates []*candidate.CandidateWithSize) error {
+	if len(reductionCandidates) == 0 {
+		return nil
+	}
 	defer ctx.Metrics.Current().TrackSyntactic(time.Now())
 	defer persistance.DeleteAllStrategyCandidates(ctx)
 	defer persistance.DeleteBestSemanticCandidate(ctx)
@@ -95,12 +105,13 @@ func reduceSyntacticallyAndSaveResultIfBetter(ctx *context.RunContext, reduction
 	bestCandidate := candidate.MinCandidate(candidates)
 	logging.Syntactic.Println("Best candidate size:", bestCandidate.Size)
 
-	err := ctx.UpdateCurrent(bestCandidate.InputPath, bestCandidate.Size)
-	if err != nil {
-		return err
+	if ctx.Sizes().BestSizeInTokens <= bestCandidate.Size {
+		logging.Syntactic.Printf("Best candidate (%d) is not smaller than overall best (%d)", bestCandidate.Size, ctx.Sizes().BestSizeInTokens)
+		return nil
 	}
 
-	return nil
+	err := ctx.UpdateCurrent(bestCandidate.InputPath, bestCandidate.Size)
+	return err
 }
 
 func getCandidatesFromSemanticReduction(ctx *context.RunContext) ([]*candidate.CandidateWithSize, error) {

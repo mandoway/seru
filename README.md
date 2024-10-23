@@ -39,7 +39,14 @@ SeRu currently supports:
       A test script **must return 0** when the property was kept and 1 (or any code) if the property was lost
       3. `-l <language>`  
       Programming language of the input file. Will be inferred from the file extension if omitted.
-      4. `-s`  
+      4. `-r <perses|vulcan>`  
+      Syntactic reducer.  
+      *Default:* perses  
+      Perses is faster, Vulcan is more effective.
+      5. `-m`  
+      Enable metrics.  
+      A `metrics.json` file will be generated containing various data about the reduction process.
+      6. `-s`  
       Use strategy isolation.  
       This mode will apply only one semantic strategy and try to reduce all returned candidates using the syntactic reducer.  
       Default mode: strategy combination  
