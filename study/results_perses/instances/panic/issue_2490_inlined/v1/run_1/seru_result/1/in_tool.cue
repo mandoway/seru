@@ -32,7 +32,7 @@ target: terraform: {
   }
   _
   valid_constraints:
-   "^[\(rules.valid_initial_characters)]"
+   "^[\(rules.valid_characters)]+$"
   adapt: {
    #in: string
    let _a = #in

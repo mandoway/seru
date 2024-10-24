@@ -7,7 +7,15 @@ spec: bar: {}
    max: int
   }
  }
- resource: _Thing & {_X: spec: X.spec}
+ resource: #Constrained & {
+  _X: _
+  spec: {
+   if _X.spec.bar != _|_ {
+    minBar: _X.spec.bar.min
+    maxBar: _X.spec.bar.max
+   }
+  }
+ } & {_X: spec: X.spec}
 }
 _#Spec:
  int
@@ -17,15 +25,6 @@ _#SpecFoo: {
 }
 _#SpecBar: bar:
  int
-_Thing: #Constrained & {
- _X: _
- spec: {
-  if _X.spec.bar != _|_ {
-   minBar: _X.spec.bar.min
-   maxBar: _X.spec.bar.max
-  }
- }
-}
 #Constrained: {
  spec: {} | {
   minBar: 30

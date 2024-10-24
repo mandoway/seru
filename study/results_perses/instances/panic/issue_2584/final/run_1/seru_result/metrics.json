@@ -12,7 +12,7 @@
         },
         "BeforeSize": 25,
         "AfterSize": 25,
-        "SyntacticMillis": 1310,
+        "SyntacticMillis": 974,
         "SemanticMillis": 0
       },
       {
@@ -23,25 +23,25 @@
             "LetReduction": 1
           },
           "TestScriptMillisByStrategy": {
-            "ConstantPropagationReduction": 428,
-            "EmptyDeclarationReduction": 142,
-            "LetReduction": 153
+            "ConstantPropagationReduction": 392,
+            "EmptyDeclarationReduction": 136,
+            "LetReduction": 146
           },
           "GenerationMicrosByStrategy": {
-            "ConstantPropagationReduction": 103,
-            "EllipsisReduction": 25,
-            "EmptyDeclarationReduction": 124,
-            "IfReduction": 274,
-            "ImportReduction": 11,
-            "LetReduction": 200,
+            "ConstantPropagationReduction": 102,
+            "EllipsisReduction": 27,
+            "EmptyDeclarationReduction": 109,
+            "IfReduction": 251,
+            "ImportReduction": 18,
+            "LetReduction": 119,
             "ListReduction": 15,
-            "LoopUnrollingReduction": 49,
-            "PackageReduction": 91,
-            "RedundantNestingReduction": 33,
-            "StringInterpolationReduction": 315,
-            "TrivialIfReduction": 25,
-            "UnificationReduction": 42,
-            "UnionReduction": 14
+            "LoopUnrollingReduction": 50,
+            "PackageReduction": 76,
+            "RedundantNestingReduction": 20,
+            "StringInterpolationReduction": 185,
+            "TrivialIfReduction": 49,
+            "UnificationReduction": 45,
+            "UnionReduction": 60
           },
           "TotalCandidatesByStrategy": {
             "ConstantPropagationReduction": 3,
@@ -80,7 +80,7 @@
         "BeforeSize": 25,
         "AfterSize": 25,
         "SyntacticMillis": 0,
-        "SemanticMillis": 732
+        "SemanticMillis": 678
       }
     ]
   },
@@ -103,12 +103,12 @@
         "UnionReduction": 0
       },
       "TestScriptMillisByStrategy": {
-        "ConstantPropagationReduction": 428,
+        "ConstantPropagationReduction": 392,
         "EllipsisReduction": 0,
-        "EmptyDeclarationReduction": 142,
+        "EmptyDeclarationReduction": 136,
         "IfReduction": 0,
         "ImportReduction": 0,
-        "LetReduction": 153,
+        "LetReduction": 146,
         "ListReduction": 0,
         "LoopUnrollingReduction": 0,
         "PackageReduction": 0,
@@ -119,20 +119,20 @@
         "UnionReduction": 0
       },
       "GenerationMicrosByStrategy": {
-        "ConstantPropagationReduction": 103,
-        "EllipsisReduction": 25,
-        "EmptyDeclarationReduction": 124,
-        "IfReduction": 274,
-        "ImportReduction": 11,
-        "LetReduction": 200,
+        "ConstantPropagationReduction": 102,
+        "EllipsisReduction": 27,
+        "EmptyDeclarationReduction": 109,
+        "IfReduction": 251,
+        "ImportReduction": 18,
+        "LetReduction": 119,
         "ListReduction": 15,
-        "LoopUnrollingReduction": 49,
-        "PackageReduction": 91,
-        "RedundantNestingReduction": 33,
-        "StringInterpolationReduction": 315,
-        "TrivialIfReduction": 25,
-        "UnificationReduction": 42,
-        "UnionReduction": 14
+        "LoopUnrollingReduction": 50,
+        "PackageReduction": 76,
+        "RedundantNestingReduction": 20,
+        "StringInterpolationReduction": 185,
+        "TrivialIfReduction": 49,
+        "UnificationReduction": 45,
+        "UnionReduction": 60
       },
       "TotalCandidatesByStrategy": {
         "ConstantPropagationReduction": 3,
@@ -185,11 +185,11 @@
     },
     "BeforeSize": 25,
     "AfterSize": 25,
-    "SyntacticMillis": 1310,
-    "SemanticMillis": 732
+    "SyntacticMillis": 974,
+    "SemanticMillis": 678
   },
-  "TotalTimeMillis": 2043,
+  "TotalTimeMillis": 1653,
   "TotalIterations": 2,
   "InputDir": "study/instances/panic/issue_2584/final",
-  "StartTime": "2024-10-24T12:00:45+02:00"
+  "StartTime": "2024-10-24T21:57:39+02:00"
 }

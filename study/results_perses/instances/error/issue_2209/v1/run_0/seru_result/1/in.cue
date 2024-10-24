@@ -17,7 +17,10 @@ _#SpecBar: bar: {
 _Thing: #Constrained & {
  _X: _
  spec: {
-  spec
+  if _X.foo != _|_ {
+   minFoo
+   _X
+  }
   if _X.spec.bar != _|_ {
    minBar: _X.spec.bar.min
    maxBar: _X.spec.bar.max
@@ -41,4 +44,4 @@ _Thing: #Constrained & {
  } |
   null
 }
-minFoo?: int
+minFoo: null

@@ -14,7 +14,8 @@ output: {
  _generated: [(SERVICE_GENERATOR.#x & DeploymentsWithRef).out]
 }
 {}
-deployment: redis: spec: template: spec: containers: {}
+deployment: redis: spec: template: spec: containers:
+{}
 let DEPLOYMENT =
 {
  ...

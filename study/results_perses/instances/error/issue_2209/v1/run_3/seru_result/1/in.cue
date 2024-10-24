@@ -44,4 +44,4 @@ _Thing: #Constrained & {
  } |
   null
 }
-minFoo?: int
+minFoo: null

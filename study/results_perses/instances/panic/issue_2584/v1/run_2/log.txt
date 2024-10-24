@@ -1,181 +1,181 @@
-[SERU] 2024/10/24 11:58:40 SeRu - Syntactic & Semantic Reduction
-[SERU] 2024/10/24 11:58:40 
-[SERU] 2024/10/24 11:58:40 Creating new run context with (input=study/instances/panic/issue_2584/v1/in.cue, test=study/instances/panic/issue_2584/v1/test.sh, lang=)
-[SERU] 2024/10/24 11:58:40 Running algorithm with config SemanticApplicationMethod: ApplyAllCombined, SyntacticReducer: Perses
-[SERU] 2024/10/24 11:58:40 No language configured, using language from file 'cue'
-[CUE] 2024/10/24 11:58:40 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:40 WARNING 1 errors found during token count
-[SERU] 2024/10/24 11:58:40 Starting reduction loop
-[SERU] 2024/10/24 11:58:40 Results will be created in seru_reduction_2024-10-24T11:58:40+02:00_b1335270-6296-49a2-b3ff-7e2882251ee6
-[SERU] 2024/10/24 11:58:40 Initial token size of program: 251
-[SYNTACTIC] 2024/10/24 11:58:40 Start reduction of 1 candidates
-[SYNTACTIC] 2024/10/24 11:58:40 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-10-24T11:58:40+02:00_b1335270-6296-49a2-b3ff-7e2882251ee6/in.cue -t seru_reduction_2024-10-24T11:58:40+02:00_b1335270-6296-49a2-b3ff-7e2882251ee6/test.sh --call-formatter true --language-ext-jars cue.jar
-[CUE] 2024/10/24 11:58:47 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:47 WARNING 1 errors found during token count
-[SYNTACTIC] 2024/10/24 11:58:47 Reduced 1 candidates with sizes:  [53]
-[SYNTACTIC] 2024/10/24 11:58:47 Best candidate size: 53
-[SERU] 2024/10/24 11:58:47 Store new best with size 53
-[SEMANTIC] 2024/10/24 11:58:47 Start reduction
-[SEMANTIC] 2024/10/24 11:58:47 Trying strategies and combine results
-[SEMANTIC] 2024/10/24 11:58:47 Trying strategy LetReduction (1/14)
-[SEMANTIC] 2024/10/24 11:58:47 found candidates: 1 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:47 Trying strategy EmptyDeclarationReduction (2/14)
-[CUE] 2024/10/24 11:58:47 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:47 WARNING 1 errors found during token count
-[CUE] 2024/10/24 11:58:47 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:47 WARNING 1 errors found during token count
-[CUE] 2024/10/24 11:58:48 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:48 WARNING 1 errors found during token count
-[SEMANTIC] 2024/10/24 11:58:48 found candidates: 4 - valid: 3
-[SEMANTIC] 2024/10/24 11:58:48 Setting minimum as new intermediate best - size 52
-[SEMANTIC] 2024/10/24 11:58:48 Trying strategy EmptyDeclarationReduction (2/14)
-[CUE] 2024/10/24 11:58:48 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:48 WARNING 1 errors found during token count
-[CUE] 2024/10/24 11:58:48 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:48 WARNING 1 errors found during token count
-[SEMANTIC] 2024/10/24 11:58:48 found candidates: 3 - valid: 2
-[SEMANTIC] 2024/10/24 11:58:48 Setting minimum as new intermediate best - size 51
-[SEMANTIC] 2024/10/24 11:58:48 Trying strategy EmptyDeclarationReduction (2/14)
-[CUE] 2024/10/24 11:58:48 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:48 WARNING 1 errors found during token count
-[SEMANTIC] 2024/10/24 11:58:49 found candidates: 2 - valid: 1
-[SEMANTIC] 2024/10/24 11:58:49 Setting minimum as new intermediate best - size 50
-[SEMANTIC] 2024/10/24 11:58:49 Trying strategy EmptyDeclarationReduction (2/14)
-[SEMANTIC] 2024/10/24 11:58:49 found candidates: 1 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:49 Trying strategy PackageReduction (3/14)
-[SEMANTIC] 2024/10/24 11:58:49 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:49 Trying strategy RedundantNestingReduction (4/14)
-[SEMANTIC] 2024/10/24 11:58:49 found candidates: 2 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:49 Trying strategy ListReduction (5/14)
-[CUE] 2024/10/24 11:58:49 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:49 WARNING 1 errors found during token count
-[SEMANTIC] 2024/10/24 11:58:49 found candidates: 1 - valid: 1
-[SEMANTIC] 2024/10/24 11:58:49 Setting minimum as new intermediate best - size 49
-[SEMANTIC] 2024/10/24 11:58:49 Trying strategy ListReduction (5/14)
-[SEMANTIC] 2024/10/24 11:58:49 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:49 Trying strategy TrivialIfReduction (6/14)
-[SEMANTIC] 2024/10/24 11:58:49 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:49 Trying strategy IfReduction (7/14)
-[SEMANTIC] 2024/10/24 11:58:49 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:49 Trying strategy EllipsisReduction (8/14)
-[CUE] 2024/10/24 11:58:49 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:49 WARNING 1 errors found during token count
-[SEMANTIC] 2024/10/24 11:58:49 found candidates: 1 - valid: 1
-[SEMANTIC] 2024/10/24 11:58:49 Setting minimum as new intermediate best - size 48
-[SEMANTIC] 2024/10/24 11:58:49 Trying strategy EllipsisReduction (8/14)
-[SEMANTIC] 2024/10/24 11:58:49 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:49 Trying strategy ConstantPropagationReduction (9/14)
-[CUE] 2024/10/24 11:58:49 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:49 WARNING 1 errors found during token count
-[CUE] 2024/10/24 11:58:50 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:50 WARNING 1 errors found during token count
-[SEMANTIC] 2024/10/24 11:58:50 found candidates: 5 - valid: 2
-[SEMANTIC] 2024/10/24 11:58:50 Setting minimum as new intermediate best - size 49
-[SEMANTIC] 2024/10/24 11:58:50 Trying strategy ConstantPropagationReduction (9/14)
-[CUE] 2024/10/24 11:58:50 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:50 WARNING 1 errors found during token count
-[SEMANTIC] 2024/10/24 11:58:51 found candidates: 4 - valid: 1
-[SEMANTIC] 2024/10/24 11:58:51 Setting minimum as new intermediate best - size 49
-[SEMANTIC] 2024/10/24 11:58:51 Trying strategy ConstantPropagationReduction (9/14)
-[SEMANTIC] 2024/10/24 11:58:51 found candidates: 3 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:51 Trying strategy StringInterpolationReduction (10/14)
-[SEMANTIC] 2024/10/24 11:58:51 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:51 Trying strategy LoopUnrollingReduction (11/14)
-[SEMANTIC] 2024/10/24 11:58:51 found candidates: 1 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:51 Trying strategy UnificationReduction (12/14)
-[SEMANTIC] 2024/10/24 11:58:51 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:51 Trying strategy UnionReduction (13/14)
-[SEMANTIC] 2024/10/24 11:58:51 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:51 Trying strategy ImportReduction (14/14)
-[SEMANTIC] 2024/10/24 11:58:51 found candidates: 0 - valid: 0
-[SYNTACTIC] 2024/10/24 11:58:51 Start reduction of 1 candidates
-[SYNTACTIC] 2024/10/24 11:58:51 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-10-24T11:58:40+02:00_b1335270-6296-49a2-b3ff-7e2882251ee6/best_semantic/in.cue -t seru_reduction_2024-10-24T11:58:40+02:00_b1335270-6296-49a2-b3ff-7e2882251ee6/best_semantic/test.sh --call-formatter true --language-ext-jars cue.jar
-[CUE] 2024/10/24 11:58:54 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:54 WARNING 1 errors found during token count
-[SYNTACTIC] 2024/10/24 11:58:54 Reduced 1 candidates with sizes:  [45]
-[SYNTACTIC] 2024/10/24 11:58:54 Best candidate size: 45
-[SERU] 2024/10/24 11:58:54 Store new best with size 45
-[SEMANTIC] 2024/10/24 11:58:54 Start reduction
-[SEMANTIC] 2024/10/24 11:58:54 Trying strategies and combine results
-[SEMANTIC] 2024/10/24 11:58:54 Trying strategy LetReduction (1/14)
-[SEMANTIC] 2024/10/24 11:58:54 found candidates: 1 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:54 Trying strategy EmptyDeclarationReduction (2/14)
-[CUE] 2024/10/24 11:58:54 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:54 WARNING 1 errors found during token count
-[CUE] 2024/10/24 11:58:54 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:54 WARNING 1 errors found during token count
-[SEMANTIC] 2024/10/24 11:58:54 found candidates: 3 - valid: 2
-[SEMANTIC] 2024/10/24 11:58:54 Setting minimum as new intermediate best - size 43
-[SEMANTIC] 2024/10/24 11:58:54 Trying strategy EmptyDeclarationReduction (2/14)
-[CUE] 2024/10/24 11:58:55 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:55 WARNING 1 errors found during token count
-[SEMANTIC] 2024/10/24 11:58:55 found candidates: 2 - valid: 1
-[SEMANTIC] 2024/10/24 11:58:55 Setting minimum as new intermediate best - size 41
-[SEMANTIC] 2024/10/24 11:58:55 Trying strategy EmptyDeclarationReduction (2/14)
-[SEMANTIC] 2024/10/24 11:58:55 found candidates: 1 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:55 Trying strategy PackageReduction (3/14)
-[SEMANTIC] 2024/10/24 11:58:55 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:55 Trying strategy RedundantNestingReduction (4/14)
-[SEMANTIC] 2024/10/24 11:58:55 found candidates: 2 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:55 Trying strategy ListReduction (5/14)
-[SEMANTIC] 2024/10/24 11:58:55 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:55 Trying strategy TrivialIfReduction (6/14)
-[SEMANTIC] 2024/10/24 11:58:55 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:55 Trying strategy IfReduction (7/14)
-[SEMANTIC] 2024/10/24 11:58:55 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:55 Trying strategy EllipsisReduction (8/14)
-[SEMANTIC] 2024/10/24 11:58:55 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:55 Trying strategy ConstantPropagationReduction (9/14)
-[SEMANTIC] 2024/10/24 11:58:55 found candidates: 3 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:55 Trying strategy StringInterpolationReduction (10/14)
-[SEMANTIC] 2024/10/24 11:58:55 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:55 Trying strategy LoopUnrollingReduction (11/14)
-[SEMANTIC] 2024/10/24 11:58:56 found candidates: 1 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:56 Trying strategy UnificationReduction (12/14)
-[SEMANTIC] 2024/10/24 11:58:56 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:56 Trying strategy UnionReduction (13/14)
-[SEMANTIC] 2024/10/24 11:58:56 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:56 Trying strategy ImportReduction (14/14)
-[SEMANTIC] 2024/10/24 11:58:56 found candidates: 0 - valid: 0
-[SYNTACTIC] 2024/10/24 11:58:56 Start reduction of 1 candidates
-[SYNTACTIC] 2024/10/24 11:58:56 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-10-24T11:58:40+02:00_b1335270-6296-49a2-b3ff-7e2882251ee6/best_semantic/in.cue -t seru_reduction_2024-10-24T11:58:40+02:00_b1335270-6296-49a2-b3ff-7e2882251ee6/best_semantic/test.sh --call-formatter true --language-ext-jars cue.jar
-[CUE] 2024/10/24 11:58:57 WARNING error during token count: string literal not terminated
-[CUE] 2024/10/24 11:58:57 WARNING 1 errors found during token count
-[SYNTACTIC] 2024/10/24 11:58:57 Reduced 1 candidates with sizes:  [41]
-[SYNTACTIC] 2024/10/24 11:58:57 Best candidate size: 41
-[SERU] 2024/10/24 11:58:57 Store new best with size 41
-[SEMANTIC] 2024/10/24 11:58:57 Start reduction
-[SEMANTIC] 2024/10/24 11:58:57 Trying strategies and combine results
-[SEMANTIC] 2024/10/24 11:58:57 Trying strategy LetReduction (1/14)
-[SEMANTIC] 2024/10/24 11:58:58 found candidates: 1 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:58 Trying strategy EmptyDeclarationReduction (2/14)
-[SEMANTIC] 2024/10/24 11:58:58 found candidates: 1 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:58 Trying strategy PackageReduction (3/14)
-[SEMANTIC] 2024/10/24 11:58:58 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:58 Trying strategy RedundantNestingReduction (4/14)
-[SEMANTIC] 2024/10/24 11:58:58 found candidates: 2 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:58 Trying strategy ListReduction (5/14)
-[SEMANTIC] 2024/10/24 11:58:58 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:58 Trying strategy TrivialIfReduction (6/14)
-[SEMANTIC] 2024/10/24 11:58:58 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:58 Trying strategy IfReduction (7/14)
-[SEMANTIC] 2024/10/24 11:58:58 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:58 Trying strategy EllipsisReduction (8/14)
-[SEMANTIC] 2024/10/24 11:58:58 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:58 Trying strategy ConstantPropagationReduction (9/14)
-[SEMANTIC] 2024/10/24 11:58:58 found candidates: 3 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:58 Trying strategy StringInterpolationReduction (10/14)
-[SEMANTIC] 2024/10/24 11:58:58 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:58 Trying strategy LoopUnrollingReduction (11/14)
-[SEMANTIC] 2024/10/24 11:58:59 found candidates: 1 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:59 Trying strategy UnificationReduction (12/14)
-[SEMANTIC] 2024/10/24 11:58:59 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:59 Trying strategy UnionReduction (13/14)
-[SEMANTIC] 2024/10/24 11:58:59 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:59 Trying strategy ImportReduction (14/14)
-[SEMANTIC] 2024/10/24 11:58:59 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/24 11:58:59 Semantic reduction found no valid candidates
-[SERU] 2024/10/24 11:58:59 Found fixpoint, stopping reduction
-[SERU] 2024/10/24 11:58:59 Finished reduction loop
-[SERU] 2024/10/24 11:58:59 Reduced program to 41/251 tokens (16.33%)
-[SERU] 2024/10/24 11:58:59 Final result is located at seru_reduction_2024-10-24T11:58:40+02:00_b1335270-6296-49a2-b3ff-7e2882251ee6/in.cue
+[SERU] 2024/10/24 21:56:03 SeRu - Syntactic & Semantic Reduction
+[SERU] 2024/10/24 21:56:03 
+[SERU] 2024/10/24 21:56:03 Creating new run context with (input=study/instances/panic/issue_2584/v1/in.cue, test=study/instances/panic/issue_2584/v1/test.sh, lang=)
+[SERU] 2024/10/24 21:56:03 Running algorithm with config SemanticApplicationMethod: ApplyAllCombined, SyntacticReducer: Perses
+[SERU] 2024/10/24 21:56:03 No language configured, using language from file 'cue'
+[CUE] 2024/10/24 21:56:03 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:03 WARNING 1 errors found during token count
+[SERU] 2024/10/24 21:56:03 Starting reduction loop
+[SERU] 2024/10/24 21:56:03 Results will be created in seru_reduction_2024-10-24T21:56:03+02:00_7acc9a84-bee2-4dba-bed0-a6c114b39f59
+[SERU] 2024/10/24 21:56:03 Initial token size of program: 251
+[SYNTACTIC] 2024/10/24 21:56:03 Start reduction of 1 candidates
+[SYNTACTIC] 2024/10/24 21:56:03 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-10-24T21:56:03+02:00_7acc9a84-bee2-4dba-bed0-a6c114b39f59/in.cue -t seru_reduction_2024-10-24T21:56:03+02:00_7acc9a84-bee2-4dba-bed0-a6c114b39f59/test.sh --call-formatter true --language-ext-jars cue.jar
+[CUE] 2024/10/24 21:56:07 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:07 WARNING 1 errors found during token count
+[SYNTACTIC] 2024/10/24 21:56:07 Reduced 1 candidates with sizes:  [53]
+[SYNTACTIC] 2024/10/24 21:56:07 Best candidate size: 53
+[SERU] 2024/10/24 21:56:07 Store new best with size 53
+[SEMANTIC] 2024/10/24 21:56:07 Start reduction
+[SEMANTIC] 2024/10/24 21:56:07 Trying strategies and combine results
+[SEMANTIC] 2024/10/24 21:56:07 Trying strategy LetReduction (1/14)
+[SEMANTIC] 2024/10/24 21:56:07 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:07 Trying strategy EmptyDeclarationReduction (2/14)
+[CUE] 2024/10/24 21:56:07 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:07 WARNING 1 errors found during token count
+[CUE] 2024/10/24 21:56:07 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:07 WARNING 1 errors found during token count
+[CUE] 2024/10/24 21:56:07 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:07 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/24 21:56:07 found candidates: 4 - valid: 3
+[SEMANTIC] 2024/10/24 21:56:07 Setting minimum as new intermediate best - size 52
+[SEMANTIC] 2024/10/24 21:56:07 Trying strategy EmptyDeclarationReduction (2/14)
+[CUE] 2024/10/24 21:56:08 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:08 WARNING 1 errors found during token count
+[CUE] 2024/10/24 21:56:08 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:08 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/24 21:56:08 found candidates: 3 - valid: 2
+[SEMANTIC] 2024/10/24 21:56:08 Setting minimum as new intermediate best - size 51
+[SEMANTIC] 2024/10/24 21:56:08 Trying strategy EmptyDeclarationReduction (2/14)
+[CUE] 2024/10/24 21:56:08 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:08 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/24 21:56:08 found candidates: 2 - valid: 1
+[SEMANTIC] 2024/10/24 21:56:08 Setting minimum as new intermediate best - size 50
+[SEMANTIC] 2024/10/24 21:56:08 Trying strategy EmptyDeclarationReduction (2/14)
+[SEMANTIC] 2024/10/24 21:56:08 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:08 Trying strategy PackageReduction (3/14)
+[SEMANTIC] 2024/10/24 21:56:08 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:08 Trying strategy RedundantNestingReduction (4/14)
+[SEMANTIC] 2024/10/24 21:56:08 found candidates: 2 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:08 Trying strategy ListReduction (5/14)
+[CUE] 2024/10/24 21:56:09 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:09 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/24 21:56:09 found candidates: 1 - valid: 1
+[SEMANTIC] 2024/10/24 21:56:09 Setting minimum as new intermediate best - size 49
+[SEMANTIC] 2024/10/24 21:56:09 Trying strategy ListReduction (5/14)
+[SEMANTIC] 2024/10/24 21:56:09 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:09 Trying strategy TrivialIfReduction (6/14)
+[SEMANTIC] 2024/10/24 21:56:09 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:09 Trying strategy IfReduction (7/14)
+[SEMANTIC] 2024/10/24 21:56:09 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:09 Trying strategy EllipsisReduction (8/14)
+[CUE] 2024/10/24 21:56:09 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:09 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/24 21:56:09 found candidates: 1 - valid: 1
+[SEMANTIC] 2024/10/24 21:56:09 Setting minimum as new intermediate best - size 48
+[SEMANTIC] 2024/10/24 21:56:09 Trying strategy EllipsisReduction (8/14)
+[SEMANTIC] 2024/10/24 21:56:09 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:09 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/24 21:56:09 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:09 WARNING 1 errors found during token count
+[CUE] 2024/10/24 21:56:09 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:09 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/24 21:56:09 found candidates: 5 - valid: 2
+[SEMANTIC] 2024/10/24 21:56:09 Setting minimum as new intermediate best - size 49
+[SEMANTIC] 2024/10/24 21:56:09 Trying strategy ConstantPropagationReduction (9/14)
+[CUE] 2024/10/24 21:56:10 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:10 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/24 21:56:10 found candidates: 4 - valid: 1
+[SEMANTIC] 2024/10/24 21:56:10 Setting minimum as new intermediate best - size 49
+[SEMANTIC] 2024/10/24 21:56:10 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/10/24 21:56:10 found candidates: 3 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:10 Trying strategy StringInterpolationReduction (10/14)
+[SEMANTIC] 2024/10/24 21:56:10 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:10 Trying strategy LoopUnrollingReduction (11/14)
+[SEMANTIC] 2024/10/24 21:56:11 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:11 Trying strategy UnificationReduction (12/14)
+[SEMANTIC] 2024/10/24 21:56:11 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:11 Trying strategy UnionReduction (13/14)
+[SEMANTIC] 2024/10/24 21:56:11 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:11 Trying strategy ImportReduction (14/14)
+[SEMANTIC] 2024/10/24 21:56:11 found candidates: 0 - valid: 0
+[SYNTACTIC] 2024/10/24 21:56:11 Start reduction of 1 candidates
+[SYNTACTIC] 2024/10/24 21:56:11 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-10-24T21:56:03+02:00_7acc9a84-bee2-4dba-bed0-a6c114b39f59/best_semantic/in.cue -t seru_reduction_2024-10-24T21:56:03+02:00_7acc9a84-bee2-4dba-bed0-a6c114b39f59/best_semantic/test.sh --call-formatter true --language-ext-jars cue.jar
+[CUE] 2024/10/24 21:56:12 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:12 WARNING 1 errors found during token count
+[SYNTACTIC] 2024/10/24 21:56:12 Reduced 1 candidates with sizes:  [45]
+[SYNTACTIC] 2024/10/24 21:56:12 Best candidate size: 45
+[SERU] 2024/10/24 21:56:12 Store new best with size 45
+[SEMANTIC] 2024/10/24 21:56:12 Start reduction
+[SEMANTIC] 2024/10/24 21:56:12 Trying strategies and combine results
+[SEMANTIC] 2024/10/24 21:56:12 Trying strategy LetReduction (1/14)
+[SEMANTIC] 2024/10/24 21:56:12 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:12 Trying strategy EmptyDeclarationReduction (2/14)
+[CUE] 2024/10/24 21:56:13 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:13 WARNING 1 errors found during token count
+[CUE] 2024/10/24 21:56:13 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:13 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/24 21:56:13 found candidates: 3 - valid: 2
+[SEMANTIC] 2024/10/24 21:56:13 Setting minimum as new intermediate best - size 43
+[SEMANTIC] 2024/10/24 21:56:13 Trying strategy EmptyDeclarationReduction (2/14)
+[CUE] 2024/10/24 21:56:13 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:13 WARNING 1 errors found during token count
+[SEMANTIC] 2024/10/24 21:56:13 found candidates: 2 - valid: 1
+[SEMANTIC] 2024/10/24 21:56:13 Setting minimum as new intermediate best - size 41
+[SEMANTIC] 2024/10/24 21:56:13 Trying strategy EmptyDeclarationReduction (2/14)
+[SEMANTIC] 2024/10/24 21:56:13 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:13 Trying strategy PackageReduction (3/14)
+[SEMANTIC] 2024/10/24 21:56:13 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:13 Trying strategy RedundantNestingReduction (4/14)
+[SEMANTIC] 2024/10/24 21:56:14 found candidates: 2 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:14 Trying strategy ListReduction (5/14)
+[SEMANTIC] 2024/10/24 21:56:14 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:14 Trying strategy TrivialIfReduction (6/14)
+[SEMANTIC] 2024/10/24 21:56:14 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:14 Trying strategy IfReduction (7/14)
+[SEMANTIC] 2024/10/24 21:56:14 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:14 Trying strategy EllipsisReduction (8/14)
+[SEMANTIC] 2024/10/24 21:56:14 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:14 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/10/24 21:56:14 found candidates: 3 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:14 Trying strategy StringInterpolationReduction (10/14)
+[SEMANTIC] 2024/10/24 21:56:14 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:14 Trying strategy LoopUnrollingReduction (11/14)
+[SEMANTIC] 2024/10/24 21:56:14 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:14 Trying strategy UnificationReduction (12/14)
+[SEMANTIC] 2024/10/24 21:56:14 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:14 Trying strategy UnionReduction (13/14)
+[SEMANTIC] 2024/10/24 21:56:14 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:14 Trying strategy ImportReduction (14/14)
+[SEMANTIC] 2024/10/24 21:56:14 found candidates: 0 - valid: 0
+[SYNTACTIC] 2024/10/24 21:56:14 Start reduction of 1 candidates
+[SYNTACTIC] 2024/10/24 21:56:14 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-10-24T21:56:03+02:00_7acc9a84-bee2-4dba-bed0-a6c114b39f59/best_semantic/in.cue -t seru_reduction_2024-10-24T21:56:03+02:00_7acc9a84-bee2-4dba-bed0-a6c114b39f59/best_semantic/test.sh --call-formatter true --language-ext-jars cue.jar
+[CUE] 2024/10/24 21:56:15 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 21:56:15 WARNING 1 errors found during token count
+[SYNTACTIC] 2024/10/24 21:56:15 Reduced 1 candidates with sizes:  [41]
+[SYNTACTIC] 2024/10/24 21:56:15 Best candidate size: 41
+[SERU] 2024/10/24 21:56:15 Store new best with size 41
+[SEMANTIC] 2024/10/24 21:56:15 Start reduction
+[SEMANTIC] 2024/10/24 21:56:15 Trying strategies and combine results
+[SEMANTIC] 2024/10/24 21:56:15 Trying strategy LetReduction (1/14)
+[SEMANTIC] 2024/10/24 21:56:15 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:15 Trying strategy EmptyDeclarationReduction (2/14)
+[SEMANTIC] 2024/10/24 21:56:16 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:16 Trying strategy PackageReduction (3/14)
+[SEMANTIC] 2024/10/24 21:56:16 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:16 Trying strategy RedundantNestingReduction (4/14)
+[SEMANTIC] 2024/10/24 21:56:16 found candidates: 2 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:16 Trying strategy ListReduction (5/14)
+[SEMANTIC] 2024/10/24 21:56:16 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:16 Trying strategy TrivialIfReduction (6/14)
+[SEMANTIC] 2024/10/24 21:56:16 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:16 Trying strategy IfReduction (7/14)
+[SEMANTIC] 2024/10/24 21:56:16 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:16 Trying strategy EllipsisReduction (8/14)
+[SEMANTIC] 2024/10/24 21:56:16 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:16 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/10/24 21:56:16 found candidates: 3 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:16 Trying strategy StringInterpolationReduction (10/14)
+[SEMANTIC] 2024/10/24 21:56:16 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:16 Trying strategy LoopUnrollingReduction (11/14)
+[SEMANTIC] 2024/10/24 21:56:16 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:16 Trying strategy UnificationReduction (12/14)
+[SEMANTIC] 2024/10/24 21:56:16 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:16 Trying strategy UnionReduction (13/14)
+[SEMANTIC] 2024/10/24 21:56:16 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:16 Trying strategy ImportReduction (14/14)
+[SEMANTIC] 2024/10/24 21:56:16 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 21:56:16 Semantic reduction found no valid candidates
+[SERU] 2024/10/24 21:56:16 Found fixpoint, stopping reduction
+[SERU] 2024/10/24 21:56:16 Finished reduction loop
+[SERU] 2024/10/24 21:56:16 Reduced program to 41/251 tokens (16.33%)
+[SERU] 2024/10/24 21:56:16 Final result is located at seru_reduction_2024-10-24T21:56:03+02:00_7acc9a84-bee2-4dba-bed0-a6c114b39f59/in.cue
