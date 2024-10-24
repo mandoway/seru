@@ -219,6 +219,7 @@ func TestConstantPropagation(t *testing.T) {
 			bar: {
 				a: 3
 				b: foo
+				c: bar
 			}
 			`,
 			Expected: []string{
@@ -226,12 +227,35 @@ func TestConstantPropagation(t *testing.T) {
 				foo: {
 					a: 3
 					b: foo
+					c: bar
 				}
 				bar: {
 					a: 3
 					b: foo
+					c: bar
 				}`,
 			},
+		},
+		{
+			Title: "no dual recursion",
+			Given: `
+			foo: {
+				a: bar
+			}
+			bar: {
+				b: foo
+			}
+			`,
+			Expected: nil,
+		},
+		{
+			Title: "no self recursion",
+			Given: `
+			foo: {
+				a: foo
+			}
+			`,
+			Expected: nil,
 		},
 		{
 			Title: "import as identifier ",
@@ -307,8 +331,10 @@ func TestConstantPropagationRealWorld(t *testing.T) {
 func TestRecursiveProperties(t *testing.T) {
 	instance := `
 	foo: github
-	github: baz: bar
-`
+
+	github: resource_type: [cue_resource_name=github]:
+	 "\({target.terraform.#Identifier.adapt & {#in: cue_resource_name}}.#out)"
+	`
 
 	candidates := getCandidates(instance)
 	fmt.Printf("got candidates: %d\n", len(candidates))

@@ -19,7 +19,7 @@ func ApplyTransformationToEveryApplicableStatement[T ast.Node](input []byte, bui
 	)
 
 	modifyApplicableStatement := func(cursor astutil.Cursor) bool {
-		adjustScope(cursor, &scopeStack)
+		pushIfFieldWithStruct(cursor, &scopeStack)
 
 		// Filter applicable nodes
 		filteredStatement, ok := cursor.Node().(T)
@@ -47,6 +47,11 @@ func ApplyTransformationToEveryApplicableStatement[T ast.Node](input []byte, bui
 		return !modifiedStatementInCurrentRun
 	}
 
+	adjustScopeAfter := func(cursor astutil.Cursor) bool {
+		popIfFieldWithStruct(cursor, &scopeStack)
+		return true
+	}
+
 	// Main reduction loop
 	parser := language.Parser{}
 	for {
@@ -55,7 +60,7 @@ func ApplyTransformationToEveryApplicableStatement[T ast.Node](input []byte, bui
 		scopeStack.Clear()
 
 		workingCopy, _ := parser.Parse(input)
-		transformedCode := astutil.Apply(workingCopy, modifyApplicableStatement, nil).(*ast.File)
+		transformedCode := astutil.Apply(workingCopy, modifyApplicableStatement, adjustScopeAfter).(*ast.File)
 
 		if !modifiedStatementInCurrentRun {
 			break
@@ -67,21 +72,31 @@ func ApplyTransformationToEveryApplicableStatement[T ast.Node](input []byte, bui
 	return transformedFiles
 }
 
-func adjustScope(cursor astutil.Cursor, scopeStack *ScopeStack) {
+func pushIfFieldWithStruct(cursor astutil.Cursor, stack *ScopeStack) {
+	if scopeLayer, isField := getScopeLayerIfFieldWithStruct(cursor); isField {
+		stack.Push(*scopeLayer)
+	}
+}
+
+func popIfFieldWithStruct(cursor astutil.Cursor, stack *ScopeStack) {
+	if _, isField := getScopeLayerIfFieldWithStruct(cursor); isField {
+		stack.Pop()
+	}
+}
+
+func getScopeLayerIfFieldWithStruct(cursor astutil.Cursor) (*ScopeLayer, bool) {
 	if field, nodeIsField := cursor.Node().(*ast.Field); nodeIsField {
 		ident, labelIsIdent := field.Label.(*ast.Ident)
 		structLit, valueIsStruct := field.Value.(*ast.StructLit)
 
 		if labelIsIdent && valueIsStruct {
-			scopeStack.Push(ScopeLayer{
+			return &ScopeLayer{
 				Name:  ident.Name,
 				Start: structLit.Lbrace,
 				End:   structLit.Rbrace,
-			})
+			}, true
 		}
 	}
 
-	if top, err := scopeStack.Top(); err == nil && top.End.Before(cursor.Node().Pos()) {
-		scopeStack.Pop()
-	}
+	return nil, false
 }
