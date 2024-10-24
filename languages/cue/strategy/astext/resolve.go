@@ -125,8 +125,8 @@ func isIdentContainedIn(ident *ast.Ident, node ast.Node) bool {
 
 func containsParentIdentifier(node ast.Node, parentIdentifiers *IdentifierSet) bool {
 	contained := false
-	ast.Walk(node, func(node ast.Node) bool {
-		if ident, ok := node.(*ast.Ident); ok && parentIdentifiers.has(ident.Name) {
+	ast.Walk(node, func(cur ast.Node) bool {
+		if ident, ok := cur.(*ast.Ident); ok && parentIdentifiers.has(ident.Name) {
 			contained = true
 			return false
 		}
