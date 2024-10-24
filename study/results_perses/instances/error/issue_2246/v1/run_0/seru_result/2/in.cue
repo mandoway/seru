@@ -2,16 +2,19 @@ data: forms:
  "00-0000001"
 #K1: {
  #_base: common: 3
- #FormFoo: #_base
- #FormBar: #_base
- #_base | #_base
+ #FormFoo:
+  #_base
+ #FormBar:
+  #_base
+ #FormFoo | #FormBar
 }
-#K1
-#K1
+#Input:
+ #K1
+#Input
 {
- in: #K1
+ in: #Input
  {
-  in: #K1
-  #K1
+  in: #Input
+  #Input
  }
 }

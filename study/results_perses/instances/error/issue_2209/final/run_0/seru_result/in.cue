@@ -1,17 +1,18 @@
 #Obj & {spec: bar: {}}
 #Obj: X={
- spec: *{
-  foo: min: int
- } | {
+ spec: *#SpecFoo | {
   bar: min: 20
  }
- (int | {minBar: int}) & {
-  X
-  if spec.bar != _|_ {
-   minBar: spec.bar.min
+ #Out & {
+  _Xspec: X.spec
+  if _Xspec.bar != _|_ {
+   minBar: _Xspec.bar.min
   }
  }
 }
 #SpecFoo: foo: min: int
 #SpecBar: bar: min: 20
-null | {nullBar: null}
+#Out: {
+ {minFoo: int} | {minBar: int}
+ *null | {nullBar: null}
+}

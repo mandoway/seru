@@ -17,7 +17,7 @@ command: foo: {
 }
 target: terraform: #Identifier: {
  valid_initial_characters: "-a-zA-Z_"
- valid_constraints:        "^[-a-zA-Z_]+$"
+ valid_constraints:        "^[-a-zA-Z_]"
  adapt: {
   #in: string
   _a:  string

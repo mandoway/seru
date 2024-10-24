@@ -1,0 +1,52 @@
+[SERU] 2024/10/24 04:41:43 SeRu - Syntactic & Semantic Reduction
+[SERU] 2024/10/24 04:41:43 
+[SERU] 2024/10/24 04:41:43 Creating new run context with (input=study/instances/error/issue_2473/v1/in.cue, test=study/instances/error/issue_2473/v1/test.sh, lang=)
+[SERU] 2024/10/24 04:41:43 Running algorithm with config SemanticApplicationMethod: ApplyAllCombined, SyntacticReducer: Vulcan
+[SERU] 2024/10/24 04:41:43 No language configured, using language from file 'cue'
+[CUE] 2024/10/24 04:41:43 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 04:41:43 WARNING 1 errors found during token count
+[SERU] 2024/10/24 04:41:43 Starting reduction loop
+[SERU] 2024/10/24 04:41:43 Results will be created in seru_reduction_2024-10-24T04:41:43+02:00_36ff10fe-3da1-4bae-8275-5b79f255bebf
+[SERU] 2024/10/24 04:41:43 Initial token size of program: 67
+[SYNTACTIC] 2024/10/24 04:41:43 Start reduction of 1 candidates
+[SYNTACTIC] 2024/10/24 04:41:43 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-10-24T04:41:43+02:00_36ff10fe-3da1-4bae-8275-5b79f255bebf/in.cue -t seru_reduction_2024-10-24T04:41:43+02:00_36ff10fe-3da1-4bae-8275-5b79f255bebf/test.sh --enable-vulcan true --call-formatter true --language-ext-jars cue.jar
+[CUE] 2024/10/24 04:41:57 WARNING error during token count: string literal not terminated
+[CUE] 2024/10/24 04:41:57 WARNING 1 errors found during token count
+[SYNTACTIC] 2024/10/24 04:41:57 Reduced 1 candidates with sizes:  [53]
+[SYNTACTIC] 2024/10/24 04:41:57 Best candidate size: 53
+[SERU] 2024/10/24 04:41:57 Store new best with size 53
+[SEMANTIC] 2024/10/24 04:41:57 Start reduction
+[SEMANTIC] 2024/10/24 04:41:57 Trying strategies and combine results
+[SEMANTIC] 2024/10/24 04:41:57 Trying strategy LetReduction (1/14)
+[SEMANTIC] 2024/10/24 04:41:57 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:57 Trying strategy EmptyDeclarationReduction (2/14)
+[SEMANTIC] 2024/10/24 04:41:58 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:58 Trying strategy PackageReduction (3/14)
+[SEMANTIC] 2024/10/24 04:41:58 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:58 Trying strategy RedundantNestingReduction (4/14)
+[SEMANTIC] 2024/10/24 04:41:58 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:58 Trying strategy ListReduction (5/14)
+[SEMANTIC] 2024/10/24 04:41:58 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:58 Trying strategy TrivialIfReduction (6/14)
+[SEMANTIC] 2024/10/24 04:41:58 found candidates: 2 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:58 Trying strategy IfReduction (7/14)
+[SEMANTIC] 2024/10/24 04:41:58 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:58 Trying strategy EllipsisReduction (8/14)
+[SEMANTIC] 2024/10/24 04:41:58 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:58 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/10/24 04:41:58 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:58 Trying strategy StringInterpolationReduction (10/14)
+[SEMANTIC] 2024/10/24 04:41:58 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:58 Trying strategy LoopUnrollingReduction (11/14)
+[SEMANTIC] 2024/10/24 04:41:58 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:58 Trying strategy UnificationReduction (12/14)
+[SEMANTIC] 2024/10/24 04:41:58 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:58 Trying strategy UnionReduction (13/14)
+[SEMANTIC] 2024/10/24 04:41:58 found candidates: 2 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:58 Trying strategy ImportReduction (14/14)
+[SEMANTIC] 2024/10/24 04:41:58 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 04:41:58 Semantic reduction found no valid candidates
+[SERU] 2024/10/24 04:41:58 Found fixpoint, stopping reduction
+[SERU] 2024/10/24 04:41:58 Finished reduction loop
+[SERU] 2024/10/24 04:41:58 Reduced program to 53/67 tokens (79.10%)
+[SERU] 2024/10/24 04:41:58 Final result is located at seru_reduction_2024-10-24T04:41:43+02:00_36ff10fe-3da1-4bae-8275-5b79f255bebf/in.cue

@@ -4,29 +4,32 @@ spec: bar: {}
  spec: *_#SpecFoo | {
   bar: {
    min: int
-   max: 40
+   max: int
   }
  }
- resource: #Constrained & {
-  _X: _
-  spec: {
-   if _X.spec.bar != _|_ {
-    minBar: _X.spec.bar.min
-    maxBar: 40
-   }
-  }
- } & {_X: spec: X.spec}
+ resource: _Thing & {_X: spec: X.spec}
 }
-max: 40
+_#Spec:
+ int
 _#SpecFoo: {
  min: 10
  max: 20
 }
-max: 40
+_#SpecBar: bar:
+ int
+_Thing: #Constrained & {
+ _X: _
+ spec: {
+  if _X.spec.bar != _|_ {
+   minBar: _X.spec.bar.min
+   maxBar: _X.spec.bar.max
+  }
+ }
+}
 #Constrained: {
  spec: {} | {
   minBar: 30
-  maxBar: int
+  maxBar: 40
   minFoo: null
   maxFoo: null
  }

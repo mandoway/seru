@@ -26,7 +26,7 @@ _Thing: #Constrained & {
 }
 #Constrained: {
  spec: {
-  int
+  minFoo
   int
   null
   null

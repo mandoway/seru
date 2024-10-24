@@ -11,16 +11,13 @@ _#SpecFoo:
  max: 20
 }
 _#SpecBar: bar: {
- min: int
+ min: 30
  max: int
 }
 _Thing: #Constrained & {
  _X: _
  spec: {
-  if _X.foo != _|_ {
-   minFoo
-   _X
-  }
+  spec
   if _X.spec.bar != _|_ {
    minBar: _X.spec.bar.min
    maxBar: _X.spec.bar.max
@@ -29,12 +26,12 @@ _Thing: #Constrained & {
 }
 #Constrained: {
  spec: {
-  minFoo
+  int
   int
   null
   null
  } | {
-  minBar: 30
+  minBar: int
   maxBar: 40
   minFoo: null
   maxFoo: null
@@ -44,4 +41,4 @@ _Thing: #Constrained & {
  } |
   null
 }
-minFoo: null
+minFoo?: int

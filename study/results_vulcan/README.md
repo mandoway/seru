@@ -7,3 +7,6 @@ Seems to generate the same output but does not terminate anyway
 
 Cause: Constant propagation and recursive definitions
 Fix: limit recursive constant propagation
+
+- Issue 2246 timeout after 2 hours
+- 2209 timeout

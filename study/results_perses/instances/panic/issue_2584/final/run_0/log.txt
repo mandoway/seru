@@ -1,47 +1,48 @@
-[SERU] 2024/10/22 12:31:35 SeRu - Syntactic & Semantic Reduction
-[SERU] 2024/10/22 12:31:35 
-[SERU] 2024/10/22 12:31:35 Creating new run context with (input=study/instances/panic/issue_2584/final/in.cue, test=study/instances/panic/issue_2584/final/test.sh, lang=)
-[SERU] 2024/10/22 12:31:35 Running algorithm with config SemanticApplicationMethod: ApplyAllCombined, SyntacticReducer: Perses
-[SERU] 2024/10/22 12:31:35 No language configured, using language from file 'cue'
-[SERU] 2024/10/22 12:31:35 Starting reduction loop
-[SERU] 2024/10/22 12:31:35 Results will be created in seru_reduction_2024-10-22T12:31:35+02:00_040effda-1809-4239-8d5d-7663d5fa350f
-[SERU] 2024/10/22 12:31:35 Initial token size of program: 25
-[SYNTACTIC] 2024/10/22 12:31:35 Start reduction of 1 candidates
-[SYNTACTIC] 2024/10/22 12:31:35 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-10-22T12:31:35+02:00_040effda-1809-4239-8d5d-7663d5fa350f/in.cue -t seru_reduction_2024-10-22T12:31:35+02:00_040effda-1809-4239-8d5d-7663d5fa350f/test.sh --call-formatter true --language-ext-jars cue.jar
-[SYNTACTIC] 2024/10/22 12:31:36 Reduced 1 candidates with sizes:  [25]
-[SYNTACTIC] 2024/10/22 12:31:36 Best candidate size: 25
-[SERU] 2024/10/22 12:31:36 Store new best with size 25
-[SEMANTIC] 2024/10/22 12:31:36 Start reduction
-[SEMANTIC] 2024/10/22 12:31:36 Trying strategies and combine results
-[SEMANTIC] 2024/10/22 12:31:36 Trying strategy LetReduction (1/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 1 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Trying strategy EmptyDeclarationReduction (2/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 1 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Trying strategy PackageReduction (3/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Trying strategy RedundantNestingReduction (4/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Trying strategy ListReduction (5/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Trying strategy TrivialIfReduction (6/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Trying strategy IfReduction (7/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Trying strategy EllipsisReduction (8/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Trying strategy ConstantPropagationReduction (9/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 3 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Trying strategy StringInterpolationReduction (10/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Trying strategy LoopUnrollingReduction (11/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Trying strategy UnificationReduction (12/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Trying strategy UnionReduction (13/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Trying strategy ImportReduction (14/14)
-[SEMANTIC] 2024/10/22 12:31:37 found candidates: 0 - valid: 0
-[SEMANTIC] 2024/10/22 12:31:37 Semantic reduction found no valid candidates
-[SERU] 2024/10/22 12:31:37 Finished reduction loop
-[SERU] 2024/10/22 12:31:37 Reduced program to 25/25 tokens (100.00%)
-[SERU] 2024/10/22 12:31:37 Final result is located at seru_reduction_2024-10-22T12:31:35+02:00_040effda-1809-4239-8d5d-7663d5fa350f/in.cue
+[SERU] 2024/10/24 12:00:43 SeRu - Syntactic & Semantic Reduction
+[SERU] 2024/10/24 12:00:43 
+[SERU] 2024/10/24 12:00:43 Creating new run context with (input=study/instances/panic/issue_2584/final/in.cue, test=study/instances/panic/issue_2584/final/test.sh, lang=)
+[SERU] 2024/10/24 12:00:43 Running algorithm with config SemanticApplicationMethod: ApplyAllCombined, SyntacticReducer: Perses
+[SERU] 2024/10/24 12:00:43 No language configured, using language from file 'cue'
+[SERU] 2024/10/24 12:00:43 Starting reduction loop
+[SERU] 2024/10/24 12:00:43 Results will be created in seru_reduction_2024-10-24T12:00:43+02:00_acab5b29-96b2-45f1-b29a-55c59d4304c0
+[SERU] 2024/10/24 12:00:43 Initial token size of program: 25
+[SYNTACTIC] 2024/10/24 12:00:43 Start reduction of 1 candidates
+[SYNTACTIC] 2024/10/24 12:00:43 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-10-24T12:00:43+02:00_acab5b29-96b2-45f1-b29a-55c59d4304c0/in.cue -t seru_reduction_2024-10-24T12:00:43+02:00_acab5b29-96b2-45f1-b29a-55c59d4304c0/test.sh --call-formatter true --language-ext-jars cue.jar
+[SYNTACTIC] 2024/10/24 12:00:45 Reduced 1 candidates with sizes:  [25]
+[SYNTACTIC] 2024/10/24 12:00:45 Best candidate size: 25
+[SYNTACTIC] 2024/10/24 12:00:45 Best candidate (25) is not smaller than overall best (25)
+[SEMANTIC] 2024/10/24 12:00:45 Start reduction
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategies and combine results
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy LetReduction (1/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy EmptyDeclarationReduction (2/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 1 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy PackageReduction (3/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy RedundantNestingReduction (4/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy ListReduction (5/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy TrivialIfReduction (6/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy IfReduction (7/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy EllipsisReduction (8/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 3 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy StringInterpolationReduction (10/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy LoopUnrollingReduction (11/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy UnificationReduction (12/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy UnionReduction (13/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Trying strategy ImportReduction (14/14)
+[SEMANTIC] 2024/10/24 12:00:45 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/10/24 12:00:45 Semantic reduction found no valid candidates
+[SERU] 2024/10/24 12:00:45 Found fixpoint, stopping reduction
+[SERU] 2024/10/24 12:00:45 Finished reduction loop
+[SERU] 2024/10/24 12:00:45 Reduced program to 25/25 tokens (100.00%)
+[SERU] 2024/10/24 12:00:45 Final result is located at seru_reduction_2024-10-24T12:00:43+02:00_acab5b29-96b2-45f1-b29a-55c59d4304c0/in.cue

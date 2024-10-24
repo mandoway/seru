@@ -16,7 +16,7 @@ command: foo: {
 }
 target: terraform: #Identifier: {
  valid_initial_characters: "-a-zA-Z_"
- valid_constraints:        "^[-a-zA-Z_]"
+ valid_constraints:        "^[-a-zA-Z_]+$"
  adapt: {
   #in: string
   _a:  string
@@ -24,5 +24,5 @@ target: terraform: #Identifier: {
    _a
  }
 }
-github: org: [_]: config: resource: resource_type: string:
+github: org: [_]: config: resource: resource_type: cue_resource_name:
  "\({target.terraform.#Identifier.adapt & {#in: string}}.#out)"
