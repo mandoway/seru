@@ -12,7 +12,7 @@
         },
         "BeforeSize": 106,
         "AfterSize": 31,
-        "SyntacticMillis": 15102,
+        "SyntacticMillis": 15635,
         "SemanticMillis": 0
       },
       {
@@ -24,26 +24,26 @@
             "RedundantNestingReduction": 3
           },
           "TestScriptMillisByStrategy": {
-            "ConstantPropagationReduction": 405,
-            "EmptyDeclarationReduction": 134,
-            "LetReduction": 152,
-            "RedundantNestingReduction": 397
+            "ConstantPropagationReduction": 390,
+            "EmptyDeclarationReduction": 127,
+            "LetReduction": 164,
+            "RedundantNestingReduction": 403
           },
           "GenerationMicrosByStrategy": {
-            "ConstantPropagationReduction": 167,
-            "EllipsisReduction": 51,
-            "EmptyDeclarationReduction": 128,
-            "IfReduction": 248,
-            "ImportReduction": 30,
-            "LetReduction": 201,
-            "ListReduction": 121,
-            "LoopUnrollingReduction": 74,
-            "PackageReduction": 103,
-            "RedundantNestingReduction": 142,
-            "StringInterpolationReduction": 317,
-            "TrivialIfReduction": 69,
-            "UnificationReduction": 60,
-            "UnionReduction": 19
+            "ConstantPropagationReduction": 300,
+            "EllipsisReduction": 66,
+            "EmptyDeclarationReduction": 123,
+            "IfReduction": 1080,
+            "ImportReduction": 16,
+            "LetReduction": 166,
+            "ListReduction": 120,
+            "LoopUnrollingReduction": 70,
+            "PackageReduction": 77,
+            "RedundantNestingReduction": 119,
+            "StringInterpolationReduction": 260,
+            "TrivialIfReduction": 40,
+            "UnificationReduction": 49,
+            "UnionReduction": 29
           },
           "TotalCandidatesByStrategy": {
             "ConstantPropagationReduction": 3,
@@ -82,7 +82,7 @@
         "BeforeSize": 31,
         "AfterSize": 31,
         "SyntacticMillis": 0,
-        "SemanticMillis": 1098
+        "SemanticMillis": 1095
       }
     ]
   },
@@ -105,36 +105,36 @@
         "UnionReduction": 0
       },
       "TestScriptMillisByStrategy": {
-        "ConstantPropagationReduction": 405,
+        "ConstantPropagationReduction": 390,
         "EllipsisReduction": 0,
-        "EmptyDeclarationReduction": 134,
+        "EmptyDeclarationReduction": 127,
         "IfReduction": 0,
         "ImportReduction": 0,
-        "LetReduction": 152,
+        "LetReduction": 164,
         "ListReduction": 0,
         "LoopUnrollingReduction": 0,
         "PackageReduction": 0,
-        "RedundantNestingReduction": 397,
+        "RedundantNestingReduction": 403,
         "StringInterpolationReduction": 0,
         "TrivialIfReduction": 0,
         "UnificationReduction": 0,
         "UnionReduction": 0
       },
       "GenerationMicrosByStrategy": {
-        "ConstantPropagationReduction": 167,
-        "EllipsisReduction": 51,
-        "EmptyDeclarationReduction": 128,
-        "IfReduction": 248,
-        "ImportReduction": 30,
-        "LetReduction": 201,
-        "ListReduction": 121,
-        "LoopUnrollingReduction": 74,
-        "PackageReduction": 103,
-        "RedundantNestingReduction": 142,
-        "StringInterpolationReduction": 317,
-        "TrivialIfReduction": 69,
-        "UnificationReduction": 60,
-        "UnionReduction": 19
+        "ConstantPropagationReduction": 300,
+        "EllipsisReduction": 66,
+        "EmptyDeclarationReduction": 123,
+        "IfReduction": 1080,
+        "ImportReduction": 16,
+        "LetReduction": 166,
+        "ListReduction": 120,
+        "LoopUnrollingReduction": 70,
+        "PackageReduction": 77,
+        "RedundantNestingReduction": 119,
+        "StringInterpolationReduction": 260,
+        "TrivialIfReduction": 40,
+        "UnificationReduction": 49,
+        "UnionReduction": 29
       },
       "TotalCandidatesByStrategy": {
         "ConstantPropagationReduction": 3,
@@ -187,11 +187,11 @@
     },
     "BeforeSize": 106,
     "AfterSize": 31,
-    "SyntacticMillis": 15102,
-    "SemanticMillis": 1098
+    "SyntacticMillis": 15635,
+    "SemanticMillis": 1095
   },
-  "TotalTimeMillis": 16201,
+  "TotalTimeMillis": 16730,
   "TotalIterations": 2,
   "InputDir": "study/instances/panic/issue_2584/v2",
-  "StartTime": "2024-10-23T20:43:39+02:00"
+  "StartTime": "2024-10-26T10:46:17+02:00"
 }

@@ -7,13 +7,11 @@ package main
 }
 #ProductionEndpoints: {
  #cluster_info: #ClusterInfo
- example_host:  "\(#cluster_info.env_type).example.net"
+ #cluster_info.env_type
 }
 {
  #cluster_info: #ClusterInfoByEnvName & {
   #env: "production"
  }
- if #cluster_info.env_type == "production" {
-  #ProductionEndpoints
- }
+ #ProductionEndpoints
 }

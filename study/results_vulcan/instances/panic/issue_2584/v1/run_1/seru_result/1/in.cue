@@ -1,6 +1,6 @@
 #B:
 {
- for s in ["e"] {
+ for s in [] {
   L
  }
  NS: "\(NS)/b":

@@ -31,15 +31,14 @@ target: terraform: {
    valid_characters:         valid_initial_characters
   }
   _
-  valid_constraints:
-   "^[\(rules.valid_characters)]+$"
+  rules
   adapt: {
    #in: string
    let _a = #in
-   let _b = regexp.ReplaceAll("^([^\(rules.valid_initial_characters)])", _a, "_$1")
+   let _b = regexp.ReplaceAll( rules.valid_initial_characters, _a, "_$1")
    #out: _b
   }
  }
 }
-github: org: [_]: config: resource: resource_type: [cue_resource_name=string]:
- "\({target.terraform.#Identifier.adapt & {#in: cue_resource_name}}.#out)"
+github: org: [_]: config: resource:
+ {target.terraform.#Identifier.adapt}.#out

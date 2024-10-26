@@ -1,51 +1,51 @@
 panic: label not matched with expression
 
 goroutine 1 [running]:
-cuelang.org/go/cue/ast.NewStruct({0x140004f0820, 0x2, 0x140000265b8?})
+cuelang.org/go/cue/ast.NewStruct({0x140002f26e0, 0x2, 0x14ae6b46a?})
 	/Users/markus/go/pkg/mod/cuelang.org/go@v0.10.0/cue/ast/ast.go:560 +0x8d8
-github.com/mandoway/seru/languages/cue/strategy.UnificationReduction.Apply.func1(0x140004f7180, {0x3?, 0x4?})
+github.com/mandoway/seru/languages/cue/strategy.UnificationReduction.Apply.func1(0x140002f4640, {0x0?, 0x1?})
 	/Users/markus/Documents/UniProjects/MA/seru/languages/cue/strategy/unification.go:36 +0x258
 github.com/mandoway/seru/languages/cue/strategy/transform.ApplyTransformationToEveryApplicableStatement[...].func1()
 	/Users/markus/Documents/UniProjects/MA/seru/languages/cue/strategy/transform/transformations.go:44 +0xf8
-cuelang.org/go/cue/ast/astutil.(*applier).Before(0x140004f7360, {0x14d42eea0, 0x140004f85f0})
+cuelang.org/go/cue/ast/astutil.(*applier).Before(0x140002f4910, {0x14b0a2fa0, 0x140002f8000})
 	/Users/markus/go/pkg/mod/cuelang.org/go@v0.10.0/cue/ast/astutil/apply.go:451 +0x58
-cuelang.org/go/cue/ast/astutil.applyCursor({0x14d425f70?, 0x140004f7360?}, {0x14d42eea0, 0x140004f85f0})
+cuelang.org/go/cue/ast/astutil.applyCursor({0x14b09a070?, 0x140002f4910?}, {0x14b0a2fa0, 0x140002f8000})
 	/Users/markus/go/pkg/mod/cuelang.org/go@v0.10.0/cue/ast/astutil/apply.go:304 +0x3c
-cuelang.org/go/cue/ast/astutil.apply[...]({0x14d425f70, 0x140004f7360}, {0x14d42ef60, 0x140004c53e0}, 0x140004f0220)
+cuelang.org/go/cue/ast/astutil.apply[...]({0x14b09a070, 0x140002f4910}, {0x14b0a3060, 0x140002e4540}, 0x140002f2120)
 	/Users/markus/go/pkg/mod/cuelang.org/go@v0.10.0/cue/ast/astutil/apply.go:279 +0xfc
-cuelang.org/go/cue/ast/astutil.applyCursor({0x14d425f70?, 0x140004f7360?}, {0x14d42ef60, 0x140004c53e0})
+cuelang.org/go/cue/ast/astutil.applyCursor({0x14b09a070?, 0x140002f4910?}, {0x14b0a3060, 0x140002e4540})
 	/Users/markus/go/pkg/mod/cuelang.org/go@v0.10.0/cue/ast/astutil/apply.go:398 +0x7dc
-cuelang.org/go/cue/ast/astutil.applyDeclList({0x14d425f70, 0x140004f7360}, {0x14d42eea0, 0x140004f73b0}, {0x140004c52c0, 0x6, 0x0?})
+cuelang.org/go/cue/ast/astutil.applyDeclList({0x14b09a070, 0x140002f4910}, {0x14b0a2fa0, 0x140002f4960}, {0x140002e4420, 0x6, 0x0?})
 	/Users/markus/go/pkg/mod/cuelang.org/go@v0.10.0/cue/ast/astutil/apply.go:237 +0x26c
-cuelang.org/go/cue/ast/astutil.applyCursor({0x14d425f70?, 0x140004f7360?}, {0x14d42eea0, 0x140004f73b0})
+cuelang.org/go/cue/ast/astutil.applyCursor({0x14b09a070?, 0x140002f4910?}, {0x14b0a2fa0, 0x140002f4960})
 	/Users/markus/go/pkg/mod/cuelang.org/go@v0.10.0/cue/ast/astutil/apply.go:414 +0x4dc
-cuelang.org/go/cue/ast/astutil.apply[...]({0x14d425f70, 0x140004f7360}, {0x0, 0x0}, 0x140004bce00)
+cuelang.org/go/cue/ast/astutil.apply[...]({0x14b09a070, 0x140002f4910}, {0x0, 0x0}, 0x14000278ba0)
 	/Users/markus/go/pkg/mod/cuelang.org/go@v0.10.0/cue/ast/astutil/apply.go:279 +0xfc
 cuelang.org/go/cue/ast/astutil.Apply(...)
 	/Users/markus/go/pkg/mod/cuelang.org/go@v0.10.0/cue/ast/astutil/apply.go:188
-github.com/mandoway/seru/languages/cue/strategy/transform.ApplyTransformationToEveryApplicableStatement[...]({0x1400009c600, 0x6b, 0x200}, 0x140004bccb0)
-	/Users/markus/Documents/UniProjects/MA/seru/languages/cue/strategy/transform/transformations.go:58 +0x26c
-github.com/mandoway/seru/languages/cue/strategy.UnificationReduction.Apply({}, {0x1400009c600, 0x6b, 0x200})
+github.com/mandoway/seru/languages/cue/strategy/transform.ApplyTransformationToEveryApplicableStatement[...]({0x1400054a800, 0x94, 0x200}, 0x14000278a00)
+	/Users/markus/Documents/UniProjects/MA/seru/languages/cue/strategy/transform/transformations.go:63 +0x2cc
+github.com/mandoway/seru/languages/cue/strategy.UnificationReduction.Apply({}, {0x1400054a800, 0x94, 0x200})
 	/Users/markus/Documents/UniProjects/MA/seru/languages/cue/strategy/unification.go:19 +0x88
-github.com/mandoway/seru/reduction/semantic.Reduce[...]({0x1400009c600, 0x3637b54a8e9?, 0x30000007d?}, 0x140000ff5e8?, {{0x14d423ac0?, 0x14d8b5b28}, {0x14d8317c0, 0xe, 0xe}, {0x14d423ae0, ...}})
+github.com/mandoway/seru/reduction/semantic.Reduce[...]({0x1400054a800, 0x657dcc0f021?, 0x30000007d?}, 0x140001275e8?, {{0x14b097bc0?, 0x14b529b28}, {0x14b4a57c0, 0xe, 0xe}, {0x14b097be0, ...}})
 	/Users/markus/Documents/UniProjects/MA/seru/reduction/semantic/cmd.go:15 +0x64
-github.com/mandoway/seru/languages/cue.init.func1({0x1400009c600?, 0x140000a8120?, 0x1400000e030?}, 0x16?)
+github.com/mandoway/seru/languages/cue.init.func1({0x1400054a800?, 0x140003e2120?, 0x1400012a048?}, 0x16?)
 	/Users/markus/Documents/UniProjects/MA/seru/languages/cue/main.go:14 +0x7c
-github.com/mandoway/seru/reduction/context.(*RunContext).SemanticReduceWithStrategy(0x1400035e000, {0x1400009c600, 0x6b, 0x200}, 0xb)
+github.com/mandoway/seru/reduction/context.(*RunContext).SemanticReduceWithStrategy(0x140002c6000, {0x1400054a800, 0x94, 0x200}, 0xb)
 	/Users/markus/Documents/UniProjects/MA/seru/reduction/context/run_context.go:120 +0x110
-github.com/mandoway/seru/reduction.applySemanticStrategiesCombined(0x1400035e000, {0x1400009c600, 0x6b, 0x200})
+github.com/mandoway/seru/reduction.applySemanticStrategiesCombined(0x140002c6000, {0x140003ec400, 0x6b, 0x200})
 	/Users/markus/Documents/UniProjects/MA/seru/reduction/reduction_loop.go:202 +0x1f4
-github.com/mandoway/seru/reduction.getCandidatesFromSemanticReduction(0x1400035e000)
+github.com/mandoway/seru/reduction.getCandidatesFromSemanticReduction(0x140002c6000)
 	/Users/markus/Documents/UniProjects/MA/seru/reduction/reduction_loop.go:133 +0x1c8
-github.com/mandoway/seru/reduction.RunMainReductionLoop(0x1400035e000, 0x1)
+github.com/mandoway/seru/reduction.RunMainReductionLoop(0x140002c6000, 0x1)
 	/Users/markus/Documents/UniProjects/MA/seru/reduction/reduction_loop.go:34 +0x410
-github.com/mandoway/seru/reduction.StartReductionProcess({0x16ba5b69a, 0x2d}, {0x16ba5b6cb, 0x2e}, {0x0, 0x0}, 0x0, 0x1, 0x1)
+github.com/mandoway/seru/reduction.StartReductionProcess({0x16ddab69a, 0x2d}, {0x16ddab6cb, 0x2e}, {0x0, 0x0}, 0x0, 0x1, 0x1)
 	/Users/markus/Documents/UniProjects/MA/seru/reduction/entry.go:21 +0x384
-github.com/mandoway/seru/cmd.init.func1(0x14000166300?, {0x104744d9d?, 0x7?, 0x1047443c1?})
+github.com/mandoway/seru/cmd.init.func1(0x140000d8300?, {0x1023f4d9d?, 0x7?, 0x1023f43c1?})
 	/Users/markus/Documents/UniProjects/MA/seru/cmd/root.go:18 +0xb8
-github.com/spf13/cobra.(*Command).execute(0x104b84b80, {0x1400013c010, 0x7, 0x7})
+github.com/spf13/cobra.(*Command).execute(0x102834b80, {0x14000020090, 0x7, 0x7})
 	/Users/markus/go/pkg/mod/github.com/spf13/cobra@v1.8.1/command.go:989 +0x81c
-github.com/spf13/cobra.(*Command).ExecuteC(0x104b84b80)
+github.com/spf13/cobra.(*Command).ExecuteC(0x102834b80)
 	/Users/markus/go/pkg/mod/github.com/spf13/cobra@v1.8.1/command.go:1117 +0x344
 github.com/spf13/cobra.(*Command).Execute(...)
 	/Users/markus/go/pkg/mod/github.com/spf13/cobra@v1.8.1/command.go:1041

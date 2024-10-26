@@ -37,4 +37,4 @@ _#SpecBar: bar:
  } |
   null
 }
-minFoo: null
+maxFoo: null

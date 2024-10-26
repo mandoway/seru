@@ -1,4 +1,4 @@
-package infrastructure
+package github
 
 import (
  "path"
@@ -12,21 +12,21 @@ command: foo: {
  let json_indent = "    " & strings.MinRunes(4)
  let dir_operations = path
  let file_tf_json = "config.tf.json"
- for orgTerraform in github
- let valid_initial_characters = dir_operations
- let valid_initial_characters = file_tf_json {
+ for orgTerraform in #in
+ let terraform = dir_operations
+ let target = file_tf_json {
   cli.Print
-  text: json.Indent(json.Marshal(github), "", json_indent)
+  text: json.Indent(json.Marshal(#in), "", json_indent)
  }
 }
-target: terraform: #Identifier: {
+#in: #in: #Identifier: {
  rules: valid_initial_characters: "-a-zA-Z_"
  adapt: {
-  github: string
-  let file_tf_json = github
-  let json_indent = regexp.ReplaceAll("^([^\(rules.valid_initial_characters)])", file_tf_json, "_$1")
-  #out: json_indent
+  #in: string
+  let _a = #in
+  let _b = regexp.ReplaceAll( #in.#in, _a, "_$1")
+  #out: _b
  }
 }
-github: resource_type: [cue_resource_name=github]:
- "\({target.terraform.#Identifier.adapt & {#in: cue_resource_name}}.#out)"
+#in: org: [#in]:
+ {#in.#in.#Identifier.adapt}.#out

@@ -8,8 +8,7 @@ output: {
  _generated: [
   {
    for deploymentName, deployment in {
-    redis: spec: template: spec: containers:
-    {}
+    redis: spec: template: spec: containers: {}
    } {
     _svc_AC73C747: (deploymentName): spec: ports:
      deployment

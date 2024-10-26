@@ -10,7 +10,8 @@ output: {
  DeploymentsWithRef: deployments: _objects.Deployment
  _generated: [(SERVICE_GENERATOR.#x & DeploymentsWithRef).#x]
 }
-#x: redis: {}
+#x: redis:
+{}
 let DEPLOYMENT =
 {
  ...
