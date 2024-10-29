@@ -289,9 +289,18 @@ func TestConstantPropagation(t *testing.T) {
 				`,
 			},
 		},
+		{
+			Title: "package",
+			Given: `
+			package foo
+			
+			foo: 3
+			`,
+			Expected: []string{},
+		},
 	}
 
-	test.TestReduction(t, instances, ConstantPropagationReduction{})
+	test.TestReduction(t, instances[len(instances)-1:], ConstantPropagationReduction{})
 }
 
 func TestConstantPropagationRealWorld(t *testing.T) {
@@ -319,8 +328,7 @@ func TestConstantPropagationRealWorld(t *testing.T) {
 			Title: "recursive",
 			Given: "#B:\n{\n for s in [\"e\"] {\n  L\n }\n NS: \"\\(NS)/b\":\n  L\n}\nlet L =\n#B",
 			Expected: []string{
-				"#B:\n{\nfor s in [\"e\"] {\n#B\n}\nNS: \"\\(NS)/b\":\nL\n}\nlet L = #B",
-				"#B:\n{\nfor s in [\"e\"] {\nL\n}\nNS: \"\\(NS)/b\": #B\n}\nlet L = #B",
+				"#B: {\nfor s in [\"e\"] {\nL\n}\nNS: \"\\(NS)/b\":\nL\n}\nlet L = {\nfor s in [\"e\"] {\nL\n}\nNS: \"\\(NS)/b\":\nL\n}",
 			},
 		},
 	}

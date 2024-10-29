@@ -3,7 +3,10 @@ package transform
 import (
 	"cuelang.org/go/cue/ast"
 	"cuelang.org/go/cue/ast/astutil"
+	"errors"
+	"fmt"
 	"github.com/mandoway/seru/languages/cue/language"
+	"github.com/mandoway/seru/languages/cue/logging"
 )
 
 // ApplyTransformationToEveryApplicableStatement modifies a statement in-place
@@ -60,7 +63,11 @@ func ApplyTransformationToEveryApplicableStatement[T ast.Node](input []byte, bui
 		scopeStack.Clear()
 
 		workingCopy, _ := parser.Parse(input)
-		transformedCode := astutil.Apply(workingCopy, modifyApplicableStatement, adjustScopeAfter).(*ast.File)
+		transformedCode, err := applyOrRecover(workingCopy, modifyApplicableStatement, adjustScopeAfter)
+		if err != nil {
+			logging.Cue.Printf("Skipping candidate due to error during transformation: %s", err.Error())
+			continue
+		}
 
 		if !modifiedStatementInCurrentRun {
 			break
@@ -70,6 +77,17 @@ func ApplyTransformationToEveryApplicableStatement[T ast.Node](input []byte, bui
 	}
 
 	return transformedFiles
+}
+
+func applyOrRecover(workingCopy *ast.File, beforeCB, afterCB func(astutil.Cursor) bool) (modified *ast.File, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			modified = nil
+			err = errors.New(fmt.Sprint(r))
+		}
+	}()
+
+	return astutil.Apply(workingCopy, beforeCB, afterCB).(*ast.File), nil
 }
 
 func pushIfFieldWithStruct(cursor astutil.Cursor, stack *ScopeStack) {
