@@ -39,23 +39,32 @@ func (u UnificationReduction) Apply(input []byte) []*ast.File {
 }
 
 func evaluateAsStructLit(expr ast.Expr, evaluate func(expr ast.Expr) (cue.Value, error)) ([]ast.Decl, error) {
-	value, err := evaluate(expr)
+	evaluated, err := evaluate(expr)
 	if err != nil {
 		return nil, err
 	}
 
-	fields, err := value.Fields()
+	fields, err := evaluated.Fields()
 	if err != nil {
 		return nil, err
 	}
 
 	var decls []ast.Decl
 	for fields.Next() {
-		source, ok := fields.Value().Source().(ast.Decl)
-		if !ok {
-			return nil, errors.New("declaration was empty")
+		valueSource := fields.Value().Source()
+
+		switch value := valueSource.(type) {
+		case *ast.Field:
+			decls = append(decls, value)
+		case ast.Expr:
+			label := fields.Label()
+			decls = append(decls, &ast.Field{
+				Label: ast.NewIdent(label),
+				Value: value,
+			})
+		default:
+			return nil, errors.New("unknown declaration type was empty")
 		}
-		decls = append(decls, source)
 	}
 
 	return decls, err

@@ -112,6 +112,41 @@ func TestUnificationReduction(t *testing.T) {
 				}`,
 			},
 		},
+		{
+			Title: "Issue 2246 label not matched with expression",
+			Given: `
+			#FormFoo: fooID: fooID
+			data: #Form
+			#Form: {
+				{
+					fooID: fooID
+				} | {
+					fooID: fooID
+				}
+			}
+			data: fooID: "123"
+			data: data
+			{#FormFoo | #FormFoo} & data
+			`,
+			Expected: []string{
+				`
+				#FormFoo: fooID: fooID
+				data: #Form
+				#Form: {
+					{
+						fooID: fooID
+					} | {
+						fooID: fooID
+					}
+				}
+				data: fooID: "123"
+				data: data, {
+					fooID: fooID
+					fooID: "123"
+				}
+				`,
+			},
+		},
 	}
 
 	test.TestReduction(t, instances, UnificationReduction{})
