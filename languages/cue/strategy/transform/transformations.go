@@ -65,7 +65,7 @@ func ApplyTransformationToEveryApplicableStatement[T ast.Node](input []byte, bui
 		workingCopy, _ := parser.Parse(input)
 		transformedCode, err := applyOrRecover(workingCopy, modifyApplicableStatement, adjustScopeAfter)
 		if err != nil {
-			logging.Cue.Printf("Skipping candidate due to error during transformation: %s", err.Error())
+			logging.CueError.Printf("Skipping candidate due to error during transformation: %s", err.Error())
 			continue
 		}
 
