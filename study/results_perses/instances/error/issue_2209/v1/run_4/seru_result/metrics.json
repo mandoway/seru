@@ -1,0 +1,345 @@
+{
+  "Iterations": {
+    "Items": [
+      {
+        "StatsByStrategy": {
+          "TestScriptExecutionsByStrategy": {},
+          "TestScriptMillisByStrategy": {},
+          "GenerationMicrosByStrategy": {},
+          "TotalCandidatesByStrategy": {},
+          "ValidCandidatesByStrategy": {},
+          "AppliedCandidatesByStrategy": {}
+        },
+        "BeforeSize": 274,
+        "AfterSize": 147,
+        "SyntacticMillis": 9973,
+        "SemanticMillis": 0
+      },
+      {
+        "StatsByStrategy": {
+          "TestScriptExecutionsByStrategy": {
+            "ConstantPropagationReduction": 82,
+            "EmptyDeclarationReduction": 28,
+            "IfReduction": 1,
+            "TrivialIfReduction": 6,
+            "UnionReduction": 36
+          },
+          "TestScriptMillisByStrategy": {
+            "ConstantPropagationReduction": 11426,
+            "EmptyDeclarationReduction": 3936,
+            "IfReduction": 139,
+            "TrivialIfReduction": 839,
+            "UnionReduction": 4839
+          },
+          "GenerationMicrosByStrategy": {
+            "ConstantPropagationReduction": 14251,
+            "EllipsisReduction": 168,
+            "EmptyDeclarationReduction": 4829,
+            "IfReduction": 2189,
+            "ImportReduction": 201,
+            "LetReduction": 231,
+            "ListReduction": 104,
+            "LoopUnrollingReduction": 417,
+            "PackageReduction": 156,
+            "RedundantNestingReduction": 100,
+            "StringInterpolationReduction": 987,
+            "TrivialIfReduction": 1087,
+            "UnificationReduction": 1289,
+            "UnionReduction": 7728
+          },
+          "TotalCandidatesByStrategy": {
+            "ConstantPropagationReduction": 82,
+            "EllipsisReduction": 0,
+            "EmptyDeclarationReduction": 28,
+            "IfReduction": 1,
+            "ImportReduction": 0,
+            "LetReduction": 0,
+            "ListReduction": 0,
+            "LoopUnrollingReduction": 0,
+            "PackageReduction": 0,
+            "RedundantNestingReduction": 0,
+            "StringInterpolationReduction": 0,
+            "TrivialIfReduction": 6,
+            "UnificationReduction": 0,
+            "UnionReduction": 36
+          },
+          "ValidCandidatesByStrategy": {
+            "ConstantPropagationReduction": 32,
+            "EllipsisReduction": 0,
+            "EmptyDeclarationReduction": 21,
+            "IfReduction": 1,
+            "ImportReduction": 0,
+            "LetReduction": 0,
+            "ListReduction": 0,
+            "LoopUnrollingReduction": 0,
+            "PackageReduction": 0,
+            "RedundantNestingReduction": 0,
+            "StringInterpolationReduction": 0,
+            "TrivialIfReduction": 2,
+            "UnificationReduction": 0,
+            "UnionReduction": 11
+          },
+          "AppliedCandidatesByStrategy": {
+            "ConstantPropagationReduction": 8,
+            "EmptyDeclarationReduction": 6,
+            "IfReduction": 1,
+            "TrivialIfReduction": 1,
+            "UnionReduction": 3
+          }
+        },
+        "BeforeSize": 147,
+        "AfterSize": 135,
+        "SyntacticMillis": 5422,
+        "SemanticMillis": 21395
+      },
+      {
+        "StatsByStrategy": {
+          "TestScriptExecutionsByStrategy": {
+            "ConstantPropagationReduction": 6,
+            "EmptyDeclarationReduction": 3,
+            "TrivialIfReduction": 2,
+            "UnionReduction": 6
+          },
+          "TestScriptMillisByStrategy": {
+            "ConstantPropagationReduction": 1033,
+            "EmptyDeclarationReduction": 425,
+            "TrivialIfReduction": 264,
+            "UnionReduction": 774
+          },
+          "GenerationMicrosByStrategy": {
+            "ConstantPropagationReduction": 607,
+            "EllipsisReduction": 125,
+            "EmptyDeclarationReduction": 560,
+            "IfReduction": 612,
+            "ImportReduction": 149,
+            "LetReduction": 616,
+            "ListReduction": 65,
+            "LoopUnrollingReduction": 317,
+            "PackageReduction": 163,
+            "RedundantNestingReduction": 76,
+            "StringInterpolationReduction": 1073,
+            "TrivialIfReduction": 322,
+            "UnificationReduction": 419,
+            "UnionReduction": 572
+          },
+          "TotalCandidatesByStrategy": {
+            "ConstantPropagationReduction": 6,
+            "EllipsisReduction": 0,
+            "EmptyDeclarationReduction": 3,
+            "IfReduction": 0,
+            "ImportReduction": 0,
+            "LetReduction": 0,
+            "ListReduction": 0,
+            "LoopUnrollingReduction": 0,
+            "PackageReduction": 0,
+            "RedundantNestingReduction": 0,
+            "StringInterpolationReduction": 0,
+            "TrivialIfReduction": 2,
+            "UnificationReduction": 0,
+            "UnionReduction": 6
+          },
+          "ValidCandidatesByStrategy": {
+            "ConstantPropagationReduction": 0,
+            "EllipsisReduction": 0,
+            "EmptyDeclarationReduction": 1,
+            "IfReduction": 0,
+            "ImportReduction": 0,
+            "LetReduction": 0,
+            "ListReduction": 0,
+            "LoopUnrollingReduction": 0,
+            "PackageReduction": 0,
+            "RedundantNestingReduction": 0,
+            "StringInterpolationReduction": 0,
+            "TrivialIfReduction": 0,
+            "UnificationReduction": 0,
+            "UnionReduction": 0
+          },
+          "AppliedCandidatesByStrategy": {
+            "EmptyDeclarationReduction": 1
+          }
+        },
+        "BeforeSize": 135,
+        "AfterSize": 134,
+        "SyntacticMillis": 3004,
+        "SemanticMillis": 2521
+      },
+      {
+        "StatsByStrategy": {
+          "TestScriptExecutionsByStrategy": {
+            "ConstantPropagationReduction": 6,
+            "EmptyDeclarationReduction": 1,
+            "TrivialIfReduction": 2,
+            "UnionReduction": 6
+          },
+          "TestScriptMillisByStrategy": {
+            "ConstantPropagationReduction": 821,
+            "EmptyDeclarationReduction": 154,
+            "TrivialIfReduction": 267,
+            "UnionReduction": 779
+          },
+          "GenerationMicrosByStrategy": {
+            "ConstantPropagationReduction": 606,
+            "EllipsisReduction": 125,
+            "EmptyDeclarationReduction": 181,
+            "IfReduction": 613,
+            "ImportReduction": 136,
+            "LetReduction": 193,
+            "ListReduction": 77,
+            "LoopUnrollingReduction": 279,
+            "PackageReduction": 161,
+            "RedundantNestingReduction": 82,
+            "StringInterpolationReduction": 581,
+            "TrivialIfReduction": 1017,
+            "UnificationReduction": 407,
+            "UnionReduction": 1061
+          },
+          "TotalCandidatesByStrategy": {
+            "ConstantPropagationReduction": 6,
+            "EllipsisReduction": 0,
+            "EmptyDeclarationReduction": 1,
+            "IfReduction": 0,
+            "ImportReduction": 0,
+            "LetReduction": 0,
+            "ListReduction": 0,
+            "LoopUnrollingReduction": 0,
+            "PackageReduction": 0,
+            "RedundantNestingReduction": 0,
+            "StringInterpolationReduction": 0,
+            "TrivialIfReduction": 2,
+            "UnificationReduction": 0,
+            "UnionReduction": 6
+          },
+          "ValidCandidatesByStrategy": {
+            "ConstantPropagationReduction": 0,
+            "EllipsisReduction": 0,
+            "EmptyDeclarationReduction": 0,
+            "IfReduction": 0,
+            "ImportReduction": 0,
+            "LetReduction": 0,
+            "ListReduction": 0,
+            "LoopUnrollingReduction": 0,
+            "PackageReduction": 0,
+            "RedundantNestingReduction": 0,
+            "StringInterpolationReduction": 0,
+            "TrivialIfReduction": 0,
+            "UnificationReduction": 0,
+            "UnionReduction": 0
+          },
+          "AppliedCandidatesByStrategy": {}
+        },
+        "BeforeSize": 134,
+        "AfterSize": 134,
+        "SyntacticMillis": 0,
+        "SemanticMillis": 2043
+      }
+    ]
+  },
+  "Total": {
+    "StatsByStrategy": {
+      "TestScriptExecutionsByStrategy": {
+        "ConstantPropagationReduction": 94,
+        "EllipsisReduction": 0,
+        "EmptyDeclarationReduction": 32,
+        "IfReduction": 1,
+        "ImportReduction": 0,
+        "LetReduction": 0,
+        "ListReduction": 0,
+        "LoopUnrollingReduction": 0,
+        "PackageReduction": 0,
+        "RedundantNestingReduction": 0,
+        "StringInterpolationReduction": 0,
+        "TrivialIfReduction": 10,
+        "UnificationReduction": 0,
+        "UnionReduction": 48
+      },
+      "TestScriptMillisByStrategy": {
+        "ConstantPropagationReduction": 13280,
+        "EllipsisReduction": 0,
+        "EmptyDeclarationReduction": 4515,
+        "IfReduction": 139,
+        "ImportReduction": 0,
+        "LetReduction": 0,
+        "ListReduction": 0,
+        "LoopUnrollingReduction": 0,
+        "PackageReduction": 0,
+        "RedundantNestingReduction": 0,
+        "StringInterpolationReduction": 0,
+        "TrivialIfReduction": 1370,
+        "UnificationReduction": 0,
+        "UnionReduction": 6392
+      },
+      "GenerationMicrosByStrategy": {
+        "ConstantPropagationReduction": 15464,
+        "EllipsisReduction": 418,
+        "EmptyDeclarationReduction": 5570,
+        "IfReduction": 3414,
+        "ImportReduction": 486,
+        "LetReduction": 1040,
+        "ListReduction": 246,
+        "LoopUnrollingReduction": 1013,
+        "PackageReduction": 480,
+        "RedundantNestingReduction": 258,
+        "StringInterpolationReduction": 2641,
+        "TrivialIfReduction": 2426,
+        "UnificationReduction": 2115,
+        "UnionReduction": 9361
+      },
+      "TotalCandidatesByStrategy": {
+        "ConstantPropagationReduction": 94,
+        "EllipsisReduction": 0,
+        "EmptyDeclarationReduction": 32,
+        "IfReduction": 1,
+        "ImportReduction": 0,
+        "LetReduction": 0,
+        "ListReduction": 0,
+        "LoopUnrollingReduction": 0,
+        "PackageReduction": 0,
+        "RedundantNestingReduction": 0,
+        "StringInterpolationReduction": 0,
+        "TrivialIfReduction": 10,
+        "UnificationReduction": 0,
+        "UnionReduction": 48
+      },
+      "ValidCandidatesByStrategy": {
+        "ConstantPropagationReduction": 32,
+        "EllipsisReduction": 0,
+        "EmptyDeclarationReduction": 22,
+        "IfReduction": 1,
+        "ImportReduction": 0,
+        "LetReduction": 0,
+        "ListReduction": 0,
+        "LoopUnrollingReduction": 0,
+        "PackageReduction": 0,
+        "RedundantNestingReduction": 0,
+        "StringInterpolationReduction": 0,
+        "TrivialIfReduction": 2,
+        "UnificationReduction": 0,
+        "UnionReduction": 11
+      },
+      "AppliedCandidatesByStrategy": {
+        "ConstantPropagationReduction": 8,
+        "EllipsisReduction": 0,
+        "EmptyDeclarationReduction": 7,
+        "IfReduction": 1,
+        "ImportReduction": 0,
+        "LetReduction": 0,
+        "ListReduction": 0,
+        "LoopUnrollingReduction": 0,
+        "PackageReduction": 0,
+        "RedundantNestingReduction": 0,
+        "StringInterpolationReduction": 0,
+        "TrivialIfReduction": 1,
+        "UnificationReduction": 0,
+        "UnionReduction": 3
+      }
+    },
+    "BeforeSize": 274,
+    "AfterSize": 134,
+    "SyntacticMillis": 18399,
+    "SemanticMillis": 25959
+  },
+  "TotalTimeMillis": 44361,
+  "TotalIterations": 4,
+  "InputDir": "study/instances/error/issue_2209/v1",
+  "StartTime": "2024-10-29T19:16:52+01:00"
+}
