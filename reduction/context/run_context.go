@@ -77,6 +77,15 @@ func (ctx *RunContext) GetStrategyNames() []string {
 	return ctx.strategyNames
 }
 
+func (ctx *RunContext) ShouldSkipStrategy(strategyIndex int) bool {
+	if ctx.algorithmConfig.activeStrategies.IsEmpty() {
+		return false
+	}
+
+	isActivated := ctx.algorithmConfig.activeStrategies.Has(strategyIndex)
+	return !isActivated
+}
+
 func (ctx *RunContext) SemanticApplicationMethod() SemanticApplicationMethod {
 	return ctx.algorithmConfig.applicationMethod
 }

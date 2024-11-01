@@ -3,6 +3,7 @@ package cmd
 import (
 	"github.com/mandoway/seru/reduction/logging"
 	"github.com/mandoway/seru/reduction/syntactic"
+	"github.com/mandoway/seru/util/collection"
 )
 
 type reductionType = string
@@ -16,6 +17,7 @@ type Flags struct {
 	InputFile, TestScript, GivenLanguage string
 	UseStrategyIsolation, EnableMetrics  bool
 	SyntacticReducer                     reductionType
+	ActiveStrategies                     []int
 }
 
 func (f Flags) GetReducer() syntactic.Reducer {
@@ -28,4 +30,8 @@ func (f Flags) GetReducer() syntactic.Reducer {
 		logging.Default.Printf("Unknown reducer %s, using Perses instead (%s|%s)", f.SyntacticReducer, PersesReducer, VulcanReducer)
 		return syntactic.Perses
 	}
+}
+
+func (f Flags) GetActiveStrategies() *collection.Set {
+	return collection.NewSet(f.ActiveStrategies)
 }

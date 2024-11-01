@@ -153,6 +153,13 @@ func applyFirstSemanticStrategy(ctx *context.RunContext, currentBytes []byte) ([
 	logging.Semantic.Println("Trying strategies one by one")
 	var validCandidates []*candidate.CandidateWithSize
 	for len(validCandidates) == 0 && !ctx.ExhaustedSemanticStrategies() {
+		strategyName := ctx.GetStrategyName(ctx.CurrentSemanticStrategy())
+		if ctx.ShouldSkipStrategy(ctx.CurrentSemanticStrategy()) {
+			logging.Semantic.Printf("Skipping strategy %s due to config", strategyName)
+			ctx.IncrementSemanticStrategy()
+			continue
+		}
+
 		logging.Semantic.Println("Trying strategy", ctx.CurrentSemanticStrategy()+1, "of", ctx.SemanticStrategiesTotal())
 		candidates, err := ctx.SemanticReduce(currentBytes)
 		if err != nil {
@@ -162,7 +169,6 @@ func applyFirstSemanticStrategy(ctx *context.RunContext, currentBytes []byte) ([
 
 		validCandidates = persistance.CheckAndKeepValidCandidates(candidates, ctx, ctx.CurrentSemanticStrategy())
 
-		strategyName := ctx.GetStrategyName(ctx.CurrentSemanticStrategy())
 		ctx.Metrics.Current().StatsByStrategy.AddCandidatesByStrategy(strategyName, len(candidates), len(validCandidates))
 
 		if len(validCandidates) > 0 {
@@ -185,6 +191,12 @@ func applySemanticStrategiesCombined(ctx *context.RunContext, currentBytes []byt
 
 	for currentStrategy < ctx.SemanticStrategiesTotal() {
 		strategyName := ctx.GetStrategyName(currentStrategy)
+		if ctx.ShouldSkipStrategy(currentStrategy) {
+			logging.Semantic.Printf("Skipping strategy %s due to config", strategyName)
+			currentStrategy++
+			continue
+		}
+
 		logging.Semantic.Printf("Trying strategy %s (%d/%d)", strategyName, currentStrategy+1, ctx.SemanticStrategiesTotal())
 		var (
 			bytesToReduce []byte

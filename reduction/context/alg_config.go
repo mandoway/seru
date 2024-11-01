@@ -3,6 +3,7 @@ package context
 import (
 	"fmt"
 	"github.com/mandoway/seru/reduction/syntactic"
+	"github.com/mandoway/seru/util/collection"
 )
 
 type SemanticApplicationMethod string
@@ -15,13 +16,18 @@ const (
 type AlgorithmConfig struct {
 	applicationMethod SemanticApplicationMethod
 	syntacticReducer  syntactic.Functions
+	activeStrategies  *collection.Set
 }
 
 func (a AlgorithmConfig) String() string {
-	return fmt.Sprintf("SemanticApplicationMethod: %s, SyntacticReducer: %s", a.applicationMethod, a.syntacticReducer)
+	activeStrategiesStr := "all"
+	if !a.activeStrategies.IsEmpty() {
+		activeStrategiesStr = a.activeStrategies.String()
+	}
+	return fmt.Sprintf("SemanticApplicationMethod: %s, SyntacticReducer: %s, Strategies: %s", a.applicationMethod, a.syntacticReducer, activeStrategiesStr)
 }
 
-func NewAlgorithmConfig(useIsolation bool, reducer syntactic.Reducer) *AlgorithmConfig {
+func NewAlgorithmConfig(useIsolation bool, reducer syntactic.Reducer, activeStrategies *collection.Set) *AlgorithmConfig {
 	var application SemanticApplicationMethod
 	if useIsolation {
 		application = ApplyFirstOnly
@@ -39,5 +45,5 @@ func NewAlgorithmConfig(useIsolation bool, reducer syntactic.Reducer) *Algorithm
 		break
 	}
 
-	return &AlgorithmConfig{applicationMethod: application, syntacticReducer: syntacticReducer}
+	return &AlgorithmConfig{applicationMethod: application, syntacticReducer: syntacticReducer, activeStrategies: activeStrategies}
 }

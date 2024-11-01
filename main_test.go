@@ -14,7 +14,7 @@ func TestReduction(t *testing.T) {
 		t.Skip("skipping test in short mode.")
 	}
 
-	aCtx := context.NewAlgorithmConfig(false, 0)
+	aCtx := context.NewAlgorithmConfig(false, 0, nil)
 	dir := path.Join("test", "instances", "error", "issue_2246", "v1")
 	ctx, err := context.NewRunContext("cue", path.Join(dir, "in.cue"), path.Join(dir, "test.sh"), *aCtx)
 	if err != nil {
