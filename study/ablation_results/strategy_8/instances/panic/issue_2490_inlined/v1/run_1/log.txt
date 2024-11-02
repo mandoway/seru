@@ -1,0 +1,112 @@
+[SERU] 2024/11/01 14:20:45 SeRu - Syntactic & Semantic Reduction
+[SERU] 2024/11/01 14:20:45 
+[SERU] 2024/11/01 14:20:45 Creating new run context with (input=study/instances/panic/issue_2490_inlined/v1/in_tool.cue, test=study/instances/panic/issue_2490_inlined/v1/test.sh, lang=)
+[SERU] 2024/11/01 14:20:45 Running algorithm with config SemanticApplicationMethod: ApplyAllCombined, SyntacticReducer: Perses, Strategies: [8]
+[SERU] 2024/11/01 14:20:45 No language configured, using language from file 'cue'
+[CUE] 2024/11/01 14:20:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/11/01 14:20:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/11/01 14:20:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/11/01 14:20:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/11/01 14:20:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/11/01 14:20:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/11/01 14:20:45 WARNING error during token count: illegal character %#U
+[CUE] 2024/11/01 14:20:45 WARNING error during token count: string literal not terminated
+[CUE] 2024/11/01 14:20:45 WARNING 8 errors found during token count
+[SERU] 2024/11/01 14:20:45 Starting reduction loop
+[SERU] 2024/11/01 14:20:45 Results will be created in seru_reduction_2024-11-01T14:20:45+01:00_12820cff-ef3c-4c92-b0c2-402e4bce37c2
+[SERU] 2024/11/01 14:20:45 Initial token size of program: 420
+[SYNTACTIC] 2024/11/01 14:20:45 Start reduction of 1 candidates
+[SYNTACTIC] 2024/11/01 14:20:45 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-11-01T14:20:45+01:00_12820cff-ef3c-4c92-b0c2-402e4bce37c2/in_tool.cue -t seru_reduction_2024-11-01T14:20:45+01:00_12820cff-ef3c-4c92-b0c2-402e4bce37c2/test.sh --call-formatter true --language-ext-jars cue.jar
+[SYNTACTIC] 2024/11/01 14:21:11 Reduced 1 candidates with sizes:  [152]
+[SYNTACTIC] 2024/11/01 14:21:11 Best candidate size: 152
+[SERU] 2024/11/01 14:21:11 Store new best with size 152
+[SEMANTIC] 2024/11/01 14:21:11 Start reduction
+[SEMANTIC] 2024/11/01 14:21:11 Trying strategies and combine results
+[SEMANTIC] 2024/11/01 14:21:11 Skipping strategy LetReduction due to config
+[SEMANTIC] 2024/11/01 14:21:11 Skipping strategy EmptyDeclarationReduction due to config
+[SEMANTIC] 2024/11/01 14:21:11 Skipping strategy PackageReduction due to config
+[SEMANTIC] 2024/11/01 14:21:11 Skipping strategy RedundantNestingReduction due to config
+[SEMANTIC] 2024/11/01 14:21:11 Skipping strategy ListReduction due to config
+[SEMANTIC] 2024/11/01 14:21:11 Skipping strategy TrivialIfReduction due to config
+[SEMANTIC] 2024/11/01 14:21:11 Skipping strategy IfReduction due to config
+[SEMANTIC] 2024/11/01 14:21:11 Skipping strategy EllipsisReduction due to config
+[SEMANTIC] 2024/11/01 14:21:11 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:13 found candidates: 11 - valid: 4
+[SEMANTIC] 2024/11/01 14:21:13 Setting minimum as new intermediate best - size 174
+[SEMANTIC] 2024/11/01 14:21:13 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:15 found candidates: 11 - valid: 4
+[SEMANTIC] 2024/11/01 14:21:15 Setting minimum as new intermediate best - size 225
+[SEMANTIC] 2024/11/01 14:21:15 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:18 found candidates: 16 - valid: 7
+[SEMANTIC] 2024/11/01 14:21:18 Setting minimum as new intermediate best - size 232
+[SEMANTIC] 2024/11/01 14:21:18 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:20 found candidates: 16 - valid: 7
+[SEMANTIC] 2024/11/01 14:21:20 Setting minimum as new intermediate best - size 239
+[SEMANTIC] 2024/11/01 14:21:20 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:22 found candidates: 16 - valid: 7
+[SEMANTIC] 2024/11/01 14:21:22 Setting minimum as new intermediate best - size 246
+[SEMANTIC] 2024/11/01 14:21:22 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:25 found candidates: 16 - valid: 7
+[SEMANTIC] 2024/11/01 14:21:25 Setting minimum as new intermediate best - size 253
+[SEMANTIC] 2024/11/01 14:21:25 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:27 found candidates: 16 - valid: 7
+[SEMANTIC] 2024/11/01 14:21:27 Setting minimum as new intermediate best - size 253
+[SEMANTIC] 2024/11/01 14:21:27 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:30 found candidates: 15 - valid: 6
+[SEMANTIC] 2024/11/01 14:21:30 Setting minimum as new intermediate best - size 253
+[SEMANTIC] 2024/11/01 14:21:30 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:32 found candidates: 14 - valid: 5
+[SEMANTIC] 2024/11/01 14:21:32 Setting minimum as new intermediate best - size 253
+[SEMANTIC] 2024/11/01 14:21:32 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:34 found candidates: 13 - valid: 4
+[SEMANTIC] 2024/11/01 14:21:34 Setting minimum as new intermediate best - size 253
+[SEMANTIC] 2024/11/01 14:21:34 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:36 found candidates: 12 - valid: 3
+[SEMANTIC] 2024/11/01 14:21:36 Setting minimum as new intermediate best - size 253
+[SEMANTIC] 2024/11/01 14:21:36 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:38 found candidates: 11 - valid: 2
+[SEMANTIC] 2024/11/01 14:21:38 Setting minimum as new intermediate best - size 253
+[SEMANTIC] 2024/11/01 14:21:38 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:39 found candidates: 10 - valid: 1
+[SEMANTIC] 2024/11/01 14:21:39 Setting minimum as new intermediate best - size 253
+[SEMANTIC] 2024/11/01 14:21:39 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:41 found candidates: 9 - valid: 0
+[SEMANTIC] 2024/11/01 14:21:41 Skipping strategy StringInterpolationReduction due to config
+[SEMANTIC] 2024/11/01 14:21:41 Skipping strategy LoopUnrollingReduction due to config
+[SEMANTIC] 2024/11/01 14:21:41 Skipping strategy UnificationReduction due to config
+[SEMANTIC] 2024/11/01 14:21:41 Skipping strategy UnionReduction due to config
+[SEMANTIC] 2024/11/01 14:21:41 Skipping strategy ImportReduction due to config
+[SYNTACTIC] 2024/11/01 14:21:41 Start reduction of 1 candidates
+[SYNTACTIC] 2024/11/01 14:21:41 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-11-01T14:20:45+01:00_12820cff-ef3c-4c92-b0c2-402e4bce37c2/best_semantic/in_tool.cue -t seru_reduction_2024-11-01T14:20:45+01:00_12820cff-ef3c-4c92-b0c2-402e4bce37c2/best_semantic/test.sh --call-formatter true --language-ext-jars cue.jar
+[SYNTACTIC] 2024/11/01 14:21:49 Reduced 1 candidates with sizes:  [145]
+[SYNTACTIC] 2024/11/01 14:21:49 Best candidate size: 145
+[SERU] 2024/11/01 14:21:49 Store new best with size 145
+[SEMANTIC] 2024/11/01 14:21:49 Start reduction
+[SEMANTIC] 2024/11/01 14:21:49 Trying strategies and combine results
+[SEMANTIC] 2024/11/01 14:21:49 Skipping strategy LetReduction due to config
+[SEMANTIC] 2024/11/01 14:21:49 Skipping strategy EmptyDeclarationReduction due to config
+[SEMANTIC] 2024/11/01 14:21:49 Skipping strategy PackageReduction due to config
+[SEMANTIC] 2024/11/01 14:21:49 Skipping strategy RedundantNestingReduction due to config
+[SEMANTIC] 2024/11/01 14:21:49 Skipping strategy ListReduction due to config
+[SEMANTIC] 2024/11/01 14:21:49 Skipping strategy TrivialIfReduction due to config
+[SEMANTIC] 2024/11/01 14:21:49 Skipping strategy IfReduction due to config
+[SEMANTIC] 2024/11/01 14:21:49 Skipping strategy EllipsisReduction due to config
+[SEMANTIC] 2024/11/01 14:21:49 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:50 found candidates: 8 - valid: 1
+[SEMANTIC] 2024/11/01 14:21:50 Setting minimum as new intermediate best - size 145
+[SEMANTIC] 2024/11/01 14:21:50 Trying strategy ConstantPropagationReduction (9/14)
+[SEMANTIC] 2024/11/01 14:21:52 found candidates: 7 - valid: 0
+[SEMANTIC] 2024/11/01 14:21:52 Skipping strategy StringInterpolationReduction due to config
+[SEMANTIC] 2024/11/01 14:21:52 Skipping strategy LoopUnrollingReduction due to config
+[SEMANTIC] 2024/11/01 14:21:52 Skipping strategy UnificationReduction due to config
+[SEMANTIC] 2024/11/01 14:21:52 Skipping strategy UnionReduction due to config
+[SEMANTIC] 2024/11/01 14:21:52 Skipping strategy ImportReduction due to config
+[SYNTACTIC] 2024/11/01 14:21:52 Start reduction of 1 candidates
+[SYNTACTIC] 2024/11/01 14:21:52 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-11-01T14:20:45+01:00_12820cff-ef3c-4c92-b0c2-402e4bce37c2/best_semantic/in_tool.cue -t seru_reduction_2024-11-01T14:20:45+01:00_12820cff-ef3c-4c92-b0c2-402e4bce37c2/best_semantic/test.sh --call-formatter true --language-ext-jars cue.jar
+[SYNTACTIC] 2024/11/01 14:21:56 Reduced 1 candidates with sizes:  [145]
+[SYNTACTIC] 2024/11/01 14:21:56 Best candidate size: 145
+[SYNTACTIC] 2024/11/01 14:21:56 Best candidate (145) is not smaller than overall best (145)
+[SERU] 2024/11/01 14:21:56 Found fixpoint, stopping reduction
+[SERU] 2024/11/01 14:21:56 Finished reduction loop
+[SERU] 2024/11/01 14:21:56 Reduced program to 145/420 tokens (34.52%)
+[SERU] 2024/11/01 14:21:56 Final result is located at seru_reduction_2024-11-01T14:20:45+01:00_12820cff-ef3c-4c92-b0c2-402e4bce37c2/in_tool.cue

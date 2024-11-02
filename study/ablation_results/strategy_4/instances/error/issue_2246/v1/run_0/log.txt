@@ -1,0 +1,35 @@
+[SERU] 2024/11/01 13:43:24 SeRu - Syntactic & Semantic Reduction
+[SERU] 2024/11/01 13:43:24 
+[SERU] 2024/11/01 13:43:24 Creating new run context with (input=study/instances/error/issue_2246/v1/in.cue, test=study/instances/error/issue_2246/v1/test.sh, lang=)
+[SERU] 2024/11/01 13:43:24 Running algorithm with config SemanticApplicationMethod: ApplyAllCombined, SyntacticReducer: Perses, Strategies: [4]
+[SERU] 2024/11/01 13:43:24 No language configured, using language from file 'cue'
+[SERU] 2024/11/01 13:43:24 Starting reduction loop
+[SERU] 2024/11/01 13:43:24 Results will be created in seru_reduction_2024-11-01T13:43:24+01:00_d23b3cd1-851f-4d8c-9881-869796f9e22a
+[SERU] 2024/11/01 13:43:24 Initial token size of program: 110
+[SYNTACTIC] 2024/11/01 13:43:24 Start reduction of 1 candidates
+[SYNTACTIC] 2024/11/01 13:43:24 Executing command: /usr/bin/java -jar perses_deploy.jar -i seru_reduction_2024-11-01T13:43:24+01:00_d23b3cd1-851f-4d8c-9881-869796f9e22a/in.cue -t seru_reduction_2024-11-01T13:43:24+01:00_d23b3cd1-851f-4d8c-9881-869796f9e22a/test.sh --call-formatter true --language-ext-jars cue.jar
+[SYNTACTIC] 2024/11/01 13:43:31 Reduced 1 candidates with sizes:  [45]
+[SYNTACTIC] 2024/11/01 13:43:31 Best candidate size: 45
+[SERU] 2024/11/01 13:43:31 Store new best with size 45
+[SEMANTIC] 2024/11/01 13:43:31 Start reduction
+[SEMANTIC] 2024/11/01 13:43:31 Trying strategies and combine results
+[SEMANTIC] 2024/11/01 13:43:31 Skipping strategy LetReduction due to config
+[SEMANTIC] 2024/11/01 13:43:31 Skipping strategy EmptyDeclarationReduction due to config
+[SEMANTIC] 2024/11/01 13:43:31 Skipping strategy PackageReduction due to config
+[SEMANTIC] 2024/11/01 13:43:31 Skipping strategy RedundantNestingReduction due to config
+[SEMANTIC] 2024/11/01 13:43:31 Trying strategy ListReduction (5/14)
+[SEMANTIC] 2024/11/01 13:43:31 found candidates: 0 - valid: 0
+[SEMANTIC] 2024/11/01 13:43:31 Skipping strategy TrivialIfReduction due to config
+[SEMANTIC] 2024/11/01 13:43:31 Skipping strategy IfReduction due to config
+[SEMANTIC] 2024/11/01 13:43:31 Skipping strategy EllipsisReduction due to config
+[SEMANTIC] 2024/11/01 13:43:31 Skipping strategy ConstantPropagationReduction due to config
+[SEMANTIC] 2024/11/01 13:43:31 Skipping strategy StringInterpolationReduction due to config
+[SEMANTIC] 2024/11/01 13:43:31 Skipping strategy LoopUnrollingReduction due to config
+[SEMANTIC] 2024/11/01 13:43:31 Skipping strategy UnificationReduction due to config
+[SEMANTIC] 2024/11/01 13:43:31 Skipping strategy UnionReduction due to config
+[SEMANTIC] 2024/11/01 13:43:31 Skipping strategy ImportReduction due to config
+[SEMANTIC] 2024/11/01 13:43:31 Semantic reduction found no valid candidates
+[SERU] 2024/11/01 13:43:31 Found fixpoint, stopping reduction
+[SERU] 2024/11/01 13:43:31 Finished reduction loop
+[SERU] 2024/11/01 13:43:31 Reduced program to 45/110 tokens (40.91%)
+[SERU] 2024/11/01 13:43:31 Final result is located at seru_reduction_2024-11-01T13:43:24+01:00_d23b3cd1-851f-4d8c-9881-869796f9e22a/in.cue
