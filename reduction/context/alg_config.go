@@ -45,5 +45,9 @@ func NewAlgorithmConfig(useIsolation bool, reducer syntactic.Reducer, activeStra
 		break
 	}
 
-	return &AlgorithmConfig{applicationMethod: application, syntacticReducer: syntacticReducer, activeStrategies: activeStrategies}
+	strategySet := activeStrategies
+	if strategySet == nil {
+		strategySet = collection.NewSet([]int{})
+	}
+	return &AlgorithmConfig{applicationMethod: application, syntacticReducer: syntacticReducer, activeStrategies: strategySet}
 }
