@@ -32,6 +32,10 @@ func (i ImportReduction) Apply(input []byte) []*ast.File {
 func removeImportAndIdentifiers(workingCopy *ast.File, importPath string) {
 	astutil.Apply(workingCopy, func(cursor astutil.Cursor) bool {
 		switch node := cursor.Node().(type) {
+		case *ast.Package:
+			// skip handling of package clause
+			return false
+
 		case *ast.ImportDecl:
 			indexOfPath := slices.IndexFunc(node.Specs, func(s *ast.ImportSpec) bool {
 				return s.Path.Value == importPath

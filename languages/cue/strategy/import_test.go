@@ -105,6 +105,24 @@ func TestImportReduction(t *testing.T) {
 				`,
 			},
 		},
+		{
+			Title: "package",
+			Given: `
+			package strings
+			
+			import (
+				"strings"
+			)
+
+			foo: strings
+			`,
+			Expected: []string{
+				`
+				package strings
+				
+				foo: _`,
+			},
+		},
 	}
 
 	test.TestReduction(t, instances, ImportReduction{})
