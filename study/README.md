@@ -2,16 +2,29 @@
 
 This folder contains all files and scripts used to evaluate the tool under test: SeRu.
 
+Study was performed on SeRu version 0.0.3-alpha.
+
 Directories:
 - `results_perses`
   - SeRu+Perses
   - All instances
 - `results_vulcan`
   - SeRu+Vulcan
-  - Timeout for instance (after 2h)
+  - All instances except:  (timeout after 2h)
     - 2246/v1
     - 2209/v1
-  - All other instances
+- `groundtruth_perses`
+  - Just Perses
+  - All instances
+- `groundtruth_vulcan`
+  - Just Vulcan
+  - All instances, except (timeout)
+    - 2246/v1
+    - 2209/v1
+- `ablation_results`
+  - SeRu+Perses
+  - Each semantic strategy (0-13) tested in isolation (i.e. only one strategy active)
+  - One run with only constant propagation disabled
 
 
 
