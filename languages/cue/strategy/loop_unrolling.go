@@ -63,6 +63,7 @@ func replaceAllLoopIdentifiers(body *ast.StructLit, indexIdent *ast.Ident, value
 
 			switch {
 			case indexIdent != nil && indexIdent.Name == ident.Name:
+				// todo evaluate key as string and dont copy the identifier
 				ast.SetRelPos(keyReplacement, token.NoRelPos)
 				cursor.Replace(keyReplacement)
 			case valueIdent.Name == ident.Name:
