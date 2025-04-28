@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 readonly tmp_dir="${TMPDIR:-/tmp/}"
 readonly cache_dir="${tmp_dir}cue-dd"
