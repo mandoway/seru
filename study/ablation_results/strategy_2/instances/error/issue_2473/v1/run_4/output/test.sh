@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 readonly tmp_dir="${TMPDIR:-/tmp/}"
-readonly cache_dir="${tmp_dir}cue-dd"
+readonly cache_dir="${tmp_dir}/cue-dd"
 
 function cueVersion() {
   version=$1
