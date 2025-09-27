@@ -14,10 +14,10 @@ const (
 )
 
 type Flags struct {
-	InputFile, TestScript, GivenLanguage string
-	UseStrategyIsolation, EnableMetrics  bool
-	SyntacticReducer                     reductionType
-	ActiveStrategies                     []int
+	InputFile, TestScript, GivenLanguage, WorkDir string
+	UseStrategyIsolation, EnableMetrics           bool
+	SyntacticReducer                              reductionType
+	ActiveStrategies                              []int
 }
 
 func (f Flags) GetReducer() syntactic.Reducer {

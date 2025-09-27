@@ -4,6 +4,11 @@ import (
 	"crypto/md5"
 	"errors"
 	"fmt"
+	"os"
+	"path"
+	"strconv"
+	"time"
+
 	"github.com/google/uuid"
 	"github.com/mandoway/seru/files"
 	"github.com/mandoway/seru/reduction/candidate"
@@ -11,10 +16,6 @@ import (
 	"github.com/mandoway/seru/reduction/metrics"
 	"github.com/mandoway/seru/reduction/plugin"
 	"github.com/mandoway/seru/reduction/syntactic"
-	"os"
-	"path"
-	"strconv"
-	"time"
 )
 
 const RunContextFolderPrefix = "seru_reduction_"
@@ -210,11 +211,14 @@ func (ctx *RunContext) GetHash() [16]byte {
 	return ctx.hashOfBest
 }
 
-func NewRunContext(givenLanguage, inputFilePath, testScriptPath string, algorithmConfig AlgorithmConfig) (*RunContext, error) {
+func NewRunContext(givenLanguage, inputFilePath, testScriptPath, workDir string, algorithmConfig AlgorithmConfig) (*RunContext, error) {
 	// Copy input files
 	randId, _ := uuid.NewRandom()
 	startTimeFormatted := time.Now().Format(time.RFC3339)
 	reductionDir := fmt.Sprintf("%s%s_%s", RunContextFolderPrefix, startTimeFormatted, randId)
+	if len(workDir) != 0 {
+		reductionDir = path.Join(workDir, reductionDir)
+	}
 	err := os.Mkdir(reductionDir, 0750)
 	if err != nil {
 		return nil, NewRunContextErr(err)

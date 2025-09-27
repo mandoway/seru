@@ -15,7 +15,7 @@ var rootCmd = &cobra.Command{
 	Short: "A tool to reduce a program while maintaining a property",
 	Long:  `TODO`,
 	Run: func(cmd *cobra.Command, args []string) {
-		err := reduction.StartReductionProcess(flags.InputFile, flags.TestScript, flags.GivenLanguage, flags.UseStrategyIsolation, flags.EnableMetrics, flags.GetReducer(), flags.GetActiveStrategies())
+		err := reduction.StartReductionProcess(flags.WorkDir, flags.InputFile, flags.TestScript, flags.GivenLanguage, flags.UseStrategyIsolation, flags.EnableMetrics, flags.GetReducer(), flags.GetActiveStrategies())
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -30,6 +30,9 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&flags.TestScript, "test", "t", "", "path to testscript")
 	_ = rootCmd.MarkPersistentFlagRequired("test")
 	_ = rootCmd.MarkPersistentFlagFilename("test")
+
+	rootCmd.PersistentFlags().StringVarP(&flags.WorkDir, "out", "o", "", "output directory")
+	_ = rootCmd.MarkPersistentFlagFilename("out")
 
 	rootCmd.PersistentFlags().StringVarP(&flags.GivenLanguage, "lang", "l", "", "language of file, e.g. cue")
 	rootCmd.PersistentFlags().StringVarP(&flags.SyntacticReducer, "reducer", "r", PersesReducer, "either 'perses' OR 'vulcan'")
