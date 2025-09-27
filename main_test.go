@@ -1,12 +1,13 @@
 package main
 
 import (
-	"github.com/mandoway/seru/reduction"
-	"github.com/mandoway/seru/reduction/context"
 	"os"
 	"path"
 	"path/filepath"
 	"testing"
+
+	"github.com/mandoway/seru/reduction"
+	"github.com/mandoway/seru/reduction/context"
 )
 
 func TestReduction(t *testing.T) {
@@ -16,7 +17,7 @@ func TestReduction(t *testing.T) {
 
 	aCtx := context.NewAlgorithmConfig(false, 0, nil)
 	dir := path.Join("test", "instances", "error", "issue_2246", "v1")
-	ctx, err := context.NewRunContext("cue", path.Join(dir, "in.cue"), path.Join(dir, "test.sh"), *aCtx)
+	ctx, err := context.NewRunContext("cue", path.Join(dir, "in.cue"), path.Join(dir, "test.sh"), "", *aCtx)
 	if err != nil {
 		t.Fatal(err)
 	}
