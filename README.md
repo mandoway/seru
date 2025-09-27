@@ -20,6 +20,12 @@ SeRu currently supports:
 You can use SeRu with our docker image.
 Use the following command to run a reduction with docker:
 ```bash
+# Script to use latest image with default config
+./seru_docker.sh <input> <test>
+# e.g.
+./seru_docker.sh in.cue test.sh
+
+# For more flexible control of options
 WORKDIR=/data docker run --rm -it -v $(pwd):${WORKDIR} mando9/seru -o ${WORKDIR} -i ${WORKDIR}/<input file> -t ${WORKDIR}/<test script>
 # e.g. to use in.cue and test.sh in the current working dir, run
 WORKDIR=/data docker run --rm -it -v $(pwd):${WORKDIR} mando9/seru -o ${WORKDIR} -i ${WORKDIR}/in.cue -t ${WORKDIR}/test.sh
